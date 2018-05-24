@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "478226543823",
+    "firebase_url": "https://musicproject-dc678.firebaseio.com",
+    "project_id": "musicproject-dc678",
+    "storage_bucket": "musicproject-dc678.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478226543823:android:c4a9cf4e1db31839",
+        "android_client_info": {
+          "package_name": "com.example.vidiic.proyecto_music"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478226543823-f4e5j1beqeg7s0up26qbn99cthen0bv1.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "478226543823-f4e5j1beqeg7s0up26qbn99cthen0bv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlHLCMpCSTrNmyPYzfUpVht23EGmMRHaA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
