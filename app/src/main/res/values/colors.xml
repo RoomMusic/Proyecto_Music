@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00695c</color>
+    <color name="colorAccent">#b2dfdb</color>
+    <color name="colorToolBar">#DAF0EE</color>
+    <color name="snow">#FBFBFB</color>
+    <color name="vanilla">#F0F0C9</color>
+    <color name="blue">#5d68ff</color>
+    <color name="black">#f2f2f2</color>
+    <color name="green">#a9ffb9</color>
+    <color name="red">#f64e4e</color>
+    <color name="white">#ffffff</color>
+    <color name="whiteTransparent">#4b4b4b</color>
+</resources>
