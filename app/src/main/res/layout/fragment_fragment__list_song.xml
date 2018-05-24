@@ -1,12 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.vidiic.proyecto_music.fragments.Fragment_ListSong">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerSongs"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLMusic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+    </android.support.design.widget.TabLayout>
+    <FrameLayout
+        android:layout_below="@id/tabLMusic"
+        android:id="@+id/frameGeneral"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerSongs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+
+</RelativeLayout>
