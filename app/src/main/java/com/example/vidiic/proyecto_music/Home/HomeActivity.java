@@ -34,12 +34,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
-        mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
+        mSlideViewPager =  findViewById(R.id.slideViewPager);
+        mDotLayout =  findViewById(R.id.dotsLayout);
 
-        mNextBtn = (Button) findViewById(R.id.nextBtn);
-        mBackBtn = (Button) findViewById(R.id.prevBtn);
-        mFinalBtn = (Button) findViewById(R.id.finalBtn);
+        mNextBtn =  findViewById(R.id.nextBtn);
+        mBackBtn = findViewById(R.id.prevBtn);
+        mFinalBtn = findViewById(R.id.finalBtn);
 
         sliderAdapter = new SliderAdapter(this);
 
