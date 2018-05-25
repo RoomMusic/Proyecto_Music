@@ -21,6 +21,9 @@ import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
@@ -34,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
     private FrameLayout frameLayoutMain;
 
     private static final int MY_PERMISSION_REQUEST = 1;
+    private static final String APP_ID = "60DA930F-248F-479A-B406-028DEF5060D7";
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseStorage firebaseStorage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +53,16 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
         fragment_home = new Fragment_Home();
         fragment_share = new Fragment_Share();
 
-        nMainNav = (BottomNavigationView)findViewById(R.id.main_nav);
-        frameLayoutMain = (FrameLayout) findViewById(R.id.contenedorFragment);
+        //inicializamos los objetos necesrios para la conexion con Firebase
+        firebaseFirestore = FirebaseFirestore.getInstance(); //base de datos cloudfirestore
+        firebaseAuth = FirebaseAuth.getInstance(); //para poder obtener las credenciales del usuario actual
+        firebaseStorage = FirebaseStorage.getInstance(); //obtenemos conexion al sistema de almacenamiento de FireBase
+
+
+
+
+        nMainNav = findViewById(R.id.main_nav);
+        frameLayoutMain =  findViewById(R.id.contenedorFragment);
 
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -64,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
                 switch (item.getItemId()){
                     case R.id.nav_home :
                         nMainNav.setItemBackgroundResource(R.color.red);
+
                         setFragment(fragment_home);
                         return true;
 
@@ -74,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
 
                     case R.id.nav_share :
                         nMainNav.setItemBackgroundResource(R.color.green);
+
+
                         setFragment(fragment_share);
                         return true;
 
