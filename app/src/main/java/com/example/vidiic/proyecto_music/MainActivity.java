@@ -20,15 +20,17 @@ import android.widget.Toast;
 import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
+import com.example.vidiic.proyecto_music.fragments.Fragment_Music;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements Fragment_ListSong.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener{
 
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;
     private Fragment_Share fragment_share;
+    private Fragment_Music fragment_music;
 
     private BottomNavigationView nMainNav;
     private FrameLayout frameLayoutMain;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
         fragment_listSong = new Fragment_ListSong();
         fragment_home = new Fragment_Home();
         fragment_share = new Fragment_Share();
+        fragment_music = new Fragment_Music();
+
 
         nMainNav = (BottomNavigationView)findViewById(R.id.main_nav);
         frameLayoutMain = (FrameLayout) findViewById(R.id.contenedorFragment);
@@ -54,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQUEST);
             }
         }else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, fragment_listSong).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, fragment_music).commit();
         }
 
         nMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
 
                     case R.id.nav_music :
                         nMainNav.setItemBackgroundResource(R.color.blue);
-                        setFragment(fragment_listSong);
+                        setFragment(fragment_music);
                         return true;
 
                     case R.id.nav_share :

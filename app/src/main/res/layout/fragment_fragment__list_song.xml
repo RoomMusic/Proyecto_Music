@@ -3,14 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.vidiic.proyecto_music.fragments.Fragment_ListSong">
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLMusic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.design.widget.TabLayout>
     <FrameLayout
-        android:layout_below="@id/tabLMusic"
         android:id="@+id/frameGeneral"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
