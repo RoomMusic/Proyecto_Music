@@ -120,9 +120,9 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
                      return true;
 
                 case R.id.nav_share :
-                    nMainNav.setItemBackgroundResource(R.color.green);
-                    setFragment(fragment_share);
-                    return true;
+                     nMainNav.setItemBackgroundResource(R.color.green);
+                     setFragment(fragment_share);
+                     return true;
 
                 default:
                     return false;
