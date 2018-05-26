@@ -4,11 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.AdapterArtist;
+import com.example.vidiic.proyecto_music.classes.Artist;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +37,8 @@ public class Fragment_Artist extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private List<Artist> artistList;
 
     public Fragment_Artist() {
         // Required empty public constructor
@@ -65,7 +75,28 @@ public class Fragment_Artist extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment__artist, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment__artist, container, false);
+
+        artistList = new ArrayList<>();
+        artistList.add(new Artist("Bad Bunny","image1","Trap","AAAA"));
+        artistList.add(new Artist("Nicky Jam","image1","Trap","AAAA"));
+        artistList.add(new Artist("JBalvin","image1","Trap","AAAA"));
+        artistList.add(new Artist("Darell","image1","Trap","AAAA"));
+        artistList.add(new Artist("Bad Bunny","image1","Trap","AAAA"));
+        artistList.add(new Artist("Nicky Jam","image1","Trap","AAAA"));
+        artistList.add(new Artist("JBalvin","image1","Trap","AAAA"));
+        artistList.add(new Artist("Darell","image1","Trap","AAAA"));
+        artistList.add(new Artist("Bad Bunny","image1","Trap","AAAA"));
+        artistList.add(new Artist("Nicky Jam","image1","Trap","AAAA"));
+        artistList.add(new Artist("JBalvin","image1","Trap","AAAA"));
+        artistList.add(new Artist("Darell","image1","Trap","AAAA"));
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerArtists);
+        AdapterArtist adapterArtist = new AdapterArtist(getContext(),artistList);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setAdapter(adapterArtist);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
