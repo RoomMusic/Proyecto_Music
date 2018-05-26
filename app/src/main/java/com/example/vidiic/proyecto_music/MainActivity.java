@@ -21,6 +21,7 @@ import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
+    private String userEmail, userKey;
 
 
 
@@ -59,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
         firebaseStorage = FirebaseStorage.getInstance(); //obtenemos conexion al sistema de almacenamiento de FireBase
 
 
+        //recogemos el email pasado desde el login
+        userEmail = getIntent().getExtras().getString("useremail");
+
+        //obtenemos la clave del usuario
+        userKey = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         nMainNav = findViewById(R.id.main_nav);
