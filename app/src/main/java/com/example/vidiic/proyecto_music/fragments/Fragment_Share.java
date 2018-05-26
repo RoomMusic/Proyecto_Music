@@ -105,7 +105,7 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
         SendBird.init(APP_ID, this.getContext());
 
         //obtenemos los datos del usuario de la base de datos de firebase para poder iniciar sesion en el servidor de sendbird con estos mismo datos
-        firebaseFirestore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().
+/*        firebaseFirestore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().
                 addOnSuccessListener(documentSnapshot ->
                 {
                     if (documentSnapshot.exists()) {
@@ -166,7 +166,7 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
                 //Log.d("sergio", "LLEGO AHORA");
 
             }
-        });
+        });*/
         // Inflate the layout for this fragment
         return view;
     }

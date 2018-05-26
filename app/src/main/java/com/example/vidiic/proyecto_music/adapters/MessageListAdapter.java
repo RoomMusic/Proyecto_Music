@@ -86,9 +86,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private static String formatDateTime(long fechaMensaje) {
 
-        //Date fecha = new Date(fechaMensaje * 1000);
-
-        Date fecha = new Date();
+        Date fecha = new Date(fechaMensaje);
 
         SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
 
@@ -106,6 +104,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(UserMessage message) {
+
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
@@ -130,6 +129,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(UserMessage message) {
+
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
