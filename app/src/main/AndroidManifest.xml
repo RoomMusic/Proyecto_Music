@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.LoginActivity"/>
+        <activity android:name=".Login.Activity_Reg"/>
     </application>
 
 </manifest>
