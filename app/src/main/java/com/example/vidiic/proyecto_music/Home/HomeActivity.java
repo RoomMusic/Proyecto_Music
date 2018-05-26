@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.vidiic.proyecto_music.MainActivity;
+import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
                 //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
                 Log.d("flx", "onClick()");
                 //option + enter i importa
-                Intent intent = new Intent(HomeActivity.this,MainActivity.class);
+                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
