@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".Login.Activity_Reg" />
         <activity android:name=".MainActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".Artist_Activity"></activity>
