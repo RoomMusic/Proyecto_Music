@@ -49,6 +49,7 @@ public class Activity_Reg extends AppCompatActivity {
         rellay3 = (RelativeLayout) findViewById(R.id.rellay3);
 
         handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
+
         userNameEditText = findViewById(R.id.userNameSign);
         userEmailEditText = findViewById(R.id.userEmailSign);
         passwordET1 = findViewById(R.id.passwordSign1);
@@ -71,10 +72,10 @@ public class Activity_Reg extends AppCompatActivity {
 
     private void registerUser() {
 
-        final String userName = userNameEditText.getText().toString();
-        final String userMail = userEmailEditText.getText().toString();
-        final String userPass = passwordET1.getText().toString();
-        String userPassRep = passwordET2.getText().toString();
+        final String userName = userNameEditText.getText().toString().trim();
+        final String userMail = userEmailEditText.getText().toString().trim();
+        final String userPass = passwordET1.getText().toString().trim();
+        String userPassRep = passwordET2.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(userMail) && TextUtils.isEmpty(userPass) && TextUtils.isEmpty(userPassRep)) {
             Toast.makeText(Activity_Reg.this, "There are empty fields", Toast.LENGTH_SHORT).show();

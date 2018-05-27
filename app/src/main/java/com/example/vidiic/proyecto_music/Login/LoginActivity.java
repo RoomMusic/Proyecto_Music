@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    private Button loginBtn, signUp;
+    private Button loginBtn, btnSignUp;
     private EditText usernameET, passwordET;
     private FirebaseAuth firebaseAuth;
     private Fragment_Home fragment_home;
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
         rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
         loginBtn = findViewById(R.id.btnLogin);
-        signUp = findViewById(R.id.signUpBtn);
+        btnSignUp = findViewById(R.id.signUpBtn);
         usernameET = findViewById(R.id.userEmail);
         fragment_home = new Fragment_Home();
 
@@ -73,12 +73,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //delcarem el valor del final
-        Button btnquanta = (Button) findViewById(R.id.signUpBtn);
-        btnquanta.setOnClickListener(view -> {
+        btnSignUp = (Button) findViewById(R.id.signUpBtn);
+
+        btnSignUp.setOnClickListener(view -> {
             //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
-            Log.d("flx", "onClick()");
+            Log.d("loginactivity", "onClick()");
             //option + enter i importa
-            Intent intent = new Intent(LoginActivity.this,Activity_Reg.class);
+            Intent intent = new Intent(LoginActivity.this, Activity_Reg.class);
             startActivity(intent);
         });
 
