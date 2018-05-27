@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         firebaseFirestore.collection("users").document(userKey).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 userAux = task.getResult().toObject(AppUser.class);
-                Log.d("sergio", "NICKNAME: " + userAux.getNickName());
+                Log.d("sergio", "NICKNAME: " + userAux.getUserName());
             } else {
                 Log.d("sergio", "no existe");
             }

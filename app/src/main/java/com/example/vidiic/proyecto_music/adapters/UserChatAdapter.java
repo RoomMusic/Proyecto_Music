@@ -92,8 +92,8 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
             vh.userImage.setImageResource(R.drawable.ic_action_music);
         }
 
-        vh.userName.setText(user.getNickName());
-        Log.d("sergio", "USERNAME CHAT: " + user.getNickName());
+        vh.userName.setText(user.getUserName());
+        Log.d("sergio", "USERNAME CHAT: " + user.getUserName());
         //vh.lastMessageText.setText("Great Spirit....");
     }
 

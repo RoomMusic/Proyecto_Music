@@ -94,7 +94,7 @@ public class Activity_Reg extends AppCompatActivity {
 
                     startActivity(intent);
 
-                    saveUser(userMail, userPass);
+                    saveUser(userName, userMail, userPass);
 
                     Toast.makeText(Activity_Reg.this, "User Registered Succesfully", Toast.LENGTH_SHORT).show();
                 } else {
@@ -108,11 +108,11 @@ public class Activity_Reg extends AppCompatActivity {
 
     }
 
-    private void saveUser(String email, String pass) {
+    private void saveUser(String userName, String email, String pass) {
 
         key = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        AppUser user = new AppUser(key, email, pass, new Date(), false);
+        AppUser user = new AppUser(key, userName,email, pass, new Date(), false);
 
         firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
                 Toast.makeText(Activity_Reg.this, "Usuario registrado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->

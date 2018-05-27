@@ -87,6 +87,8 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
             mParam2 = getArguments().getString(ARG_PARAM2);
 
 
+            userChatAdapter.setOnItemClickListener(this);
+
         }
     }
 
@@ -123,12 +125,12 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
                                 return;
                             }
 
-                            Toast.makeText(activityShare, "USUARIO CONECTADO", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(view.getContext(), "USUARIO CONECTADO", Toast.LENGTH_SHORT).show();
 
                             //comprobar si el usuario tiene un nombre de usuario
-                            if (appUser.getNickName().equals(""))
-                                SendBird.updateCurrentUserInfo(appUser.getNickName(), null, e1 ->
-                                        Toast.makeText(view.getContext(), "USUARIO ACTUALIZADO" + appUser.getNickName(),
+                            if (appUser.getUserName().equals(""))
+                                SendBird.updateCurrentUserInfo(appUser.getUserName(), null, e1 ->
+                                        Toast.makeText(view.getContext(), "USUARIO ACTUALIZADO" + appUser.getUserName(),
                                                 Toast.LENGTH_SHORT).show());
 
 
@@ -146,7 +148,7 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
                     //condicion para evitar que el usuario que esta usando la app le aparezca su usuario en las listas de amigos
                     if (!documentSnapshot.toObject(AppUser.class).getUserid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         userList.add(documentSnapshot.toObject(AppUser.class));
-                        Log.d("sergio", "USUARIO AÑADIDO " + documentSnapshot.toObject(AppUser.class).getNickName());
+                        Log.d("sergio", "USUARIO AÑADIDO " + documentSnapshot.toObject(AppUser.class).getUserName());
                     }
 
                 }
@@ -161,7 +163,6 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
                 rvUserChat.setItemAnimator(new DefaultItemAnimator());
 
                 rvUserChat.setAdapter(userChatAdapter);
-                userChatAdapter.setOnItemClickListener((UserChatAdapter.OnItemClickListener) view);
 
                 //Log.d("sergio", "LLEGO AHORA");
 

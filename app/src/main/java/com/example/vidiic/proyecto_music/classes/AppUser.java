@@ -12,10 +12,9 @@ import java.util.List;
 public class AppUser {
 
     private String userid;
-    private String nickName;
+    private String userName;
     private String email;
     private String password;
-    private String userName;
     private String userSecondName;
     private boolean firstIn;
     private ImageView userImage;
@@ -25,18 +24,14 @@ public class AppUser {
 
     public AppUser(){}
 
-    //constructor para cuando obtnemos los usuarios para ser mostrados en la lista del chat
-    public AppUser(String userName){
-        this.nickName = userName;
-    }
-
     //constructor para cuando el usuario esta registrandose
-    public AppUser(String userId, String email, String password, Date registerDate, boolean firstIn) {
+    public AppUser(String userId, String userName, String email, String password, Date registerDate, boolean firstIn) {
         this.userid = userId;
         this.email = email;
         this.password = password;
         this.registerDate = registerDate;
         this.firstIn = firstIn;
+        this.userName = userName;
     }
 
     public ImageView getUserImage() {
@@ -55,12 +50,12 @@ public class AppUser {
         this.userid = userid;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
