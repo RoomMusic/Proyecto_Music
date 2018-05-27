@@ -74,15 +74,12 @@ public class LoginActivity extends AppCompatActivity {
 
         //delcarem el valor del final
         Button btnquanta = (Button) findViewById(R.id.signUpBtn);
-        btnquanta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
-                Log.d("flx", "onClick()");
-                //option + enter i importa
-                Intent intent = new Intent(LoginActivity.this,Activity_Reg.class);
-                startActivity(intent);
-            }
+        btnquanta.setOnClickListener(view -> {
+            //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
+            Log.d("flx", "onClick()");
+            //option + enter i importa
+            Intent intent = new Intent(LoginActivity.this,Activity_Reg.class);
+            startActivity(intent);
         });
 
     }
@@ -118,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(mainIntent);
             } else {
                 //usuario no registrado, redirigir al signup
-                Intent intent = new Intent(LoginActivity.this, SignUp.class);
+                Intent intent = new Intent(LoginActivity.this, Activity_Reg.class);
                 startActivity(intent);
 
                 Toast.makeText(LoginActivity.this, "User not registered. SignUp First", Toast.LENGTH_SHORT).show();
