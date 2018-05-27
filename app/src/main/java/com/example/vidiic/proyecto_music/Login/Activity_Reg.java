@@ -89,13 +89,16 @@ public class Activity_Reg extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //usuario registrado completamente
                     Intent intent = new Intent(Activity_Reg.this, LoginActivity.class);
+
+                    intent.putExtra("useremail", userMail);
+
                     startActivity(intent);
 
                     saveUser(userMail, userPass);
 
                     Toast.makeText(Activity_Reg.this, "User Registered Succesfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.d("signup", "error: " + task.getException());
+                    //Log.d("signup", "error: " + task.getException());
                     //usuario ya registrado
                     Toast.makeText(Activity_Reg.this, "User is already registered.", Toast.LENGTH_SHORT).show();
                 }

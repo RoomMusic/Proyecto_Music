@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
 
         //recogemos el email pasado desde el login
-        /*userEmail = getIntent().getExtras().getString("useremail");
+        userEmail = getIntent().getExtras().getString("useremail");
 
         //obtenemos la clave del usuario
         userKey = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
             }
         });
 
-        checkUser(userKey);*/
+        checkUser(userKey);
 
 
         nMainNav = findViewById(R.id.main_nav);
