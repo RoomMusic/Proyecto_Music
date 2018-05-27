@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,12 +62,27 @@ public class LoginActivity extends AppCompatActivity {
 
         handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
 
+
         usernameET.setText("stucomtest@gmail.com");
         passwordET.setText("ssoo++");
 
         loginBtn.setOnClickListener(v -> {
             //comprobamos que el usuario esta en la base de datos
             registerUser();
+        });
+
+
+        //delcarem el valor del final
+        Button btnquanta = (Button) findViewById(R.id.signUpBtn);
+        btnquanta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
+                Log.d("flx", "onClick()");
+                //option + enter i importa
+                Intent intent = new Intent(LoginActivity.this,Activity_Reg.class);
+                startActivity(intent);
+            }
         });
 
     }
