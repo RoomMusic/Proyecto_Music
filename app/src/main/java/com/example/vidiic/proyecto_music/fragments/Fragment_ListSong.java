@@ -1,15 +1,12 @@
 package com.example.vidiic.proyecto_music.fragments;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,8 +17,14 @@ import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.AdapterSong;
-import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
+
 import com.example.vidiic.proyecto_music.classes.Song;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,7 @@ import java.util.List;
  * Use the {@link Fragment_ListSong#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_ListSong extends Fragment implements AsyncTaskSong.WeakReference {
+public class Fragment_ListSong extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,6 +54,9 @@ public class Fragment_ListSong extends Fragment implements AsyncTaskSong.WeakRef
     List<Song> songList;
     RecyclerView recyclerViewSong;
     AdapterSong adapterSongs;
+    FirebaseFirestore database;
+
+    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
 
 
     public Fragment_ListSong() {
@@ -91,10 +97,55 @@ public class Fragment_ListSong extends Fragment implements AsyncTaskSong.WeakRef
         Log.i("Main","view");
         View view = inflater.inflate(R.layout.fragment_fragment__list_song, container, false);
 
-            songList = new ArrayList<>();
-            new AsyncTaskSong(this).execute();
+        database = FirebaseFirestore.getInstance();
+        database.collection("users").document(idUser).collection("music").document("songlist");
+        
+        songList = new ArrayList<>();
+
+        setUpRecyclerView(view);
+        setUpFireBase();
+        loadDataFromFireBase();
 
         return view;
+    }
+
+    private void loadDataFromFireBase() {
+        if (songList.size()>0){
+            songList.clear();
+        }
+        database.collection("users").document(idUser).collection("songlist")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(DocumentSnapshot documentSnapshot: task.getResult()){
+                            Song song = new Song(documentSnapshot.getString("name"),
+                                    documentSnapshot.getString("artist"),
+                                    documentSnapshot.getString("imageSong"));
+                            songList.add(song);
+                        }
+                        adapterSongs = new AdapterSong(songList);
+                        recyclerViewSong.setAdapter(adapterSongs);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(),"ERROR LOAD MUSIC",Toast.LENGTH_SHORT).show();
+                        Log.v("ERROR LOAD MUSIC",e.getMessage());
+                    }
+                });
+    }
+
+    private void setUpFireBase() {
+        database = FirebaseFirestore.getInstance();
+    }
+
+    private void setUpRecyclerView(View view) {
+
+        recyclerViewSong = view.findViewById(R.id.recyclerSongs);
+        recyclerViewSong.setHasFixedSize(true);
+        recyclerViewSong.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,33 +155,12 @@ public class Fragment_ListSong extends Fragment implements AsyncTaskSong.WeakRef
         }
     }
 
-
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
-    @Override
-    public void finished(List<Song> list) {
-        Log.i("Main","Finisss"+list.size());
-        songList = list;
-        Log.i("Main","Finished");
-        Log.i("Main","Permisos"+songList.size());
-        recyclerViewSong = getView().findViewById(R.id.recyclerSongs);
-        recyclerViewSong.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterSongs = new AdapterSong(songList);
-        recyclerViewSong.setItemAnimator(new DefaultItemAnimator());
-        Log.i("Main","Adaptame ESTA");
-        adapterSongs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"Hola", Toast.LENGTH_SHORT).show();
-            }
-        });
-        recyclerViewSong.setAdapter(adapterSongs);
-    }
 
     /**
      * This interface must be implemented by activities that contain this
