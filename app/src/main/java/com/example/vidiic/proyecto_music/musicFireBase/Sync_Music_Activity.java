@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
@@ -21,7 +22,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
 
     FirebaseFirestore db;
     Map<String,Song> Songs;
-    public static final String idUser ="gp2V0KkaEwOQ2ukVGUkaGv7ywFr1";
+    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +42,8 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
 
     @Override
     public void finished(List<Song> list) {
-        for(Song song: list){
-            Songs.put(song.getName(),song);
+        for(Song song: list) {
+            db.collection("users").document(idUser).collection("songlist").document("Song-"+song.getId()).set(song);
         }
-        db.collection("users").document(idUser).collection("music").document("songlist")
-                .set(Songs)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(Sync_Music_Activity.this,"Added Songs",Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Sync_Music_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
