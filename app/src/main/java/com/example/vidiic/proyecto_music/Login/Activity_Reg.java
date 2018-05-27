@@ -111,11 +111,8 @@ public class Activity_Reg extends AppCompatActivity {
         AppUser user = new AppUser(key, email, pass, new Date(), false);
 
         firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
-                Toast.makeText(Activity_Reg.this, "Usuario registrado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> {
-                    Log.d("signup", "error: " + e.getMessage());
-            Toast.makeText(Activity_Reg.this, "Fallo", Toast.LENGTH_SHORT).show();
-
-        });
+                Toast.makeText(Activity_Reg.this, "Usuario registrado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
+                Toast.makeText(Activity_Reg.this, "Fallo", Toast.LENGTH_SHORT).show());
 
     }
 }
