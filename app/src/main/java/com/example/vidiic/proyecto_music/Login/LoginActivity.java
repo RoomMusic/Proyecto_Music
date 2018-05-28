@@ -125,10 +125,5 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void setFragment(Fragment fragment){
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.relativeLogin, fragment);
-        fragmentTransaction.commit();
-    }
 
 }

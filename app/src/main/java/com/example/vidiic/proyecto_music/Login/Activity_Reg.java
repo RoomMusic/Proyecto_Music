@@ -3,6 +3,7 @@ package com.example.vidiic.proyecto_music.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,10 +15,19 @@ import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.AppUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by poldominguez on 26/5/18.
@@ -40,6 +50,8 @@ public class Activity_Reg extends AppCompatActivity {
     private String key;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private AppUser userAux = null;
+    private List<AppUser> listUser = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +80,19 @@ public class Activity_Reg extends AppCompatActivity {
                 registerUser()
         );
 
+        //obtenemos todos los usuarios disponibles
+        firebaseFirestore.collection("users").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (!queryDocumentSnapshots.isEmpty()) {
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                    userAux = snapshot.toObject(AppUser.class);
+                    listUser.add(userAux);
+                    Log.d("sergio", "usernameee: " + userAux.getEmail());
+
+                }
+            }
+
+        });
+
     }
 
     private void registerUser() {
@@ -83,40 +108,85 @@ public class Activity_Reg extends AppCompatActivity {
             Toast.makeText(Activity_Reg.this, "Password fields does not match.", Toast.LENGTH_SHORT).show();
         } else {
 
-            firebaseAuth.createUserWithEmailAndPassword(userMail, userPass).addOnCompleteListener(task -> {
+            //si es true quiere decir que el nombre de usuario no existe
+            if (saveUser(userName, userMail, userPass)) {
 
-                //los usuarios pueden registrarse con una contraseña
-                if (task.isSuccessful()) {
-                    //usuario registrado completamente
-                    Intent intent = new Intent(Activity_Reg.this, LoginActivity.class);
+                firebaseAuth.createUserWithEmailAndPassword(userMail, userPass).addOnCompleteListener(task -> {
 
-                    intent.putExtra("useremail", userMail);
+                    //los usuarios pueden registrarse con una contraseña
+                    if (task.isSuccessful()) {
 
-                    startActivity(intent);
+                        //usuario registrado completamente
+                        Intent intent = new Intent(Activity_Reg.this, LoginActivity.class);
 
-                    saveUser(userName, userMail, userPass);
+                        intent.putExtra("useremail", userMail);
 
-                    Toast.makeText(Activity_Reg.this, "User Registered Succesfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    //Log.d("signup", "error: " + task.getException());
-                    //usuario ya registrado
-                    Toast.makeText(Activity_Reg.this, "User is already registered.", Toast.LENGTH_SHORT).show();
-                }
 
-            });
+                        key = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        AppUser user = new AppUser(key, userName, userMail, userPass, new Date(), false);
+
+
+                        firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
+                                Toast.makeText(Activity_Reg.this, "Usuario registrado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
+                                Toast.makeText(Activity_Reg.this, "Fallo", Toast.LENGTH_SHORT).show());
+
+                        startActivity(intent);
+
+
+                        //Toast.makeText(Activity_Reg.this, "User Registered Succesfully", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        //Log.d("signup", "error: " + task.getException());
+                        //usuario ya registrado
+                        Toast.makeText(Activity_Reg.this, "User is already registered.", Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+            } else {
+                //el nombre de usuario ya existe, avisamos al usuario
+                Toast.makeText(Activity_Reg.this, "Username already exists.", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
     }
 
-    private void saveUser(String userName, String email, String pass) {
+    private boolean checkUserName(String username) {
 
-        key = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        int i = 0;
 
-        AppUser user = new AppUser(key, userName,email, pass, new Date(), false);
+        for (AppUser u : listUser) {
+            if (u.getUserName().equals(username)) {
+                i = 1;
+            }
+        }
 
-        firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
-                Toast.makeText(Activity_Reg.this, "Usuario registrado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
-                Toast.makeText(Activity_Reg.this, "Fallo", Toast.LENGTH_SHORT).show());
+
+        //si obtenemos diferente de null quiere decir que ese nombre de usuario ya existe
+        Log.d("sergio", "llegooooooo");
+        if (i == 1) return true;
+
+        else return false;
+
+        //si no devolvemos false, es decir que el nombre de usuario no existe en la base de datos
+
+
+    }
+
+
+    private boolean saveUser(String userName, String email, String pass) {
+
+        if (checkUserName(userName)) {
+            //si es true quiere decir que el nombre de usuario existe, devolvemos false para avisar al usuario
+            Log.d("sergio", "nombre de usuario existe");
+            return false;
+        } else {
+            //si es false quiere decir que esta libre y que el usuario se ha registrado correctamente en la base datos, y dirigimos el usuario al login
+            Log.d("sergio", "nombre de usuario no existe");
+
+            return true;
+        }
 
     }
 }
