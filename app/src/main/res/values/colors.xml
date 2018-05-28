@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimary">#f53a40</color>
     <color name="colorPrimaryDark">#00695c</color>
     <color name="colorAccent">#b2dfdb</color>
     <color name="colorToolBar">#DAF0EE</color>
@@ -15,4 +15,10 @@
     <color name="colorTransparentWhite">#cccccc</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="carne">#ffcc99</color>
+    <color name="rojologo">#FFF53A40</color>
+    <color name="grey">#232733</color>
+
+    232733
+
 </resources>

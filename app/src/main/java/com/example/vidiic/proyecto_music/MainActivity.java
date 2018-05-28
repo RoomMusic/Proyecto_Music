@@ -63,17 +63,17 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
 
                 switch (item.getItemId()){
                     case R.id.nav_home :
-                        nMainNav.setItemBackgroundResource(R.color.red);
+                        nMainNav.setItemBackgroundResource(R.color.rojologo);
                         setFragment(fragment_home);
                         return true;
 
                     case R.id.nav_music :
-                        nMainNav.setItemBackgroundResource(R.color.blue);
+                        nMainNav.setItemBackgroundResource(R.color.rojologo);
                         setFragment(fragment_listSong);
                         return true;
 
                     case R.id.nav_share :
-                        nMainNav.setItemBackgroundResource(R.color.green);
+                        nMainNav.setItemBackgroundResource(R.color.rojologo);
                         setFragment(fragment_share);
                         return true;
 
