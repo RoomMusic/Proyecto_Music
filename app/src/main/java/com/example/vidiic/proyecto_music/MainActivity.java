@@ -12,32 +12,27 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
 import com.example.vidiic.proyecto_music.classes.AppUser;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
-import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
-import com.example.vidiic.proyecto_music.fragments.Fragment_Music;
-import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
-import com.google.firebase.FirebaseApp;
+import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
+import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
+import com.example.vidiic.proyecto_music.fragments.social.Fragment_Social;
+import com.example.vidiic.proyecto_music.fragments.social.Fragment_User_Chat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.sendbird.android.SendBird;
-import com.sendbird.android.User;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener{
 
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;
-    private Fragment_Share fragment_share;
+    private Fragment_Social fragment_social;
     private Fragment_Music fragment_music;
 
     private BottomNavigationView nMainNav;
@@ -60,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
         fragment_listSong = new Fragment_ListSong();
         fragment_home = new Fragment_Home();
-        fragment_share = new Fragment_Share();
+        fragment_social = new Fragment_Social();
         fragment_music = new Fragment_Music();
 
 
@@ -121,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
                 case R.id.nav_share :
                      nMainNav.setItemBackgroundResource(R.color.green);
-                     setFragment(fragment_share);
+                     setFragment(fragment_social);
                      return true;
 
                 default:
@@ -134,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         fragmentTransaction.replace(R.id.contenedorFragment, fragment);
         fragmentTransaction.commit();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -156,6 +152,14 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+
+    //sobreescribimos la funcion de on back pressed y hacemos return para cuando el usuario pulse atras no pueda volver al login si no es pulsando log out
+    @Override
+    public void onBackPressed() {
+
+        return;
     }
 
     private void checkUser(String userid) {

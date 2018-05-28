@@ -1,24 +1,27 @@
-package com.example.vidiic.proyecto_music.fragments;
+package com.example.vidiic.proyecto_music.fragments.social;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.ViewPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fragment_Type.OnFragmentInteractionListener} interface
+ * {@link Fragment_Social.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fragment_Type#newInstance} factory method to
+ * Use the {@link Fragment_Social#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Type extends Fragment {
+public class Fragment_Social extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +33,13 @@ public class Fragment_Type extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Fragment_Type() {
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+
+
+    public Fragment_Social() {
         // Required empty public constructor
     }
 
@@ -40,11 +49,11 @@ public class Fragment_Type extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Type.
+     * @return A new instance of fragment Fragment_Social.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Type newInstance(String param1, String param2) {
-        Fragment_Type fragment = new Fragment_Type();
+    public static Fragment_Social newInstance(String param1, String param2) {
+        Fragment_Social fragment = new Fragment_Social();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,8 +73,21 @@ public class Fragment_Type extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_fragment_social, container, false);
+
+        tabLayout = view.findViewById(R.id.tabsChat);
+        viewPager = view.findViewById(R.id.viewpagerChat);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+        viewPagerAdapter.AddFragment(new Fragment_User_Chat(), "Friends");
+        viewPagerAdapter.AddFragment(new Fragment_Muro(), "Muro");
+
+
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment__type, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,6 +97,16 @@ public class Fragment_Type extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
