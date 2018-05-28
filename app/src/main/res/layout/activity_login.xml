@@ -29,7 +29,8 @@
             android:id="@+id/rellay1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgView_logo">
+            android:layout_below="@+id/imgView_logo"
+            >
 
             <TextView
                 android:id="@+id/tv_login"
@@ -131,7 +132,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+      >
 
         <Button
             android:id="@+id/btnreg"
