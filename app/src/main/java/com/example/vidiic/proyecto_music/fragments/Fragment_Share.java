@@ -1,7 +1,6 @@
 package com.example.vidiic.proyecto_music.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sendbird.android.SendBird;
+import com.sendbird.android.SendBirdException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.List;
  * Use the {@link Fragment_Share#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemClickListener{
+public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -87,8 +87,6 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
             mParam2 = getArguments().getString(ARG_PARAM2);
 
 
-            userChatAdapter.setOnItemClickListener(this);
-
         }
     }
 
@@ -127,11 +125,8 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
 
                             Toast.makeText(view.getContext(), "USUARIO CONECTADO", Toast.LENGTH_SHORT).show();
 
-                            //comprobar si el usuario tiene un nombre de usuario
-                            if (appUser.getUserName().equals(""))
-                                SendBird.updateCurrentUserInfo(appUser.getUserName(), null, e1 ->
-                                        Toast.makeText(view.getContext(), "USUARIO ACTUALIZADO" + appUser.getUserName(),
-                                                Toast.LENGTH_SHORT).show());
+                            //actualizamos el nombre de usuario en la bbdd de send bird
+                            SendBird.updateCurrentUserInfo(appUser.getUserName(), null, e1 -> Log.d("sergio", "nombre de usuario actualizado en la bbdd de sendbird"));
 
 
                         });
@@ -159,6 +154,9 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
                         view.getContext()
                 );
 
+
+                setListener();
+
                 rvUserChat.setLayoutManager(layoutManager);
                 rvUserChat.setItemAnimator(new DefaultItemAnimator());
 
@@ -168,8 +166,14 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
 
             }
         });
+
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setListener() {
+        userChatAdapter.setOnItemClickListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
