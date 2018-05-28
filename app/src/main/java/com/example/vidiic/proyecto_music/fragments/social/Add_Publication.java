@@ -8,18 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.vidiic.proyecto_music.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fragment_Muro.OnFragmentInteractionListener} interface
+ * {@link Add_Publication.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fragment_Muro#newInstance} factory method to
+ * Use the {@link Add_Publication#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Muro extends Fragment {
+public class Add_Publication extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,12 +33,11 @@ public class Fragment_Muro extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-    //variables
-    private FloatingActionButton addPublicationBtn;
-    private Add_Publication add_publication_fragment;
+    private FloatingActionButton success_add_publication_btn;
+    private Fragment_Muro fragment_muro;
+    private RelativeLayout relative_publication_details;
 
-
-    public Fragment_Muro() {
+    public Add_Publication() {
         // Required empty public constructor
     }
 
@@ -47,11 +47,11 @@ public class Fragment_Muro extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Muro.
+     * @return A new instance of fragment Add_Publication.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Muro newInstance(String param1, String param2) {
-        Fragment_Muro fragment = new Fragment_Muro();
+    public static Add_Publication newInstance(String param1, String param2) {
+        Add_Publication fragment = new Add_Publication();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,21 +72,21 @@ public class Fragment_Muro extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_fragment__muro, container, false);
-        addPublicationBtn = view.findViewById(R.id.btnAddPublication);
+        View view = inflater.inflate(R.layout.fragment_add__publication, container, false);
+        success_add_publication_btn = view.findViewById(R.id.success_add_publication);
+        relative_publication_details = view.findViewById(R.id.relative_publication_details);
 
-        addPublicationBtn.show();
+        fragment_muro = new Fragment_Muro();
 
-        add_publication_fragment = new Add_Publication();
-
-        //añadimos una publicacion
-        addPublicationBtn.setOnClickListener(v -> {
-            //mostramos el fragment para añadir una publicacion
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_publication, add_publication_fragment).commit();
-
-            //ocultamos el boton de añadir publicacion
-            addPublicationBtn.hide();
+        //añadimos la publicacion
+        success_add_publication_btn.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
+            relative_publication_details.setVisibility(View.GONE);
         });
+
+
+
+
 
         // Inflate the layout for this fragment
         return view;

@@ -19,6 +19,7 @@ import com.example.vidiic.proyecto_music.classes.AppUser;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
+import com.example.vidiic.proyecto_music.fragments.social.Add_Publication;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_Muro;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_Social;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_User_Chat;
@@ -29,7 +30,7 @@ import com.sendbird.android.SendBird;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener, Add_Publication.OnFragmentInteractionListener{
 
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;
