@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.vidiic.proyecto_music.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +38,8 @@ public class Add_Publication extends Fragment {
     private FloatingActionButton success_add_publication_btn;
     private Fragment_Muro fragment_muro;
     private RelativeLayout relative_publication_details;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
 
     public Add_Publication() {
         // Required empty public constructor
@@ -77,9 +81,17 @@ public class Add_Publication extends Fragment {
         relative_publication_details = view.findViewById(R.id.relative_publication_details);
 
         fragment_muro = new Fragment_Muro();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        String user_id = firebaseAuth.getCurrentUser().getUid();
 
         //añadimos la publicacion
         success_add_publication_btn.setOnClickListener(v -> {
+
+            //obtenemos los datos de la cancion desde firebase
+
+
+
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
             relative_publication_details.setVisibility(View.GONE);
         });
@@ -91,6 +103,10 @@ public class Add_Publication extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

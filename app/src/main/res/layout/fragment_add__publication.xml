@@ -10,7 +10,8 @@
     <RelativeLayout
         android:id="@+id/relative_publication_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
 
         <TextView
             android:id="@+id/songNameAddPublication"
@@ -18,7 +19,8 @@
             android:layout_height="35dp"
             android:text="song name"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="2dp"/>
+            android:layout_marginLeft="2dp"
+            android:textAlignment="center"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/find_song_btn"

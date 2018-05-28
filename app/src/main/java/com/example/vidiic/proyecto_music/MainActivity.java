@@ -162,11 +162,11 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
 
     //sobreescribimos la funcion de on back pressed y hacemos return para cuando el usuario pulse atras no pueda volver al login si no es pulsando log out
-    @Override
-    public void onBackPressed() {
-
-        return;
-    }
+//    @Override
+//    public void onBackPressed() {
+//
+//        return;
+//    }
 
     private void checkUser(String userid) {
         //con esta sentencia obtenemos de la coleccion de usuario el documento con el email del usuario el cual contiene los datos de este

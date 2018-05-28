@@ -5,11 +5,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
+import com.example.vidiic.proyecto_music.classes.Publicacion;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +43,10 @@ public class Fragment_Muro extends Fragment {
     //variables
     private FloatingActionButton addPublicationBtn;
     private Add_Publication add_publication_fragment;
+    private RecyclerView rv_muro;
+    private List<Publicacion> publicaciones_list;
+    private PublicacionAdapter publicacionAdapter;
+
 
 
     public Fragment_Muro() {
@@ -73,7 +85,10 @@ public class Fragment_Muro extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_fragment__muro, container, false);
+
         addPublicationBtn = view.findViewById(R.id.btnAddPublication);
+        rv_muro = view.findViewById(R.id.recyclerViewMuro);
+        publicaciones_list = new ArrayList<>();
 
         addPublicationBtn.show();
 
@@ -87,6 +102,16 @@ public class Fragment_Muro extends Fragment {
             //ocultamos el boton de añadir publicacion
             addPublicationBtn.hide();
         });
+
+        publicacionAdapter = new PublicacionAdapter(publicaciones_list);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+
+
+        rv_muro.setLayoutManager(layoutManager);
+        rv_muro.setItemAnimator(new DefaultItemAnimator());
+
+        rv_muro.setAdapter(publicacionAdapter);
 
         // Inflate the layout for this fragment
         return view;
