@@ -1,6 +1,7 @@
 package com.example.vidiic.proyecto_music.fragments.social;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -21,7 +22,7 @@ import com.example.vidiic.proyecto_music.adapters.ViewPagerAdapter;
  * Use the {@link Fragment_Social#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Social extends Fragment {
+public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -112,6 +113,11 @@ public class Fragment_Social extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**

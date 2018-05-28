@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hay dos layouts para futura version combinar las publicaciones mostrando las ondas de sonido de la cancion
+que se este reproduciendo de manera que cuando el usuario pulsa por encima de esta la cancion empezara a reproducirse,
+y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y los dos layouts de dentro 100 cada uno. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/songImageMuro"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relativePublicationData"
+            android:layout_toRightOf="@+id/songImageMuro"
+            android:layout_width="200dp"
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/userNameMuro"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:text="username"/>
+
+            <TextView
+                android:id="@+id/songNameMuro"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:text="song name"
+                android:layout_below="@+id/userNameMuro"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/relativePublicationData"
+            android:layout_centerVertical="true">
+
+            <ImageButton
+                android:id="@+id/btnAsk"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"/>
+
+            <ImageButton
+                android:id="@+id/btnPlaySong"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="2dp" />
+
+            <!-- POL poner imagenes de botones -->
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

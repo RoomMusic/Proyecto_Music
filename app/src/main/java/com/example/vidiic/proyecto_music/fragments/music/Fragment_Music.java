@@ -73,16 +73,18 @@ public class Fragment_Music extends Fragment implements Fragment_ListSong.OnFrag
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment__music, container, false);
+
         tabLayout = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewpager);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+
         adapter.AddFragment(new Fragment_ListSong(),"Song");
         adapter.AddFragment(new Fragment_Artist(),"Artist");
         adapter.AddFragment(new Fragment_Type(),"Type");
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
-
 
         return view;
     }

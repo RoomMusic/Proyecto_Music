@@ -3,6 +3,7 @@ package com.example.vidiic.proyecto_music.fragments.social;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,11 @@ public class Fragment_Muro extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+    //variables
+    private FloatingActionButton addPublicationBtn;
+
 
     public Fragment_Muro() {
         // Required empty public constructor
@@ -64,8 +70,20 @@ public class Fragment_Muro extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_fragment__muro, container, false);
+
+
+        //añadimos una publicacion
+        addPublicationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment__muro, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

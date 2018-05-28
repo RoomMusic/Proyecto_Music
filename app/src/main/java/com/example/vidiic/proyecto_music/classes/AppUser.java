@@ -19,7 +19,7 @@ public class AppUser {
     private boolean firstIn;
     private ImageView userImage;
     private Date registerDate;
-    private List<Song> songList;
+
 
 
     public AppUser(){}
@@ -74,11 +74,4 @@ public class AppUser {
         return registerDate;
     }
 
-    public List<Song> getSongList() {
-        return songList;
-    }
-
-    public void setSongList(List<Song> songList) {
-        this.songList = songList;
-    }
 }
