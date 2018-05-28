@@ -44,7 +44,7 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.SongViewHolder
 
         holder.imagen.setImageResource(R.drawable.ic_action_music);
         holder.nombreSong.setText(songsList.get(position).getName());
-        holder.artistaSong.setText(songsList.get(position).getArtist());
+        holder.artistaSong.setText(songsList.get(position).nameOfArtists());
 
     }
 

@@ -99,7 +99,7 @@ public class Fragment_ListSong extends Fragment {
 
         database = FirebaseFirestore.getInstance();
         database.collection("users").document(idUser).collection("music").document("songlist");
-        
+
         songList = new ArrayList<>();
 
         setUpRecyclerView(view);
@@ -119,10 +119,10 @@ public class Fragment_ListSong extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for(DocumentSnapshot documentSnapshot: task.getResult()){
-                            Song song = new Song(documentSnapshot.getString("name"),
-                                    documentSnapshot.getString("artist"),
-                                    documentSnapshot.getString("imageSong"));
-                            songList.add(song);
+                            /*Song song = new Song(documentSnapshot.getString("name"),
+                                    documentSnapshot.getString("imageSong"),
+                                    documentSnapshot.get);*/
+                            //songList.add(song);
                         }
                         adapterSongs = new AdapterSong(songList);
                         recyclerViewSong.setAdapter(adapterSongs);
