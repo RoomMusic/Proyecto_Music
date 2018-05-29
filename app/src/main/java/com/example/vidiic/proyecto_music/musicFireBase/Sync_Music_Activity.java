@@ -83,7 +83,6 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
                         Toast.makeText(this,"PermissionGranted",Toast.LENGTH_SHORT).show();
 
                         db = FirebaseFirestore.getInstance();
-                        loadArtistFromFireBase();
                         new AsyncTaskSong(this).execute();
 
                     }
@@ -96,11 +95,15 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         }
     }
 
-    public List<Artist> checkList(String nameSong){
-
+    public List<Artist> checkList(String nameSong, List<Artist> artistasExistentes){
+        Log.d("Artistas", artistasExistentes.size()+"");
+        if (artistasExistentes.size() >= 0){
+            for (Artist artist : artistasExistentes){
+                artistasUsuario.add(artist);
+            }
+        }
         for (Artist artist: listaArtistas){
             if (nameSong.toUpperCase().contains(artist.getName().toUpperCase())){
-                Log.e("Artista","TU PUTA MADRE");
                 artistasUsuario.add(artist);
             }
         }
@@ -121,19 +124,24 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     for(DocumentSnapshot documentSnapshot: task.getResult()){
-                        Log.w("ARTIST",documentSnapshot.getString("name"));
                         Artist artist = new Artist(documentSnapshot.getString("name"),
                             documentSnapshot.getString("genre"),
                             documentSnapshot.getString("description"),
                             documentSnapshot.getString("age"));
                         listaArtistas.add(artist);
                     }
-
-                    for (Song song: music){
-                        Log.e("Artista",listaArtistas.size()+"");
-                        song.setArtistList(checkList(song.getName().toUpperCase()));
-                        db.collection("users").document(idUser).collection("songlist").document("Song-"+song.getIdsong()).set(song);
+                    int fin = 1;
+                    for (Song song: music) {
+                        song.setArtistList(checkList(song.getName().toUpperCase(),song.getArtistList()));
+                        db.collection("users").document(idUser).collection("songlist").document("Song-" + song.getIdsong()).set(song);
+                        for (Artist artist: artistasUsuario){
+                            db.collection("users").document(idUser).collection("artistlist").document(artist.getName()).set(artist);
+                        }
                         artistasUsuario.clear();
+                        fin++;
+                        if (fin == 10) {
+                            break;
+                        }
                     }
                 }
             })

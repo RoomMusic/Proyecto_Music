@@ -19,6 +19,8 @@ public class Artist {
         this.genre = genre;
         this.description = description;
     }
+    public Artist(){
+    }
 
     public String getName() {
         return name;

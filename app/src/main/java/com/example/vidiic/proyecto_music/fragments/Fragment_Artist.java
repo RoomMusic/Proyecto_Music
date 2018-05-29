@@ -3,17 +3,29 @@ package com.example.vidiic.proyecto_music.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.AdapterArtist;
+import com.example.vidiic.proyecto_music.adapters.AdapterSong;
 import com.example.vidiic.proyecto_music.classes.Artist;
+import com.example.vidiic.proyecto_music.classes.Song;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +50,13 @@ public class Fragment_Artist extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private List<Artist> artistList;
+    List<Artist> artistList;
+    RecyclerView recyclerViewArtist;
+    AdapterArtist adapterArtist;
+    FirebaseFirestore database;
+
+    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
+
 
     public Fragment_Artist() {
         // Required empty public constructor
@@ -77,26 +95,54 @@ public class Fragment_Artist extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment__artist, container, false);
 
-        artistList = new ArrayList<>();
-        artistList.add(new Artist("Bad Bunny","image1","Trap","AAAA"));
-        artistList.add(new Artist("Nicky Jam","image1","Trap","AAAA"));
-        artistList.add(new Artist("JBalvin","image1","Trap","AAAA"));
-        artistList.add(new Artist("Darell","image1","Trap","AAAA"));
-        artistList.add(new Artist("Bad Bunny","image1","Trap","AAAA"));
-        artistList.add(new Artist("Nicky Jam","image1","Trap","AAAA"));
-        artistList.add(new Artist("JBalvin","image1","Trap","AAAA"));
-        artistList.add(new Artist("Darell","image1","Trap","AAAA"));
-        artistList.add(new Artist("Bad Bunny","image1","Trap","AAAA"));
-        artistList.add(new Artist("Nicky Jam","image1","Trap","AAAA"));
-        artistList.add(new Artist("JBalvin","image1","Trap","AAAA"));
-        artistList.add(new Artist("Darell","image1","Trap","AAAA"));
+        database = FirebaseFirestore.getInstance();
+        database.collection("users").document(idUser).collection("music").document("artistlist");
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerArtists);
-        AdapterArtist adapterArtist = new AdapterArtist(getContext(),artistList);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
-        recyclerView.setAdapter(adapterArtist);
+        artistList = new ArrayList<>();
+
+        setUpRecyclerView(view);
+        setUpFireBase();
+        loadDataFromFireBase();
 
         return view;
+    }
+
+    private void loadDataFromFireBase() {
+        if (artistList.size()>0){
+            artistList.clear();
+        }
+        database.collection("users").document(idUser).collection("artistlist")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        Artist artist = documentSnapshot.toObject(Artist.class);
+                        artistList.add(artist);
+                    }
+                    adapterArtist = new AdapterArtist(getContext(),artistList);
+                    recyclerViewArtist.setAdapter(adapterArtist);
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(),"ERROR LOAD Artists",Toast.LENGTH_SHORT).show();
+                    Log.v("ERROR LOAD Artists",e.getMessage());
+                }
+            });
+    }
+
+    private void setUpFireBase() {
+
+        database = FirebaseFirestore.getInstance();
+    }
+
+    private void setUpRecyclerView(View view) {
+
+        recyclerViewArtist = view.findViewById(R.id.recyclerArtists);
+        recyclerViewArtist.setHasFixedSize(true);
+        recyclerViewArtist.setLayoutManager(new GridLayoutManager(getContext(),3));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

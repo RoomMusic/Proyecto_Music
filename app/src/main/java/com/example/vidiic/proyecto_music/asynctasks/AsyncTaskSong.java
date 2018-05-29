@@ -72,6 +72,11 @@ public class AsyncTaskSong extends AsyncTask<String,Integer,List<Song>> {
                 String currentTitle = songCursor.getString(songTitle);
                 String currentArtist = songCursor.getString(songArtist);
                 String currentImae = songCursor.getString(imagen);
+
+                if (!currentArtist.equals("<unknown>")){
+                    Log.d("async", "tiene nombre"+ currentArtist);
+                    artistList.add(new Artist(currentArtist,"s","s","s"));
+                }
                 /*try{
                     mediaMetadataRetriever = new MediaMetadataRetriever();
                     mediaMetadataRetriever.setDataSource(currentImae);
@@ -85,10 +90,10 @@ public class AsyncTaskSong extends AsyncTask<String,Integer,List<Song>> {
                 Song song = new Song(currentTitle,currentImae,artistList);
                 Log.d("Main", "doInBackground: "+song.getIdsong());
                 songs.add(song);
+                artistList.clear();
 
             }while (songCursor.moveToNext());
         }
-
         return songs;
     }
     @Override

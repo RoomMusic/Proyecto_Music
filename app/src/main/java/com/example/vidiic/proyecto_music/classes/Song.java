@@ -22,6 +22,9 @@ public class Song {
         this.imageSong = imageSong;
         this.artistList = artistList;
     }
+    public Song(){
+
+    }
 
     public int getIdsong() {
         return idsong;
@@ -56,10 +59,14 @@ public class Song {
     }
 
     public String nameOfArtists(){
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+
         for (Artist artist: this.artistList){
-            stringBuilder.append(artist.getName()+" ");
+            sb.append(artist.getName()+"-");
         }
-        return stringBuilder.toString();
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
+        return sb.toString();
     }
 }
