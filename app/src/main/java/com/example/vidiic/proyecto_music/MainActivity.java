@@ -22,6 +22,7 @@ import com.example.vidiic.proyecto_music.classes.AppUser;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Music;
+import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     private Fragment_Home fragment_home;
     private Fragment_Share fragment_share;
     private Fragment_Music fragment_music;
+    private Fragment_Profile fragment_profile;
 
     private BottomNavigationView nMainNav;
     private FrameLayout frameLayoutMain;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         fragment_home = new Fragment_Home();
         fragment_share = new Fragment_Share();
         fragment_music = new Fragment_Music();
+        fragment_profile = new Fragment_Profile();
 
 
 
@@ -110,17 +113,22 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
             switch (item.getItemId()){
                 case R.id.nav_home :
-                    nMainNav.setItemBackgroundResource(R.color.red);
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     setFragment(fragment_home);
                     return true;
 
                 case R.id.nav_music :
-                     nMainNav.setItemBackgroundResource(R.color.blue);
+                     nMainNav.setItemBackgroundResource(R.color.rojologo);
                      setFragment(fragment_music);
                      return true;
 
+                case R.id.nav_profile :
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
+                    setFragment(fragment_profile);
+                    return true;
+
                 case R.id.nav_share :
-                     nMainNav.setItemBackgroundResource(R.color.green);
+                     nMainNav.setItemBackgroundResource(R.color.rojologo);
                      setFragment(fragment_share);
                      return true;
 
