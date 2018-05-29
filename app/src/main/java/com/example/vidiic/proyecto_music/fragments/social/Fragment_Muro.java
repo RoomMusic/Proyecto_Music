@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments.social.muro;
+package com.example.vidiic.proyecto_music.fragments.social;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
@@ -114,6 +113,8 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
 
         addPublicationBtn.show();
         rv_muro.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
+
 
         add_publication_fragment = new Add_Publication();
 
@@ -125,27 +126,20 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
             //ocultamos el boton de añadir publicacion
             addPublicationBtn.hide();
             rv_muro.setVisibility(View.GONE);
+            swipeRefreshLayout.setVisibility(View.GONE);
 
         });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getAllPublicaciones();
-            }
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+
+        swipeRefreshLayout.post(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+
+
+            getAllPublicaciones();
         });
 
-        //guardamos las publicaciones obtenidas de un metodo de la clase
-        publicacionAdapter = new PublicacionAdapter(getAllPublicaciones());
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-
-        rv_muro.setLayoutManager(layoutManager);
-        rv_muro.setItemAnimator(new DefaultItemAnimator());
-
-        rv_muro.setAdapter(publicacionAdapter);
-
-        publicacionAdapter.notifyDataSetChanged();
 
         // Inflate the layout for this fragment
         return view;
@@ -154,6 +148,8 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
     private Publicacion publicacion;
 
     private List<Publicacion> getAllPublicaciones(){
+
+        //swipeRefreshLayout.setRefreshing(true);
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         publicaciones_list = new ArrayList<>();
@@ -166,7 +162,18 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
                     Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
                 }
 
+                publicacionAdapter = new PublicacionAdapter(publicaciones_list);
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+                rv_muro.setLayoutManager(layoutManager);
+                rv_muro.setItemAnimator(new DefaultItemAnimator());
+
+                rv_muro.setAdapter(publicacionAdapter);
+
                 publicacionAdapter.notifyDataSetChanged();
+
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -198,9 +205,33 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
         mListener = null;
     }
 
+    //actualizamos el adaptador de las publicaciones del muro
     @Override
     public void onRefresh() {
+
         getAllPublicaciones();
+    }
+
+
+    private void updatePublicaciones(){
+
+        swipeRefreshLayout.setRefreshing(true);
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        publicaciones_list = new ArrayList<>();
+
+        firebaseFirestore.collection("publicaciones").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (DocumentSnapshot snapshot : task.getResult()){
+                    publicacion = snapshot.toObject(Publicacion.class);
+                    publicaciones_list.add(publicacion);
+                    Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
+                }
+                swipeRefreshLayout.setRefreshing(false);
+                publicacionAdapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(e -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**

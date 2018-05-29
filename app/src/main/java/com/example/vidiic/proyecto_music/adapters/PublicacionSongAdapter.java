@@ -20,9 +20,11 @@ public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSon
 
     private List<Song> songList;
     private List<Song> selected_song_list;
+    private View publication_main_view;
 
-    public PublicacionSongAdapter(List<Song> songList) {
+    public PublicacionSongAdapter(List<Song> songList, View view) {
         super();
+        this.publication_main_view = view;
         this.songList = songList;
         selected_song_list = new ArrayList<>();
     }
@@ -60,9 +62,13 @@ public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSon
             if (selected_song_list.contains(song)){
                 selected_song_list.remove(song);
                 Log.d("songadapter", "Cancion eliminada " + song.getIdsong() + selected_song_list.size());
+                //vh.song_name.setText("");
+                ((TextView)publication_main_view.findViewById(R.id.songNameAddPublication)).setText("");
             }else{
                 selected_song_list.add(song);
                 Log.d("songadapter", "Cancion añadida " + song.getIdsong() + selected_song_list.size());
+                //vh.song_name.setText(song.getName());
+                ((TextView)publication_main_view.findViewById(R.id.songNameAddPublication)).setText(song.getName());
             }
 
             Log.d("songadapter", "Cancion seleccionada " + song.getName());

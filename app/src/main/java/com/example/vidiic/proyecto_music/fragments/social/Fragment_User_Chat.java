@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments.social.chat;
+package com.example.vidiic.proyecto_music.fragments.social;
 
 import android.app.Activity;
 import android.content.Intent;

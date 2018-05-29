@@ -47,9 +47,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_toRightOf="@+id/relativePublicationData"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="5dp">
+            android:layout_centerVertical="true">
 
             <ImageButton
                 android:id="@+id/btnAsk"

@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.ViewPagerAdapter;
-import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_User_Chat;
-import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Muro;
 
 /**
  * A simple {@link Fragment} subclass.
