@@ -113,6 +113,8 @@ public class Fragment_Muro extends Fragment {
 
         rv_muro.setAdapter(publicacionAdapter);
 
+        publicacionAdapter.notifyDataSetChanged();
+
         // Inflate the layout for this fragment
         return view;
     }

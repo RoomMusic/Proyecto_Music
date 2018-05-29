@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
+import java.util.List;
 
 public class Publicacion {
 
@@ -35,6 +36,7 @@ public class Publicacion {
 
         return publication_is_added;
     }
+
 
     public String getPublication_id() {
         return publication_id;

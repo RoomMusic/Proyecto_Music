@@ -48,8 +48,20 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/cancel_add_publication"/>
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative_publication_details"
+        android:id="@+id/relative_publication_song_list">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_song_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 

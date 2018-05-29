@@ -5,12 +5,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
+import com.example.vidiic.proyecto_music.adapters.PublicacionSongAdapter;
+import com.example.vidiic.proyecto_music.classes.Song;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,11 +42,13 @@ public class Add_Publication extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-    private FloatingActionButton success_add_publication_btn;
+    private FloatingActionButton success_add_publication_btn, show_songs_btn;
     private Fragment_Muro fragment_muro;
     private RelativeLayout relative_publication_details;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private RecyclerView rv_song_list;
+    private PublicacionSongAdapter publicacionSongAdapter;
 
     public Add_Publication() {
         // Required empty public constructor
@@ -79,6 +88,8 @@ public class Add_Publication extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add__publication, container, false);
         success_add_publication_btn = view.findViewById(R.id.success_add_publication);
         relative_publication_details = view.findViewById(R.id.relative_publication_details);
+        show_songs_btn = view.findViewById(R.id.find_song_btn);
+        rv_song_list = view.findViewById(R.id.rv_song_list);
 
         fragment_muro = new Fragment_Muro();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -96,6 +107,18 @@ public class Add_Publication extends Fragment {
             relative_publication_details.setVisibility(View.GONE);
         });
 
+        //mostramos las canciones del usuario
+        show_songs_btn.setOnClickListener(v -> {
+            publicacionSongAdapter = new PublicacionSongAdapter(Song.getSongList(firebaseFirestore, user_id));
+
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+
+            rv_song_list.setLayoutManager(layoutManager);
+            rv_song_list.setItemAnimator(new DefaultItemAnimator());
+            rv_song_list.setAdapter(publicacionSongAdapter);
+            publicacionSongAdapter.notifyDataSetChanged();
+            Log.d("add_publicacion", "entro cabron");
+        });
 
 
 
@@ -103,6 +126,7 @@ public class Add_Publication extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
 
 
 
