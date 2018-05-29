@@ -23,8 +23,6 @@ public class Song {
     private static List<Song> song_list = new ArrayList<>();
     private static Song song;
 
-
-
     private int idsong;
     private String name;
     private String artist;
@@ -66,7 +64,6 @@ public class Song {
                 }
             }
         });
-
 
         return song_list;
     }

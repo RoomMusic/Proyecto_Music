@@ -21,10 +21,12 @@ import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.example.vidiic.proyecto_music.classes.Song;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -109,18 +111,20 @@ public class Add_Publication extends Fragment {
         success_add_publication_btn.setOnClickListener(v -> {
 
             //obtenemos los datos de la cancion seleccionada
-            if (publicacionSongAdapter.getSongList().size() > 1) {
-                Log.d("songadapter", "solo pueds seleccionar una cancion: " + publicacionSongAdapter.getSongList().size());
+            if (publicacionSongAdapter.getSelectedSongList().size() > 1) {
+                Log.d("songadapter", "solo pueds seleccionar una cancion: " + publicacionSongAdapter.getSelectedSongList().size());
+                Toast.makeText(view.getContext(), "Solo puedes seleccionar una cancion. Seleccionadas: " + publicacionSongAdapter.getSelectedSongList().size(), Toast.LENGTH_SHORT).show();
             } else {
 
-                Publicacion publicacion = new Publicacion("2", new Date(), UserApp.getUserById(user_id, firebaseFirestore), publicacionSongAdapter.getSongList().get(0));
+                Publicacion publicacion = new Publicacion("1", new Date(), publicacionSongAdapter.getSelectedSongList().get(0));
 
                 //agregamos la publicacion a firebase
-                Publicacion.addPublicationToFirebase(firebaseFirestore, publicacion);
+                addPublicationToFirebase(user_id, firebaseFirestore, publicacion, view);
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
                 relative_publication_details.setVisibility(View.GONE);
                 relative_song_list.setVisibility(View.GONE);
+
                 Toast.makeText(view.getContext(), "Cancion añadida", Toast.LENGTH_SHORT).show();
             }
         });
@@ -128,7 +132,8 @@ public class Add_Publication extends Fragment {
 
         //mostramos las canciones del usuario
         show_songs_btn.setOnClickListener(v -> {
-            publicacionSongAdapter = new PublicacionSongAdapter(Song.getSongList(firebaseFirestore, user_id));
+
+            publicacionSongAdapter = new PublicacionSongAdapter(getSongList(firebaseFirestore, user_id));
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
 
@@ -136,7 +141,7 @@ public class Add_Publication extends Fragment {
             rv_song_list.setItemAnimator(new DefaultItemAnimator());
             rv_song_list.setAdapter(publicacionSongAdapter);
 
-            publicacionSongAdapter.notifyDataSetChanged();
+            //publicacionSongAdapter.notifyDataSetChanged();
             Log.d("add_publicacion", "entro cabron");
             Toast.makeText(view.getContext(), "Canciones mostradas", Toast.LENGTH_SHORT).show();
         });
@@ -151,6 +156,47 @@ public class Add_Publication extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private UserApp app_user;
+
+    private void addPublicationToFirebase(String user_id, FirebaseFirestore firebaseFirestore, Publicacion publicacion, View view){
+
+
+        firebaseFirestore.collection("users").document(user_id).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) app_user = documentSnapshot.toObject(UserApp.class);
+            Log.d("publicaciones", "username: " + app_user.getEmail());
+
+            publicacion.setPublication_user(app_user);
+
+            firebaseFirestore.collection("publicaciones").document(publicacion.getPublication_id()).set(publicacion)
+                    .addOnCompleteListener(aVoid -> Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show());
+        });
+
+    }
+
+
+
+    private Song song;
+    private List<Song> song_list;
+
+    public List<Song> getSongList(FirebaseFirestore firebaseFirestore, String user_id){
+
+        song_list = new ArrayList<>();
+
+        firebaseFirestore.collection("users").document(user_id).collection("songlist").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (DocumentSnapshot snapshot : task.getResult()){
+                    song = snapshot.toObject(Song.class);
+                    Log.d("getsong", "song name: " + song.getId() + " " + song.getName());
+                    song_list.add(song);
+                }
+
+                publicacionSongAdapter.notifyDataSetChanged();
+            }
+        });
+
+        return song_list;
     }
 
 

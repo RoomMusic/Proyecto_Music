@@ -3,6 +3,7 @@ package com.example.vidiic.proyecto_music.classes;
 import android.media.Image;
 import android.util.Log;
 
+import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,44 +27,18 @@ public class Publicacion {
 
     public Publicacion(){}
 
+    public Publicacion(String publication_id, Date pulication_date,Song publication_song) {
+        this.publication_id = publication_id;
+        this.pulication_date = pulication_date;
+        this.publication_song = publication_song;
+    }
+
     public Publicacion(String publication_id, Date pulication_date, UserApp publication_user, Song publication_song) {
         this.publication_id = publication_id;
         this.pulication_date = pulication_date;
         this.publication_user = publication_user;
         this.publication_song = publication_song;
     }
-
-    public static boolean addPublicationToFirebase(FirebaseFirestore firebaseFirestore, Publicacion publicacion){
-
-        firebaseFirestore.collection("publicaciones").document(publicacion.getPublication_id()).set(publicacion)
-                .addOnSuccessListener(aVoid -> publication_is_added = true)
-                .addOnFailureListener(e ->publication_is_added = false);
-
-        return publication_is_added;
-    }
-
-
-
-    public static List<Publicacion> getAllPublicaciones(FirebaseFirestore firebaseFirestore){
-
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
-        firebaseFirestore.collection("publicaciones").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                for (DocumentSnapshot snapshot : task.getResult()){
-                    publicacion = snapshot.toObject(Publicacion.class);
-                    publicaciones_list.add(publicacion);
-                    Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
-                }
-            }
-        });
-
-
-
-        return publicaciones_list;
-    }
-
 
     public String getPublication_id() {
         return publication_id;

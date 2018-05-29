@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_margin="5dp">
 
         <ImageView
@@ -24,7 +24,8 @@
             android:id="@+id/checkbox_add_song"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
 
     </RelativeLayout>
 

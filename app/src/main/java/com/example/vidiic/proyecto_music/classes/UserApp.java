@@ -43,6 +43,7 @@ public class UserApp {
         firebaseFirestore.collection("users").document(id).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) app_user = documentSnapshot.toObject(UserApp.class);
             Log.d("publicaciones", "username: " + app_user.getEmail());
+
         });
 
         return app_user;
