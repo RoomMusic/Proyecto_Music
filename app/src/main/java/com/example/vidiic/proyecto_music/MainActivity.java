@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
+import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;
     private Fragment_Share fragment_share;
+    private Fragment_Profile fragment_profile;
+
 
     private BottomNavigationView nMainNav;
     private FrameLayout frameLayoutMain;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
         fragment_listSong = new Fragment_ListSong();
         fragment_home = new Fragment_Home();
         fragment_share = new Fragment_Share();
+        fragment_profile = new Fragment_Profile();
 
         nMainNav = (BottomNavigationView)findViewById(R.id.main_nav);
         frameLayoutMain = (FrameLayout) findViewById(R.id.contenedorFragment);
@@ -70,6 +74,11 @@ public class MainActivity extends AppCompatActivity implements Fragment_ListSong
                     case R.id.nav_music :
                         nMainNav.setItemBackgroundResource(R.color.rojologo);
                         setFragment(fragment_listSong);
+                        return true;
+
+                    case R.id.nav_profile :
+                        nMainNav.setItemBackgroundResource(R.color.rojologo);
+                        setFragment(fragment_profile);
                         return true;
 
                     case R.id.nav_share :
