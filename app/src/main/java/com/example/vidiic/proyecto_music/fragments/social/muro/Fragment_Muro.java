@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +34,7 @@ import java.util.List;
  * Use the {@link Fragment_Muro#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Muro extends Fragment {
+public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,6 +56,7 @@ public class Fragment_Muro extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private RelativeLayout relative_muro;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -104,6 +106,8 @@ public class Fragment_Muro extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        swipeRefreshLayout = view.findViewById(R.id.swipe_layout_muro);
+
         String user_id = firebaseAuth.getCurrentUser().getUid();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -124,6 +128,12 @@ public class Fragment_Muro extends Fragment {
 
         });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllPublicaciones();
+            }
+        });
 
         //guardamos las publicaciones obtenidas de un metodo de la clase
         publicacionAdapter = new PublicacionAdapter(getAllPublicaciones());
@@ -186,6 +196,11 @@ public class Fragment_Muro extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        getAllPublicaciones();
     }
 
     /**

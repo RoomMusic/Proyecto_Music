@@ -13,41 +13,35 @@ import java.util.List;
 
 public class Publicacion {
 
-    private String publication_id;
+    private int publication_id;
     private Date pulication_date;
     private UserApp publication_user;
     private Song publication_song;
     private Image publication_image;
 
+    private static int id_publicacion = 0;
 
     public Publicacion(){}
 
-    public Publicacion(String publication_id, Date pulication_date,Song publication_song) {
-        this.publication_id = publication_id;
-        this.pulication_date = pulication_date;
+    public Publicacion(Date publication_date,Song publication_song) {
+        this.publication_id = id_publicacion++;
+        this.pulication_date = publication_date;
         this.publication_song = publication_song;
     }
 
-//    private void generatePublicacionId(){
-//
-//
-//
-//
-//        return "";
-//    }
 
-    public Publicacion(String publication_id, Date pulication_date, UserApp publication_user, Song publication_song) {
-        this.publication_id = publication_id;
+    public Publicacion(Date pulication_date, UserApp publication_user, Song publication_song) {
+        this.publication_id = id_publicacion++;
         this.pulication_date = pulication_date;
         this.publication_user = publication_user;
         this.publication_song = publication_song;
     }
 
-    public String getPublication_id() {
+    public int getPublication_id() {
         return publication_id;
     }
 
-    public void setPublication_id(String publication_id) {
+    public void setPublication_id(int publication_id) {
         this.publication_id = publication_id;
     }
 

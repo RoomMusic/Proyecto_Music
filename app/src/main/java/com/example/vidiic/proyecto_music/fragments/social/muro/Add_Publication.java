@@ -116,7 +116,7 @@ public class Add_Publication extends Fragment {
                 Toast.makeText(view.getContext(), "Solo puedes seleccionar una cancion. Seleccionadas: " + publicacionSongAdapter.getSelectedSongList().size(), Toast.LENGTH_SHORT).show();
             } else {
 
-                Publicacion publicacion = new Publicacion("2", new Date(), publicacionSongAdapter.getSelectedSongList().get(0));
+                Publicacion publicacion = new Publicacion(new Date(), publicacionSongAdapter.getSelectedSongList().get(0));
 
                 //agregamos la publicacion a firebase
                 addPublicationToFirebase(user_id, firebaseFirestore, publicacion, view);
@@ -169,7 +169,7 @@ public class Add_Publication extends Fragment {
 
             publicacion.setPublication_user(app_user);
 
-            firebaseFirestore.collection("publicaciones").document(publicacion.getPublication_id()).set(publicacion)
+            firebaseFirestore.collection("publicaciones").document(String.valueOf(publicacion.getPublication_id())).set(publicacion)
                     .addOnCompleteListener(aVoid -> Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show());
         });
 

@@ -16,7 +16,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="7dp"/>
 
         <RelativeLayout
             android:id="@+id/relativePublicationData"
@@ -24,7 +24,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             android:layout_width="200dp"
             android:layout_height="75dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true">
 
             <TextView
@@ -38,6 +38,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:text="song name"
+                android:textSize="12dp"
                 android:layout_below="@+id/userNameMuro"/>
 
         </RelativeLayout>
@@ -46,7 +47,9 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_toRightOf="@+id/relativePublicationData"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="5dp">
 
             <ImageButton
                 android:id="@+id/btnAsk"
