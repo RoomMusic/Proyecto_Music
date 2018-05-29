@@ -19,35 +19,38 @@ import java.util.List;
  */
 
 public class Song {
+
     private static int id = 1;
-    private static List<Song> song_list = new ArrayList<>();
-    private static Song song;
-
-
 
     private int idsong;
     private String name;
-    private String artist;
     private String imageSong;
+    private List<Artist> artistList;
+
 
     public Song(){}
 
-    public Song(String name, String artist, String imageSong) {
-        this.idsong  = ++id;
+    public Song( String name, String imageSong, List<Artist> artistList) {
+        this.idsong = ++id;
         this.name = name;
-        this.artist = artist;
         this.imageSong = imageSong;
+        this.artistList = artistList;
     }
-    public int getId() {
+
+    public int getIdsong() {
         return idsong;
+    }
+
+    public void setIdsong(int idsong) {
+        this.idsong = idsong;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getArtist() {
-        return artist;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImageSong() {
@@ -55,28 +58,23 @@ public class Song {
 
     }
 
-    public static List<Song> getSongList(FirebaseFirestore firebaseFirestore,  String user_id){
-
-        firebaseFirestore.collection("users").document(user_id).collection("songlist").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                for (DocumentSnapshot snapshot : task.getResult()){
-                    song = snapshot.toObject(Song.class);
-                    Log.d("getsong", "song name: " + song.getName());
-                    song_list.add(song);
-                }
-            }
-        });
-
-
-        return song_list;
+    public void setImageSong(String imageSong) {
+        this.imageSong = imageSong;
     }
 
-    @Override
-    public String toString() {
-        return "Song{" +
-                "name='" + name + '\'' +
-                ", artist='" + artist + '\'' +
-                ", imageSong=" + imageSong +
-                '}';
+    public List<Artist> getArtistList() {
+        return artistList;
+    }
+
+    public void setArtistList(List<Artist> artistList) {
+        this.artistList = artistList;
+    }
+
+    public String nameOfArtists(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Artist artist: this.artistList){
+            stringBuilder.append(artist.getName()+" ");
+        }
+        return stringBuilder.toString();
     }
 }

@@ -43,7 +43,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
     @Override
     public void finished(List<Song> list) {
         for(Song song: list) {
-            db.collection("users").document(idUser).collection("songlist").document("Song-"+song.getId()).set(song);
+            db.collection("users").document(idUser).collection("songlist").document("Song-"+song.getIdsong()).set(song);
         }
     }
 }

@@ -13,6 +13,8 @@ public class Artist {
     private String category;
     private String description;
 
+    public Artist(){}
+
     public Artist(String name, String image, String category, String description) {
         this.name = name;
         this.image = image;

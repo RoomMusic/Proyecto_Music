@@ -119,9 +119,7 @@ public class Fragment_ListSong extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for(DocumentSnapshot documentSnapshot: task.getResult()){
-                            Song song = new Song(documentSnapshot.getString("name"),
-                                    documentSnapshot.getString("artist"),
-                                    documentSnapshot.getString("imageSong"));
+                            Song song = documentSnapshot.toObject(Song.class);
                             songList.add(song);
                         }
                         adapterSongs = new AdapterSong(songList);

@@ -8,15 +8,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
 import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -77,6 +80,7 @@ public class Fragment_Muro extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,18 +102,16 @@ public class Fragment_Muro extends Fragment {
 
         rv_muro = view.findViewById(R.id.recyclerViewMuro);
 
-        publicaciones_list = new ArrayList<>();
-
         firebaseAuth = FirebaseAuth.getInstance();
+
+        String user_id = firebaseAuth.getCurrentUser().getUid();
+
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         addPublicationBtn.show();
         rv_muro.setVisibility(View.VISIBLE);
 
         add_publication_fragment = new Add_Publication();
-
-        //guardamos las publicaciones obtenidas de un metodo de la clase
-        publicacionAdapter = new PublicacionAdapter(Publicacion.getAllPublicaciones(firebaseFirestore));
 
         //añadimos una publicacion
         addPublicationBtn.setOnClickListener(v -> {
@@ -123,9 +125,10 @@ public class Fragment_Muro extends Fragment {
         });
 
 
+        //guardamos las publicaciones obtenidas de un metodo de la clase
+        publicacionAdapter = new PublicacionAdapter(getAllPublicaciones());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-
 
         rv_muro.setLayoutManager(layoutManager);
         rv_muro.setItemAnimator(new DefaultItemAnimator());
@@ -136,6 +139,28 @@ public class Fragment_Muro extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private Publicacion publicacion;
+
+    private List<Publicacion> getAllPublicaciones(){
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        publicaciones_list = new ArrayList<>();
+
+        firebaseFirestore.collection("publicaciones").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (DocumentSnapshot snapshot : task.getResult()){
+                    publicacion = snapshot.toObject(Publicacion.class);
+                    publicaciones_list.add(publicacion);
+                    Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
+                }
+
+                publicacionAdapter.notifyDataSetChanged();
+            }
+        });
+
+        return publicaciones_list;
     }
 
 

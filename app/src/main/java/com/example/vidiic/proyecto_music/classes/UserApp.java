@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Vidiic on 11/03/2018.
@@ -21,7 +22,7 @@ public class UserApp {
     private boolean firstIn;
     private ImageView userImage;
     private Date registerDate;
-    private static UserApp app_user = new UserApp();
+    private List<Song> songList;
 
 
 
@@ -35,17 +36,6 @@ public class UserApp {
         this.registerDate = registerDate;
         this.firstIn = firstIn;
         this.userName = userName;
-    }
-
-    public static UserApp getUserById(String id, FirebaseFirestore firebaseFirestore){
-
-
-        firebaseFirestore.collection("users").document(id).get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) app_user = documentSnapshot.toObject(UserApp.class);
-            Log.d("publicaciones", "username: " + app_user.getEmail());
-        });
-
-        return app_user;
     }
 
     public ImageView getUserImage() {
@@ -88,4 +78,11 @@ public class UserApp {
         return registerDate;
     }
 
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songList) {
+        this.songList = songList;
+    }
 }

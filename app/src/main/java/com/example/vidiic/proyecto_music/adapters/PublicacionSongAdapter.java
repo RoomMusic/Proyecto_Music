@@ -13,29 +13,28 @@ import android.widget.TextView;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSongAdapter.ViewHolder>{
 
     private List<Song> songList;
+    private List<Song> selected_song_list;
 
     public PublicacionSongAdapter(List<Song> songList) {
         super();
         this.songList = songList;
-        Song s = new Song("te bote", "bad bunny", "");
-        songList.add(s);
+        selected_song_list = new ArrayList<>();
     }
 
-    public List<Song> getSongList() {
-        return songList;
+    public List<Song> getSelectedSongList() {
+        return selected_song_list;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View song_item = LayoutInflater.from(parent.getContext()).inflate(R.layout.publicacion_song_list_item, parent, false);
-
-
 
 
         return new SongPostViewHolder(song_item);
@@ -48,32 +47,26 @@ public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSon
 
         Song song = songList.get(position);
 
-
         SongPostViewHolder vh = (SongPostViewHolder) holder;
 
-        if (song.getImageSong().equals("")) vh.songImage.setImageResource(R.drawable.ic_action_music);
+        if (!song.getImageSong().equals("")) vh.songImage.setImageResource(R.drawable.ic_action_music);
 
         if (!song.getName().equals("")) vh.song_name.setText(song.getName());
+
         else vh.song_name.setText("song name");
 
-        vh.add_song_check_box.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        vh.add_song_check_box.setOnClickListener(v -> {
 
-                if (!check_box){
-                    //añadimos cancion al array
-                    songList.add(song);
-                    check_box = true;
-                    Log.d("songadapter", "Cancion añadida " + song.getName() + songList.size());
-                }else{
-                    //eliminamos la cancion
-                    songList.remove(song);
-                    check_box = false;
-                    Log.d("songadapter", "Cancion eliminada " + song.getName() + songList.size());
-
-                }
-                Log.d("songadapter", "Cancion seleccionada " + song.getName());
+            if (selected_song_list.contains(song)){
+                selected_song_list.remove(song);
+                Log.d("songadapter", "Cancion eliminada " + song.getIdsong() + selected_song_list.size());
+            }else{
+                selected_song_list.add(song);
+                Log.d("songadapter", "Cancion añadida " + song.getIdsong() + selected_song_list.size());
             }
+
+            Log.d("songadapter", "Cancion seleccionada " + song.getName());
+            Log.d("songadapter", "Tamaño array canciones: " + selected_song_list.size());
         });
 
     }
