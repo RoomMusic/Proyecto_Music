@@ -1,12 +1,12 @@
 package com.example.vidiic.proyecto_music.classes;
 
 import android.media.Image;
-import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,14 +14,19 @@ public class Publicacion {
 
 
     private static boolean publication_is_added;
+    private static List<Publicacion> publicaciones_list = new ArrayList<>();
+    private static Publicacion publicacion = new Publicacion();
+
     private String publication_id;
     private Date pulication_date;
-    private AppUser publication_user;
+    private UserApp publication_user;
     private Song publication_song;
     private Image publication_image;
 
 
-    public Publicacion(String publication_id, Date pulication_date, AppUser publication_user, Song publication_song) {
+    public Publicacion(){}
+
+    public Publicacion(String publication_id, Date pulication_date, UserApp publication_user, Song publication_song) {
         this.publication_id = publication_id;
         this.pulication_date = pulication_date;
         this.publication_user = publication_user;
@@ -35,6 +40,28 @@ public class Publicacion {
                 .addOnFailureListener(e ->publication_is_added = false);
 
         return publication_is_added;
+    }
+
+
+
+    public static List<Publicacion> getAllPublicaciones(FirebaseFirestore firebaseFirestore){
+
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection("publicaciones").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (DocumentSnapshot snapshot : task.getResult()){
+                    publicacion = snapshot.toObject(Publicacion.class);
+                    publicaciones_list.add(publicacion);
+                    Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
+                }
+            }
+        });
+
+
+
+        return publicaciones_list;
     }
 
 
@@ -54,11 +81,11 @@ public class Publicacion {
         this.pulication_date = pulication_date;
     }
 
-    public AppUser getPublication_user() {
+    public UserApp getPublication_user() {
         return publication_user;
     }
 
-    public void setPublication_user(AppUser publication_user) {
+    public void setPublication_user(UserApp publication_user) {
         this.publication_user = publication_user;
     }
 

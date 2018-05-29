@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments.social;
+package com.example.vidiic.proyecto_music.fragments.social.muro;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +15,22 @@ import android.widget.RelativeLayout;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
-import com.example.vidiic.proyecto_music.adapters.PublicacionSongAdapter;
-import com.example.vidiic.proyecto_music.classes.Song;
+import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Add_Publication.OnFragmentInteractionListener} interface
+ * {@link Fragment_Muro.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Add_Publication#newInstance} factory method to
+ * Use the {@link Fragment_Muro#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Add_Publication extends Fragment {
+public class Fragment_Muro extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,15 +43,19 @@ public class Add_Publication extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-    private FloatingActionButton success_add_publication_btn, show_songs_btn;
-    private Fragment_Muro fragment_muro;
-    private RelativeLayout relative_publication_details;
+    //variables
+    private FloatingActionButton addPublicationBtn;
+    private Add_Publication add_publication_fragment;
+    private RecyclerView rv_muro;
+    private List<Publicacion> publicaciones_list;
+    private PublicacionAdapter publicacionAdapter;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private RecyclerView rv_song_list;
-    private PublicacionSongAdapter publicacionSongAdapter;
+    private RelativeLayout relative_muro;
 
-    public Add_Publication() {
+
+
+    public Fragment_Muro() {
         // Required empty public constructor
     }
 
@@ -60,11 +65,11 @@ public class Add_Publication extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Add_Publication.
+     * @return A new instance of fragment Fragment_Muro.
      */
     // TODO: Rename and change types and number of parameters
-    public static Add_Publication newInstance(String param1, String param2) {
-        Add_Publication fragment = new Add_Publication();
+    public static Fragment_Muro newInstance(String param1, String param2) {
+        Fragment_Muro fragment = new Fragment_Muro();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,57 +84,59 @@ public class Add_Publication extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_add__publication, container, false);
-        success_add_publication_btn = view.findViewById(R.id.success_add_publication);
-        relative_publication_details = view.findViewById(R.id.relative_publication_details);
-        show_songs_btn = view.findViewById(R.id.find_song_btn);
-        rv_song_list = view.findViewById(R.id.rv_song_list);
+        View view = inflater.inflate(R.layout.fragment_fragment__muro, container, false);
 
-        fragment_muro = new Fragment_Muro();
+        addPublicationBtn = view.findViewById(R.id.btnAddPublication);
+
+        rv_muro = view.findViewById(R.id.recyclerViewMuro);
+
+        publicaciones_list = new ArrayList<>();
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        String user_id = firebaseAuth.getCurrentUser().getUid();
 
-        //añadimos la publicacion
-        success_add_publication_btn.setOnClickListener(v -> {
+        addPublicationBtn.show();
+        rv_muro.setVisibility(View.VISIBLE);
 
-            //obtenemos los datos de la cancion desde firebase
+        add_publication_fragment = new Add_Publication();
 
+        //guardamos las publicaciones obtenidas de un metodo de la clase
+        publicacionAdapter = new PublicacionAdapter(Publicacion.getAllPublicaciones(firebaseFirestore));
 
+        //añadimos una publicacion
+        addPublicationBtn.setOnClickListener(v -> {
+            //mostramos el fragment para añadir una publicacion
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_publication, add_publication_fragment).commit();
 
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-            relative_publication_details.setVisibility(View.GONE);
-        });
+            //ocultamos el boton de añadir publicacion
+            addPublicationBtn.hide();
+            rv_muro.setVisibility(View.GONE);
 
-        //mostramos las canciones del usuario
-        show_songs_btn.setOnClickListener(v -> {
-            publicacionSongAdapter = new PublicacionSongAdapter(Song.getSongList(firebaseFirestore, user_id));
-
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-
-            rv_song_list.setLayoutManager(layoutManager);
-            rv_song_list.setItemAnimator(new DefaultItemAnimator());
-            rv_song_list.setAdapter(publicacionSongAdapter);
-            publicacionSongAdapter.notifyDataSetChanged();
-            Log.d("add_publicacion", "entro cabron");
         });
 
 
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+
+
+        rv_muro.setLayoutManager(layoutManager);
+        rv_muro.setItemAnimator(new DefaultItemAnimator());
+
+        rv_muro.setAdapter(publicacionAdapter);
+
+        publicacionAdapter.notifyDataSetChanged();
 
         // Inflate the layout for this fragment
         return view;
     }
-
-
-
-
 
 
     // TODO: Rename method, update argument and hook method into UI event

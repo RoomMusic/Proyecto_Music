@@ -33,6 +33,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         Publicacion publicacion = publiaciones_list.get(position);
 
 

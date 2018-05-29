@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments.social;
+package com.example.vidiic.proyecto_music.fragments.social.chat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.UserChatAdapter;
 import com.example.vidiic.proyecto_music.chat.ChatActivity;
-import com.example.vidiic.proyecto_music.classes.AppUser;
+import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -70,8 +70,8 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     }
 
     private RecyclerView rvUserChat;
-    private AppUser appUser;
-    private List<AppUser> userList;
+    private UserApp userApp;
+    private List<UserApp> userList;
     private UserChatAdapter userChatAdapter;
     private FirebaseFirestore firebaseFirestore;
     private EditText searchUser;
@@ -110,12 +110,12 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
                 {
                     if (documentSnapshot.exists()) {
 
-                        appUser = documentSnapshot.toObject(AppUser.class);
-                        Log.d("sergio", "usuario creado joder " + appUser.getUserid());
+                        userApp = documentSnapshot.toObject(UserApp.class);
+                        Log.d("sergio", "usuario creado joder " + userApp.getUserid());
 
 
                         //conectamos el usuario alservicio de senbiird
-                        SendBird.connect(appUser.getUserid(), "", (user, e) -> {
+                        SendBird.connect(userApp.getUserid(), "", (user, e) -> {
                             if (e != null) {
 
                                 Toast.makeText(view.getContext(), "ERROR: " + e.getCode(), Toast.LENGTH_SHORT).show();
@@ -126,7 +126,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
                             Toast.makeText(view.getContext(), "USUARIO CONECTADO", Toast.LENGTH_SHORT).show();
 
                             //actualizamos el nombre de usuario en la bbdd de send bird
-                            SendBird.updateCurrentUserInfo(appUser.getUserName(), null, e1 -> Log.d("sergio", "nombre de usuario actualizado en la bbdd de sendbird"));
+                            SendBird.updateCurrentUserInfo(userApp.getUserName(), null, e1 -> Log.d("sergio", "nombre de usuario actualizado en la bbdd de sendbird"));
 
 
                         });
@@ -141,9 +141,9 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
                 //recorremos todos los objetos obtenidos de la base de datos
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
                     //condicion para evitar que el usuario que esta usando la app le aparezca su usuario en las listas de amigos
-                    if (!documentSnapshot.toObject(AppUser.class).getUserid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        userList.add(documentSnapshot.toObject(AppUser.class));
-                        Log.d("sergio", "USUARIO AÑADIDO " + documentSnapshot.toObject(AppUser.class).getUserName());
+                    if (!documentSnapshot.toObject(UserApp.class).getUserid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        userList.add(documentSnapshot.toObject(UserApp.class));
+                        Log.d("sergio", "USUARIO AÑADIDO " + documentSnapshot.toObject(UserApp.class).getUserName());
                     }
 
                 }
@@ -191,7 +191,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     }
 
     @Override
-    public void itemClicked(View view, AppUser user) {
+    public void itemClicked(View view, UserApp user) {
         Toast.makeText(view.getContext(), "User ID" + user.getUserid(), Toast.LENGTH_SHORT).show();
 
         //Log.d("sergio", "CLICK USUARIO");
@@ -199,7 +199,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
 
         Intent chatIntent = new Intent(activityShare, ChatActivity.class);
 
-        String[] userIds = {appUser.getUserid(), user.getUserid()};
+        String[] userIds = {userApp.getUserid(), user.getUserid()};
 
         chatIntent.putExtra("userids", userIds);
 

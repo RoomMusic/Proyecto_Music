@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.social.Add_Publication"
+    tools:context=".fragments.social.muro.Add_Publication"
     android:id="@+id/relative_add_publication">
 
     <RelativeLayout
@@ -28,6 +28,7 @@
             android:layout_height="30dp"
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
+            android:backgroundTint="@color/blue"
             android:layout_toRightOf="@+id/songNameAddPublication"/>
 
         <android.support.design.widget.FloatingActionButton
@@ -37,6 +38,7 @@
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
             app:rippleColor="@color/blue"
+            android:backgroundTint="@color/red"
             android:layout_toRightOf="@+id/find_song_btn"/>
 
 
@@ -46,6 +48,7 @@
             android:layout_height="30dp"
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
+            android:backgroundTint="@color/green"
             android:layout_toRightOf="@+id/cancel_add_publication"/>
 
     </RelativeLayout>

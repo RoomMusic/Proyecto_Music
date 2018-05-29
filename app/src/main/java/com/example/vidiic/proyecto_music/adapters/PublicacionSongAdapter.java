@@ -22,6 +22,12 @@ public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSon
     public PublicacionSongAdapter(List<Song> songList) {
         super();
         this.songList = songList;
+        Song s = new Song("te bote", "bad bunny", "");
+        songList.add(s);
+    }
+
+    public List<Song> getSongList() {
+        return songList;
     }
 
     @Override
@@ -42,6 +48,7 @@ public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSon
 
         Song song = songList.get(position);
 
+
         SongPostViewHolder vh = (SongPostViewHolder) holder;
 
         if (song.getImageSong().equals("")) vh.songImage.setImageResource(R.drawable.ic_action_music);
@@ -57,15 +64,15 @@ public class PublicacionSongAdapter  extends RecyclerView.Adapter<PublicacionSon
                     //añadimos cancion al array
                     songList.add(song);
                     check_box = true;
-                    Log.d("songadapter", "Cancion añadida" + song.getName());
+                    Log.d("songadapter", "Cancion añadida " + song.getName() + songList.size());
                 }else{
                     //eliminamos la cancion
                     songList.remove(song);
                     check_box = false;
-                    Log.d("songadapter", "Cancion eliminada" + song.getName());
+                    Log.d("songadapter", "Cancion eliminada " + song.getName() + songList.size());
 
                 }
-                Log.d("songadapter", "Cancion seleccionada" + song.getName());
+                Log.d("songadapter", "Cancion seleccionada " + song.getName());
             }
         });
 

@@ -30,6 +30,8 @@ public class Song {
     private String artist;
     private String imageSong;
 
+    public Song(){}
+
     public Song(String name, String artist, String imageSong) {
         this.idsong  = ++id;
         this.name = name;
@@ -55,15 +57,12 @@ public class Song {
 
     public static List<Song> getSongList(FirebaseFirestore firebaseFirestore,  String user_id){
 
-        firebaseFirestore.collection("users").document(user_id).collection("songlist").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (DocumentSnapshot snapshot : task.getResult()){
-                        song = snapshot.toObject(Song.class);
-                        Log.d("getsong", "song name: " + song.getName());
-                        song_list.add(song);
-                    }
+        firebaseFirestore.collection("users").document(user_id).collection("songlist").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                for (DocumentSnapshot snapshot : task.getResult()){
+                    song = snapshot.toObject(Song.class);
+                    Log.d("getsong", "song name: " + song.getName());
+                    song_list.add(song);
                 }
             }
         });

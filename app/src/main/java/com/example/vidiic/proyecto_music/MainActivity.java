@@ -15,14 +15,13 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.vidiic.proyecto_music.classes.AppUser;
+import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
-import com.example.vidiic.proyecto_music.fragments.social.Add_Publication;
-import com.example.vidiic.proyecto_music.fragments.social.Fragment_Muro;
+import com.example.vidiic.proyecto_music.fragments.social.muro.Add_Publication;
+import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Muro;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_Social;
-import com.example.vidiic.proyecto_music.fragments.social.Fragment_User_Chat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
     private String userEmail, userKey;
-    private AppUser userAux;
+    private UserApp userAux;
 
 
 
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         //buscamos el usuario a traves de la clave que podemos recoger utilizando FirebaseAuth
         firebaseFirestore.collection("users").document(userKey).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                userAux = task.getResult().toObject(AppUser.class);
+                userAux = task.getResult().toObject(UserApp.class);
                 Log.d("sergio", "NICKNAME: " + userAux.getUserName());
             } else {
                 Log.d("sergio", "no existe");
