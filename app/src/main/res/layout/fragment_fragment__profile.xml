@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:background="@color/rojologo"/>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp">
-            
+
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -31,7 +31,7 @@
                 android:src="@drawable/profile"
                 android:layout_centerHorizontal="true"
                 android:elevation="2dp"/>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     app:contentPaddingLeft="15dp"
                     app:contentPaddingBottom="15dp"
                     app:cardCornerRadius="15dp">
-                    
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

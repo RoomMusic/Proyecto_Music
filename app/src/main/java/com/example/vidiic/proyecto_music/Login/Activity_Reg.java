@@ -31,6 +31,6 @@ public class Activity_Reg extends AppCompatActivity {
 
         rellay3 = (RelativeLayout) findViewById(R.id.rellay3);
 
-        handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
+        handler.postDelayed(runnable, 1000); //2000 is the timeout for the splash
     }
 }
