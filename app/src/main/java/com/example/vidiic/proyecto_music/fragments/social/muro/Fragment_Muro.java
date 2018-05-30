@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments.social;
+package com.example.vidiic.proyecto_music.fragments.social.muro;
 
 import android.content.Context;
 import android.net.Uri;
