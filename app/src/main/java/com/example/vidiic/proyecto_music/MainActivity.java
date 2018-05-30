@@ -20,7 +20,8 @@ import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
-import com.example.vidiic.proyecto_music.fragments.social.muro.Add_Publication;
+import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_Add_Friend;
+import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Add_Publication;
 import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Muro;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_Social;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +31,7 @@ import com.sendbird.android.SendBird;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener, Add_Publication.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener, Fragment_Add_Publication.OnFragmentInteractionListener, Fragment_Add_Friend.OnFragmentInteractionListener{
 
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
                 case R.id.nav_share :
                      nMainNav.setItemBackgroundResource(R.color.rojologo);
-
+                        Log.d("test", "MainACtivityButton");
                      setFragment(fragment_social);
                      return true;
 

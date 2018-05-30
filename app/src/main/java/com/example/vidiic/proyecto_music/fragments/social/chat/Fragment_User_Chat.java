@@ -1,9 +1,10 @@
-package com.example.vidiic.proyecto_music.fragments.social;
+package com.example.vidiic.proyecto_music.fragments.social.chat;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
@@ -74,9 +76,11 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     private List<UserApp> userList;
     private UserChatAdapter userChatAdapter;
     private FirebaseFirestore firebaseFirestore;
-    private EditText searchUser;
     private Activity activityShare;
     private static final String APP_ID = "60DA930F-248F-479A-B406-028DEF5060D7";
+    private FloatingActionButton btn_add_friend;
+    private Fragment_Add_Friend fragment_add_friend;
+    private RelativeLayout relative_show_friend;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,16 +97,31 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_fragment__share, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_friends, container, false);
 
 
         rvUserChat = view.findViewById(R.id.rvChatUser);
         userList = new ArrayList<>();
-        searchUser = view.findViewById(R.id.searchUserEditText);
         firebaseFirestore = FirebaseFirestore.getInstance();
-
+        btn_add_friend = view.findViewById(R.id.add_friend_btn);
+        relative_show_friend = view.findViewById(R.id.relative_add_friend);
 
         SendBird.init(APP_ID, this.getContext());
+
+        //mostramos el boton al entrar para cuando se añade un amigo al volver se vuelva a mostrar
+        btn_add_friend.show();
+        relative_show_friend.setVisibility(View.VISIBLE);
+
+        fragment_add_friend = new Fragment_Add_Friend();
+
+        //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
+        btn_add_friend.setOnClickListener(v -> {
+
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
+            btn_add_friend.hide();
+            relative_show_friend.setVisibility(View.GONE);
+            Log.d("test", "MainACtivityButton");
+        });
 
         //obtenemos los datos del usuario de la base de datos de firebase para poder iniciar sesion en el servidor de sendbird con estos mismo datos
         firebaseFirestore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().
@@ -171,6 +190,8 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
         // Inflate the layout for this fragment
         return view;
     }
+
+
 
     private void setListener() {
         userChatAdapter.setOnItemClickListener(this);

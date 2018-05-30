@@ -51,19 +51,9 @@ public class HomeActivity extends AppCompatActivity {
         //movimiento botones next, bback, final
 
 
-        mNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSlideViewPager.setCurrentItem(mCurrentPage + 1);
-            }
-        });
+        mNextBtn.setOnClickListener(view -> mSlideViewPager.setCurrentItem(mCurrentPage + 1));
 
-        mBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSlideViewPager.setCurrentItem(mCurrentPage - 1);
-            }
-        });
+        mBackBtn.setOnClickListener(view -> mSlideViewPager.setCurrentItem(mCurrentPage - 1));
 
 
         //anem a la home
