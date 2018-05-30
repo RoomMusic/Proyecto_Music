@@ -114,15 +114,13 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
 
         fragment_add_friend = new Fragment_Add_Friend();
 
-        setListenerAddFriend();
-
-
         btn_add_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
                 btn_add_friend.hide();
+                //escondemos el recycler view donde muestran los usuarios
                 rvUserChat.setVisibility(View.GONE);
                 Log.d("test", "ADD FRIEND ACTIVITY");
             }
@@ -198,10 +196,6 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
 
     private void setListener() {
         userChatAdapter.setOnItemClickListener(this);
-    }
-
-    private void setListenerAddFriend() {
-        btn_add_friend.setOnClickListener((View.OnClickListener) mListener);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
