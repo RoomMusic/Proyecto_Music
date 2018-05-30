@@ -2,6 +2,8 @@ package com.example.vidiic.proyecto_music.classes;
 
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 /**
  * Created by Vidiic on 26/05/2018.
  */
@@ -11,13 +13,15 @@ public class Artist {
     private String name;
     private String image;
     private String genre;
+    private String age;
     private String description;
 
-    public Artist(String name, String image, String genre, String description) {
+    public Artist(String name, String image, String genre, String description,String age) {
         this.name = name;
         this.image = image;
         this.genre = genre;
         this.description = description;
+        this.age = age;
     }
     public Artist(){
     }
@@ -53,4 +57,10 @@ public class Artist {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getAge() { return age; }
+
+    public void setAge(String age) { this.age = age; }
+
+
 }

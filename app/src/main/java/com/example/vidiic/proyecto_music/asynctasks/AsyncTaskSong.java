@@ -75,7 +75,7 @@ public class AsyncTaskSong extends AsyncTask<String,Integer,List<Song>> {
 
                 if (!currentArtist.equals("<unknown>")){
                     Log.d("async", "tiene nombre"+ currentArtist);
-                    artistList.add(new Artist(currentArtist,"s","s","s"));
+                    artistList.add(new Artist(currentArtist,"s","s","s","s"));
                 }
                 /*try{
                     mediaMetadataRetriever = new MediaMetadataRetriever();

@@ -1,5 +1,7 @@
 package com.example.vidiic.proyecto_music.classes;
 
+import android.util.Log;
+
 import java.util.List;
 
 /**
@@ -57,11 +59,11 @@ public class Song {
         this.artistList = artistList;
     }
 
-
     public String nameOfArtists() {
         StringBuilder sb = new StringBuilder();
 
         for (Artist artist : this.artistList) {
+            Log.d("Yandel", artist.getName());
             sb.append(artist.getName() + "-");
         }
         if (sb.length() > 0) {
