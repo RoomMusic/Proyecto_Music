@@ -1,28 +1,24 @@
-package com.example.vidiic.proyecto_music.fragments.music;
+package com.example.vidiic.proyecto_music.fragments.social.chat;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vidiic.proyecto_music.R;
-import com.example.vidiic.proyecto_music.adapters.ViewPagerAdapter;
-import com.example.vidiic.proyecto_music.fragments.Fragment_Artist;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fragment_Music.OnFragmentInteractionListener} interface
+ * {@link Fragment_Add_Friend.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fragment_Music#newInstance} factory method to
+ * Use the {@link Fragment_Add_Friend#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Music extends Fragment implements Fragment_ListSong.OnFragmentInteractionListener{
+public class Fragment_Add_Friend extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,11 +30,7 @@ public class Fragment_Music extends Fragment implements Fragment_ListSong.OnFrag
 
     private OnFragmentInteractionListener mListener;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
-
-    public Fragment_Music() {
+    public Fragment_Add_Friend() {
         // Required empty public constructor
     }
 
@@ -48,11 +40,11 @@ public class Fragment_Music extends Fragment implements Fragment_ListSong.OnFrag
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Music.
+     * @return A new instance of fragment Fragment_Add_Friend.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Music newInstance(String param1, String param2) {
-        Fragment_Music fragment = new Fragment_Music();
+    public static Fragment_Add_Friend newInstance(String param1, String param2) {
+        Fragment_Add_Friend fragment = new Fragment_Add_Friend();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,26 +65,7 @@ public class Fragment_Music extends Fragment implements Fragment_ListSong.OnFrag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fragment__music, container, false);
-
-        tabLayout = view.findViewById(R.id.tabs);
-        viewPager = view.findViewById(R.id.viewpager);
-
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-
-        adapter.AddFragment(new Fragment_ListSong(),"Song");
-        adapter.AddFragment(new Fragment_Artist(),"Artist");
-        adapter.AddFragment(new Fragment_Type(),"Type");
-
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        return view;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
+        return inflater.inflate(R.layout.fragment_fragment__add__friend, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
