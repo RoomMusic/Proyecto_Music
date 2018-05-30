@@ -114,13 +114,18 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
 
         fragment_add_friend = new Fragment_Add_Friend();
 
-        //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
-        btn_add_friend.setOnClickListener(v -> {
+        setListenerAddFriend();
 
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
-            btn_add_friend.hide();
-            relative_show_friend.setVisibility(View.GONE);
-            Log.d("test", "MainACtivityButton");
+
+        btn_add_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
+                btn_add_friend.hide();
+                rvUserChat.setVisibility(View.GONE);
+                Log.d("test", "ADD FRIEND ACTIVITY");
+            }
         });
 
         //obtenemos los datos del usuario de la base de datos de firebase para poder iniciar sesion en el servidor de sendbird con estos mismo datos
@@ -182,7 +187,6 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
                 rvUserChat.setAdapter(userChatAdapter);
 
                 //Log.d("sergio", "LLEGO AHORA");
-
             }
         });
 
@@ -192,9 +196,12 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     }
 
 
-
     private void setListener() {
         userChatAdapter.setOnItemClickListener(this);
+    }
+
+    private void setListenerAddFriend() {
+        btn_add_friend.setOnClickListener((View.OnClickListener) mListener);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
