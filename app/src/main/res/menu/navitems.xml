@@ -11,10 +11,6 @@
         android:icon="@drawable/round_home_black_24dp"
         android:title="@string/nav_home" />
     <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/round_user_black_24dp"
-        android:title="Perfil" />
-    <item
         android:id="@+id/nav_share"
         android:icon="@drawable/round_share_black_24dp"
         android:title="@string/nav_Share" />

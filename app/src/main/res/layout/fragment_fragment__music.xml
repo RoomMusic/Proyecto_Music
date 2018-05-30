@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        app:tabBackground="@color/blue"
+        app:tabBackground="@color/rojologo"
         app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/red"
-        app:tabIndicatorColor="@color/red"
+        app:tabSelectedTextColor="@color/carne"
+        app:tabIndicatorColor="@color/carne"
         app:tabIndicatorHeight="2dp"/>
 
     <android.support.v4.view.ViewPager
