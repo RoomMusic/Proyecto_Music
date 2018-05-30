@@ -3,12 +3,29 @@ package com.example.vidiic.proyecto_music.fragments.social.chat;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.AddUserAdapter;
+import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.sendbird.android.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +46,14 @@ public class Fragment_Add_Friend extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private ImageButton search_user_btn;
+    private EditText user_key;
+    private RecyclerView rv_show_user;
+    private AddUserAdapter addUserAdapter;
+    private List<UserApp> requested_users;
+    private FirebaseFirestore firebaseFirestore;
+    private UserApp userAux;
 
     public Fragment_Add_Friend() {
         // Required empty public constructor
@@ -66,7 +91,42 @@ public class Fragment_Add_Friend extends Fragment {
                              Bundle savedInstanceState) {
         View search_user_view = inflater.inflate(R.layout.fragment_fragment__add__friend, container, false);
 
+        search_user_btn = search_user_view.findViewById(R.id.search_user_btn);
+        user_key = search_user_view.findViewById(R.id.username_et);
+        rv_show_user = search_user_view.findViewById(R.id.recycler_view_add_user);
+        requested_users = new ArrayList<>();
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+        firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (DocumentSnapshot snapshot : task.getResult()){
+                        userAux = snapshot.toObject(UserApp.class);
+                        Log.d("request_users", "nombre user" + userAux.getUserName());
+                        requested_users.add(userAux);
+                    }
+                }
+            }
+        });
+
+
+
+        search_user_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                addUserAdapter = new AddUserAdapter(requested_users);
+
+                RecyclerView.LayoutManager layout = new LinearLayoutManager(search_user_view.getContext());
+
+                rv_show_user.setLayoutManager(layout);
+
+                rv_show_user.setAdapter(addUserAdapter);
+            }
+        });
 
 
         // Inflate the layout for this fragment
