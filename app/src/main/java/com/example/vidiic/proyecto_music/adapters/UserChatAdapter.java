@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 import com.example.vidiic.proyecto_music.R;
-import com.example.vidiic.proyecto_music.classes.AppUser;
+import com.example.vidiic.proyecto_music.classes.UserApp;
 
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
 public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHolder> {
 
 
-    private List<AppUser> userList;
+    private List<UserApp> userList;
 
 
-    public UserChatAdapter(List<AppUser> userList) {
+    public UserChatAdapter(List<UserApp> userList) {
         super();
         this.userList = userList;
     }
@@ -38,7 +38,7 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
 
         ImageView userImage;
         TextView userName;
-        AppUser user;
+        UserApp user;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -57,7 +57,7 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void itemClicked(View view, AppUser user);
+        void itemClicked(View view, UserApp user);
     }
 
 
@@ -79,7 +79,7 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        AppUser user = userList.get(position);
+        UserApp user = userList.get(position);
 
         UserViewHolder vh = (UserViewHolder) holder;
 

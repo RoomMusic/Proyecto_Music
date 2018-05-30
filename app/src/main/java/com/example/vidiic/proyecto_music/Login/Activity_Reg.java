@@ -3,7 +3,6 @@ package com.example.vidiic.proyecto_music.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,16 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
-import com.example.vidiic.proyecto_music.classes.AppUser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +43,8 @@ public class Activity_Reg extends AppCompatActivity {
     private String key;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private AppUser userAux = null;
-    private List<AppUser> listUser = new ArrayList<>();
+    private UserApp userAux = null;
+    private List<UserApp> listUser = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +77,7 @@ public class Activity_Reg extends AppCompatActivity {
         firebaseFirestore.collection("users").get().addOnSuccessListener(queryDocumentSnapshots -> {
             if (!queryDocumentSnapshots.isEmpty()) {
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                    userAux = snapshot.toObject(AppUser.class);
+                    userAux = snapshot.toObject(UserApp.class);
                     listUser.add(userAux);
                     Log.d("sergio", "usernameee: " + userAux.getEmail());
 
@@ -124,7 +117,7 @@ public class Activity_Reg extends AppCompatActivity {
 
                         key = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                        AppUser user = new AppUser(key, userName, userMail, userPass, new Date(), false);
+                        UserApp user = new UserApp(key, userName, userMail, userPass, new Date(), false);
 
 
                         firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
@@ -156,7 +149,7 @@ public class Activity_Reg extends AppCompatActivity {
 
         int i = 0;
 
-        for (AppUser u : listUser) {
+        for (UserApp u : listUser) {
             if (u.getUserName().equals(username)) {
                 i = 1;
             }

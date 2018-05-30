@@ -12,26 +12,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
-import com.example.vidiic.proyecto_music.classes.AppUser;
+import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Music;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Share;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.sendbird.android.SendBird;
-import com.sendbird.android.User;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener{
@@ -51,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
     private String userEmail, userKey;
-    private AppUser userAux;
+    private UserApp userAux;
 
 
 
@@ -86,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         //buscamos el usuario a traves de la clave que podemos recoger utilizando FirebaseAuth
         firebaseFirestore.collection("users").document(userKey).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                userAux = task.getResult().toObject(AppUser.class);
+                userAux = task.getResult().toObject(UserApp.class);
                 Log.d("sergio", "NICKNAME: " + userAux.getUserName());
             } else {
                 Log.d("sergio", "no existe");

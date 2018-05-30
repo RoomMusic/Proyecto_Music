@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Vidiic on 11/03/2018.
  */
 
-public class AppUser {
+public class UserApp {
 
     private String userid;
     private String userName;
@@ -22,10 +22,10 @@ public class AppUser {
     private List<Song> songList;
 
 
-    public AppUser(){}
+    public UserApp(){}
 
     //constructor para cuando el usuario esta registrandose
-    public AppUser(String userId, String userName, String email, String password, Date registerDate, boolean firstIn) {
+    public UserApp(String userId, String userName, String email, String password, Date registerDate, boolean firstIn) {
         this.userid = userId;
         this.email = email;
         this.password = password;
