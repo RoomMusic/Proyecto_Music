@@ -18,9 +18,11 @@
 
             <EditText
                 android:id="@+id/username_et"
-                android:layout_width="290dp"
+                android:layout_width="311dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
+                android:hint="username"
+                android:textSize="17dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="50dp" />
 
             <ImageButton
