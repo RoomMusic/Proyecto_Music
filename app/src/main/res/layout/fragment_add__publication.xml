@@ -25,30 +25,32 @@
             android:id="@+id/find_song_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
             android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/songNameAddPublication"
             android:backgroundTint="@color/blue"
-            android:layout_toRightOf="@+id/songNameAddPublication"/>
+            android:src="@drawable/select" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/cancel_add_publication"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
             android:layout_centerVertical="true"
-            app:rippleColor="@color/blue"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/find_song_btn"
             android:backgroundTint="@color/red"
-            android:layout_toRightOf="@+id/find_song_btn"/>
+            android:src="@drawable/clearbutton" />
 
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/success_add_publication"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
             android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/cancel_add_publication"
             android:backgroundTint="@color/green"
-            android:layout_toRightOf="@+id/cancel_add_publication"/>
+            android:src="@drawable/checked" />
 
     </RelativeLayout>
 
