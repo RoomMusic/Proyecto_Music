@@ -200,14 +200,12 @@ public class Add_Publication extends Fragment {
                             if (!docList.isEmpty())
                                 publicacionAux = docList.get(0).toObject(Publicacion.class);
 
-
-
-                            if (publicacionAux != null)
-                                new_id = publicacionAux.getPublication_id() + 1;
+                            if (publicacionAux != null) new_id = publicacionAux.getPublication_id() + 1;
                             else new_id = 1;
 
                             Log.d("publicacion", "nuevo id: " + new_id);
 
+                            //añadimos el nuevo id a la publicacion
                             publicacion.setPublication_id(new_id);
 
                             firebaseFirestore.collection("publicaciones").document(String.valueOf(publicacion.getPublication_id())).set(publicacion)
