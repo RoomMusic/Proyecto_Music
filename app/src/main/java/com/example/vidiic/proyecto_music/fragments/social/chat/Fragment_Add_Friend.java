@@ -1,29 +1,24 @@
-package com.example.vidiic.proyecto_music.fragments.social;
+package com.example.vidiic.proyecto_music.fragments.social.chat;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vidiic.proyecto_music.R;
-import com.example.vidiic.proyecto_music.adapters.ViewPagerAdapter;
-import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_User_Chat;
-import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Muro;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fragment_Social.OnFragmentInteractionListener} interface
+ * {@link Fragment_Add_Friend.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fragment_Social#newInstance} factory method to
+ * Use the {@link Fragment_Add_Friend#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener{
+public class Fragment_Add_Friend extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,13 +30,7 @@ public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFr
 
     private OnFragmentInteractionListener mListener;
 
-
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
-
-
-    public Fragment_Social() {
+    public Fragment_Add_Friend() {
         // Required empty public constructor
     }
 
@@ -51,11 +40,11 @@ public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFr
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Social.
+     * @return A new instance of fragment Fragment_Add_Friend.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Social newInstance(String param1, String param2) {
-        Fragment_Social fragment = new Fragment_Social();
+    public static Fragment_Add_Friend newInstance(String param1, String param2) {
+        Fragment_Add_Friend fragment = new Fragment_Add_Friend();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,21 +64,13 @@ public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_fragment_social, container, false);
-
-        tabLayout = view.findViewById(R.id.tabsChat);
-        viewPager = view.findViewById(R.id.viewpagerChat);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
-        viewPagerAdapter.AddFragment(new Fragment_User_Chat(), "Friends");
-        viewPagerAdapter.AddFragment(new Fragment_Muro(), "Muro");
+        View search_user_view = inflater.inflate(R.layout.fragment_fragment__add__friend, container, false);
 
 
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+
+
         // Inflate the layout for this fragment
-        return view;
+        return search_user_view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -114,11 +95,6 @@ public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFr
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     /**

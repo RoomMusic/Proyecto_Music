@@ -33,12 +33,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Add_Publication.OnFragmentInteractionListener} interface
+ * {@link Fragment_Add_Publication.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Add_Publication#newInstance} factory method to
+ * Use the {@link Fragment_Add_Publication#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Add_Publication extends Fragment {
+public class Fragment_Add_Publication extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,7 +60,7 @@ public class Add_Publication extends Fragment {
     private PublicacionSongAdapter publicacionSongAdapter;
     private Publicacion publicacion;
 
-    public Add_Publication() {
+    public Fragment_Add_Publication() {
         // Required empty public constructor
     }
 
@@ -70,11 +70,11 @@ public class Add_Publication extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Add_Publication.
+     * @return A new instance of fragment Fragment_Add_Publication.
      */
     // TODO: Rename and change types and number of parameters
-    public static Add_Publication newInstance(String param1, String param2) {
-        Add_Publication fragment = new Add_Publication();
+    public static Fragment_Add_Publication newInstance(String param1, String param2) {
+        Fragment_Add_Publication fragment = new Fragment_Add_Publication();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
