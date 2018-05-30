@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -81,6 +82,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     private FloatingActionButton btn_add_friend;
     private Fragment_Add_Friend fragment_add_friend;
     private RelativeLayout relative_show_friend;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +107,8 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
         firebaseFirestore = FirebaseFirestore.getInstance();
         btn_add_friend = view.findViewById(R.id.add_friend_btn);
         relative_show_friend = view.findViewById(R.id.relative_add_friend);
+        progressBar = view.findViewById(R.id.progress_bar);
+
 
         SendBird.init(APP_ID, this.getContext());
 
