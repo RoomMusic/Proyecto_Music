@@ -20,6 +20,7 @@ import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
+import com.example.vidiic.proyecto_music.fragments.social.muro.Add_Publication;
 import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Muro;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_Social;
 import com.google.firebase.auth.FirebaseAuth;
