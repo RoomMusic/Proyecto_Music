@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.AddUserAdapter;
@@ -102,8 +103,8 @@ public class Fragment_Add_Friend extends Fragment {
         firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (DocumentSnapshot snapshot : task.getResult()){
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot snapshot : task.getResult()) {
                         userAux = snapshot.toObject(UserApp.class);
                         Log.d("request_users", "nombre user" + userAux.getUserName());
                         requested_users.add(userAux);
@@ -113,18 +114,22 @@ public class Fragment_Add_Friend extends Fragment {
         });
 
 
-
         search_user_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                addUserAdapter = new AddUserAdapter(requested_users);
+                if (!user_key.getText().toString().equals("")) {
 
-                RecyclerView.LayoutManager layout = new LinearLayoutManager(search_user_view.getContext());
+                    addUserAdapter = new AddUserAdapter(requested_users);
 
-                rv_show_user.setLayoutManager(layout);
+                    RecyclerView.LayoutManager layout = new LinearLayoutManager(search_user_view.getContext());
 
-                rv_show_user.setAdapter(addUserAdapter);
+                    rv_show_user.setLayoutManager(layout);
+
+                    rv_show_user.setAdapter(addUserAdapter);
+                } else {
+                    Toast.makeText(getContext(), "Escribe algo.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
