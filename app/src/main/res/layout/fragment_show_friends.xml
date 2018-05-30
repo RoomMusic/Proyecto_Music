@@ -6,9 +6,9 @@
     tools:context=".fragments.social.chat.Fragment_User_Chat">
 
     <RelativeLayout
+        android:id="@+id/relative_add_friend"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relative_add_friend">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvChatUser"
@@ -19,15 +19,13 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/add_friend_btn"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="30dp"/>
-
-
-
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_friend_btn"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="30dp" />
 </RelativeLayout>
