@@ -82,6 +82,7 @@ public class AsyncTaskSong extends AsyncTask<String,Integer,List<Song>> {
                     mediaMetadataRetriever.setDataSource(currentImae);
                     art = mediaMetadataRetriever.getEmbeddedPicture();
                     songimage = BitmapFactory.decodeByteArray(art,0,art.length);
+
                 }catch (Exception e) {
                    songimage = null ;
                 }*/

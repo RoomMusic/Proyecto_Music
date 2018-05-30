@@ -10,16 +10,16 @@ public class Artist {
 
     private String name;
     private String image;
-    private String category;
+    private String genre;
     private String description;
 
-    public Artist(){}
-
-    public Artist(String name, String image, String category, String description) {
+    public Artist(String name, String image, String genre, String description) {
         this.name = name;
         this.image = image;
-        this.category = category;
+        this.genre = genre;
         this.description = description;
+    }
+    public Artist(){
     }
 
     public String getName() {
@@ -38,12 +38,12 @@ public class Artist {
         this.image = image;
     }
 
-    public String getCategory() {
-        return category;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getDescription() {

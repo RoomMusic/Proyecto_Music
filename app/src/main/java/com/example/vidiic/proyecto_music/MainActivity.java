@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
+import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
 import com.example.vidiic.proyecto_music.fragments.social.Add_Publication;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     private Fragment_Home fragment_home;
     private Fragment_Social fragment_social;
     private Fragment_Music fragment_music;
+    private Fragment_Profile fragment_profile;
 
     private BottomNavigationView nMainNav;
     private FrameLayout frameLayoutMain;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         fragment_home = new Fragment_Home();
         fragment_social = new Fragment_Social();
         fragment_music = new Fragment_Music();
+        fragment_profile = new Fragment_Profile();
 
 
 
@@ -106,20 +109,22 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
             switch (item.getItemId()){
                 case R.id.nav_home :
-                    nMainNav.setItemBackgroundResource(R.color.red);
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     setFragment(fragment_home);
                     return true;
 
                 case R.id.nav_music :
-                     nMainNav.setItemBackgroundResource(R.color.blue);
-
-
+                     nMainNav.setItemBackgroundResource(R.color.rojologo);
                      setFragment(fragment_music);
                      return true;
 
-                case R.id.nav_share :
-                     nMainNav.setItemBackgroundResource(R.color.green);
+                case R.id.nav_profile :
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
+                    setFragment(fragment_profile);
+                    return true;
 
+                case R.id.nav_share :
+                     nMainNav.setItemBackgroundResource(R.color.rojologo);
 
                      setFragment(fragment_social);
                      return true;

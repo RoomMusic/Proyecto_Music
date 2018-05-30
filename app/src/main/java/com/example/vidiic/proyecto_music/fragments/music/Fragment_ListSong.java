@@ -99,7 +99,7 @@ public class Fragment_ListSong extends Fragment {
 
         database = FirebaseFirestore.getInstance();
         database.collection("users").document(idUser).collection("music").document("songlist");
-        
+
         songList = new ArrayList<>();
 
         setUpRecyclerView(view);

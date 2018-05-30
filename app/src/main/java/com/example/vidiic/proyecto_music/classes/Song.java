@@ -1,17 +1,5 @@
 package com.example.vidiic.proyecto_music.classes;
 
-import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,10 +15,10 @@ public class Song {
     private String imageSong;
     private List<Artist> artistList;
 
+    public Song() {
+    }
 
-    public Song(){}
-
-    public Song( String name, String imageSong, List<Artist> artistList) {
+    public Song(String name, String imageSong, List<Artist> artistList) {
         this.idsong = ++id;
         this.name = name;
         this.imageSong = imageSong;
@@ -55,7 +43,6 @@ public class Song {
 
     public String getImageSong() {
         return imageSong;
-
     }
 
     public void setImageSong(String imageSong) {
@@ -70,11 +57,16 @@ public class Song {
         this.artistList = artistList;
     }
 
-    public String nameOfArtists(){
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Artist artist: this.artistList){
-            stringBuilder.append(artist.getName()+" ");
+
+    public String nameOfArtists() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Artist artist : this.artistList) {
+            sb.append(artist.getName() + "-");
         }
-        return stringBuilder.toString();
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
+        return sb.toString();
     }
 }

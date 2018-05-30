@@ -2,9 +2,7 @@ package com.example.vidiic.proyecto_music.classes;
 
 import android.util.Log;
 import android.widget.ImageView;
-
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.Date;
 import java.util.List;
 
