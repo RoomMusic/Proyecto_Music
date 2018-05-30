@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.vidiic.proyecto_music.Artist_Activity">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:padding="10dp">
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/padre"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="250dp"
             android:orientation="vertical">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_margin="8dp"
                 android:layout_width="125dp"
-                android:layout_height="170dp"
-                android:background="#2d2d2d"
+                android:layout_height="136dp"
+                android:src="@drawable/ic_action_music"
                 android:id="@+id/artist_image"
-                android:scaleType="centerCrop"/>
+                app:civ_border_width="2dp"
+                />
             <TextView
+                android:layout_toRightOf="@id/artist_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre Artista"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
                 android:textSize="18sp"
                 android:id="@+id/artist_name"
                 android:textStyle="bold"/>
@@ -35,19 +34,33 @@
                 android:layout_height="wrap_content"
                 android:text="Category"
                 android:id="@+id/artist_cat"
+                android:layout_below="@id/artist_name"
+                android:layout_toRightOf="@id/artist_image"
+
+                android:layout_margin="25dp"
                 android:background="#edecec"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_below="@id/artist_image"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:background="@color/rojologo"
+                android:textColor="@color/white"
                 android:text="Description"
                 android:id="@+id/artist_desc"
-                android:layout_marginTop="10dp"
+                android:layout_margin="8dp"
                 android:textSize="18sp"
                 />
 
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:id="@+id/recyclerSongsArtists"
+        android:layout_below="@id/padre"></android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>
