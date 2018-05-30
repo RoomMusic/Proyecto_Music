@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="340dp"
         android:layout_height="53dp">
@@ -10,17 +10,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/black"
             >
-
-            <ImageView
-                android:id="@+id/imageSong"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="75dp"
-                android:layout_height="50dp"
+                android:layout_height="75dp"
+                app:civ_border_color="#000000"
                 android:layout_centerVertical="true"
+                android:id="@+id/imageSong"
+                android:src="@drawable/ic_action_music"
+                app:civ_border_width="2dp"/>
 
-
-                android:background="@drawable/ic_action_music" />
             <RelativeLayout
                 android:layout_width="260dp"
                 android:layout_height="match_parent"
