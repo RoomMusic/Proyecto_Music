@@ -23,8 +23,8 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/find_song_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
             android:backgroundTint="@color/blue"
@@ -33,11 +33,10 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/cancel_add_publication"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
-            app:rippleColor="@color/blue"
             android:backgroundTint="@color/red"
             android:layout_toRightOf="@+id/find_song_btn"
             android:src="@drawable/clearbutton"/>
@@ -45,8 +44,8 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/success_add_publication"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
             android:backgroundTint="@color/green"
