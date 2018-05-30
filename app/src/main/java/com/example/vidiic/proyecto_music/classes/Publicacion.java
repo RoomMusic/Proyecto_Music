@@ -6,6 +6,8 @@ import android.util.Log;
 import com.example.vidiic.proyecto_music.adapters.PublicacionAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,19 +21,17 @@ public class Publicacion {
     private Song publication_song;
     private Image publication_image;
 
-    private static int id_publicacion = 0;
 
     public Publicacion(){}
 
     public Publicacion(Date publication_date,Song publication_song) {
-        this.publication_id = id_publicacion++;
         this.pulication_date = publication_date;
         this.publication_song = publication_song;
     }
 
 
     public Publicacion(Date pulication_date, UserApp publication_user, Song publication_song) {
-        this.publication_id = id_publicacion++;
+        this.publication_id = publication_id;
         this.pulication_date = pulication_date;
         this.publication_user = publication_user;
         this.publication_song = publication_song;
@@ -76,4 +76,6 @@ public class Publicacion {
     public void setPublication_image(Image publication_image) {
         this.publication_image = publication_image;
     }
+
+
 }

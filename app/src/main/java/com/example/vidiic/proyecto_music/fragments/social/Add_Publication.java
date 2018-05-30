@@ -3,6 +3,7 @@ package com.example.vidiic.proyecto_music.fragments.social;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,9 +21,13 @@ import com.example.vidiic.proyecto_music.adapters.PublicacionSongAdapter;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.example.vidiic.proyecto_music.classes.Song;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -169,19 +174,48 @@ public class Add_Publication extends Fragment {
         return view;
     }
 
+    private int new_id;
+    private Publicacion publicacionAux;
+
     private UserApp app_user;
 
     private void addPublicationToFirebase(String user_id, FirebaseFirestore firebaseFirestore, Publicacion publicacion, View view) {
 
 
+        //obtenemos el usuario y lo asociamos con la publicacion
         firebaseFirestore.collection("users").document(user_id).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) app_user = documentSnapshot.toObject(UserApp.class);
             Log.d("publicaciones", "username: " + app_user.getEmail());
 
             publicacion.setPublication_user(app_user);
 
-            firebaseFirestore.collection("publicaciones").document(String.valueOf(publicacion.getPublication_id())).set(publicacion)
-                    .addOnCompleteListener(aVoid -> Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show());
+            //obtenemos la publicacion con el id mas grande y le sumammos uno
+            firebaseFirestore.collection("publicaciones").orderBy("publication_id", Query.Direction.DESCENDING).get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot queryDocumentSnapshots = task.getResult();
+
+                            List<DocumentSnapshot> docList = queryDocumentSnapshots.getDocuments();
+
+                            if (!docList.isEmpty())
+                                publicacionAux = docList.get(0).toObject(Publicacion.class);
+
+
+
+                            if (publicacionAux != null)
+                                new_id = publicacionAux.getPublication_id() + 1;
+                            else new_id = 1;
+
+                            Log.d("publicacion", "nuevo id: " + new_id);
+
+                            publicacion.setPublication_id(new_id);
+
+                            firebaseFirestore.collection("publicaciones").document(String.valueOf(publicacion.getPublication_id())).set(publicacion)
+                                    .addOnCompleteListener(aVoid -> Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show());
+
+                        }
+                    });
+
         });
 
     }
