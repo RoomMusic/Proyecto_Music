@@ -31,7 +31,7 @@ public class Activity_Launcher extends AppCompatActivity {
 
                 try{
 
-                    sleep(1000);
+                    sleep(3000);
 
                 }  catch (InterruptedException e) {
                     e.printStackTrace();
