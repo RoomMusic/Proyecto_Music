@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments;
+package com.example.vidiic.proyecto_music.fragments.social;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,12 +30,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fragment_Share.OnFragmentInteractionListener} interface
+ * {@link Fragment_User_Chat.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fragment_Share#newInstance} factory method to
+ * Use the {@link Fragment_User_Chat#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemClickListener {
+public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,7 +47,7 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
 
     private OnFragmentInteractionListener mListener;
 
-    public Fragment_Share() {
+    public Fragment_User_Chat() {
         // Required empty public constructor
     }
 
@@ -57,11 +57,11 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Share.
+     * @return A new instance of fragment Fragment_User_Chat.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_Share newInstance(String param1, String param2) {
-        Fragment_Share fragment = new Fragment_Share();
+    public static Fragment_User_Chat newInstance(String param1, String param2) {
+        Fragment_User_Chat fragment = new Fragment_User_Chat();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -100,6 +100,7 @@ public class Fragment_Share extends Fragment implements UserChatAdapter.OnItemCl
         userList = new ArrayList<>();
         searchUser = view.findViewById(R.id.searchUserEditText);
         firebaseFirestore = FirebaseFirestore.getInstance();
+
 
         SendBird.init(APP_ID, this.getContext());
 

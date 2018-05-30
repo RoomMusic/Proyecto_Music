@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.fragments;
+package com.example.vidiic.proyecto_music.fragments.music;
 
 
 import android.net.Uri;

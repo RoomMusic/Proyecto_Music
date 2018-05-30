@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.social.Add_Publication"
+    android:id="@+id/relative_add_publication">
+
+    <RelativeLayout
+        android:id="@+id/relative_publication_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/songNameAddPublication"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:textAlignment="center"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/find_song_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/blue"
+            android:layout_toRightOf="@+id/songNameAddPublication"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/cancel_add_publication"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            app:rippleColor="@color/blue"
+            android:backgroundTint="@color/red"
+            android:layout_toRightOf="@+id/find_song_btn"/>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/success_add_publication"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/green"
+            android:layout_toRightOf="@+id/cancel_add_publication"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative_publication_details"
+        android:id="@+id/relative_publication_song_list">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_song_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

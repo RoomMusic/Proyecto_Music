@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Fragment_Share">
+    tools:context=".fragments.social.Fragment_User_Chat">
+
 
     <EditText
         android:id="@+id/searchUserEditText"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp" />
+        android:layout_marginTop="45dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvChatUser"

@@ -1,7 +1,5 @@
 package com.example.vidiic.proyecto_music.classes;
 
-import android.graphics.Bitmap;
-
 import java.util.List;
 
 /**
@@ -11,19 +9,20 @@ import java.util.List;
 public class Song {
 
     private static int id = 1;
+
     private int idsong;
     private String name;
     private String imageSong;
     private List<Artist> artistList;
 
-    public Song( String name, String imageSong, List<Artist> artistList) {
+    public Song() {
+    }
+
+    public Song(String name, String imageSong, List<Artist> artistList) {
         this.idsong = ++id;
         this.name = name;
         this.imageSong = imageSong;
         this.artistList = artistList;
-    }
-    public Song(){
-
     }
 
     public int getIdsong() {
@@ -58,11 +57,12 @@ public class Song {
         this.artistList = artistList;
     }
 
-    public String nameOfArtists(){
+
+    public String nameOfArtists() {
         StringBuilder sb = new StringBuilder();
 
-        for (Artist artist: this.artistList){
-            sb.append(artist.getName()+"-");
+        for (Artist artist : this.artistList) {
+            sb.append(artist.getName() + "-");
         }
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);

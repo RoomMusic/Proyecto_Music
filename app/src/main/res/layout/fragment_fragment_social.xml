@@ -1,28 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.vidiic.proyecto_music.fragments.music.Fragment_Music">
+    tools:context=".fragments.social.Fragment_Social">
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/tabsChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        app:tabBackground="@color/blue"
-        app:tabTextColor="@color/white"
+        app:tabBackground="@color/green"
+        app:tabTextColor="@color/black"
         app:tabSelectedTextColor="@color/red"
         app:tabIndicatorColor="@color/red"
         app:tabIndicatorHeight="2dp"/>
 
     <android.support.v4.view.ViewPager
-        android:layout_below="@id/tabs"
-        android:id="@+id/viewpager"
+        android:layout_below="@id/tabsChat"
+        android:id="@+id/viewpagerChat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
-
+        />
 
 </RelativeLayout>
