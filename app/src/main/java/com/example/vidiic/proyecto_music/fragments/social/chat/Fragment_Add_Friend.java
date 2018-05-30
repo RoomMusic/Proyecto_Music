@@ -64,8 +64,13 @@ public class Fragment_Add_Friend extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View search_user_view = inflater.inflate(R.layout.fragment_fragment__add__friend, container, false);
+
+
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment__add__friend, container, false);
+        return search_user_view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

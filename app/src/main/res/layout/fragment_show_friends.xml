@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/relative_add_friend">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvChatUser"

@@ -48,7 +48,7 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
 
     //variables
     private FloatingActionButton addPublicationBtn;
-    private Add_Publication add_publication_fragment;
+    private Fragment_Add_Publication fragmentAdd_publication_fragment;
     private RecyclerView rv_muro;
     private List<Publicacion> publicaciones_list;
     private PublicacionAdapter publicacionAdapter;
@@ -116,16 +116,15 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
         swipeRefreshLayout.setVisibility(View.VISIBLE);
 
 
-        add_publication_fragment = new Add_Publication();
+        fragmentAdd_publication_fragment = new Fragment_Add_Publication();
 
         //añadimos una publicacion
         addPublicationBtn.setOnClickListener(v -> {
             //mostramos el fragment para añadir una publicacion
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_publication, add_publication_fragment).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_publication, fragmentAdd_publication_fragment).commit();
 
             //ocultamos el boton de añadir publicacion
             addPublicationBtn.hide();
-            rv_muro.setVisibility(View.GONE);
             swipeRefreshLayout.setVisibility(View.GONE);
 
         });
