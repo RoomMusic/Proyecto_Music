@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         vh.userName.setText(publicacion.getPublication_user().getUserName());
         vh.songName.setText(publicacion.getPublication_song().getName());
 
+
         //funcion para pedir la cancion al usuario
         vh.askBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +66,10 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 //guardamos el usuario de la publicacion
                 UserApp user_publitacion = publicacion.getPublication_user();
                 Song song_publicacion = publicacion.getPublication_song();
+
+
+                vh.progressBar.setVisibility(View.VISIBLE);
+                vh.progressBar.setIndeterminate(true);
 
                 //abrimos un canal con el usuario para mandarle el mensaje
                 Intent chat_intent = new Intent(context.getApplicationContext(), ChatActivity.class);
@@ -110,6 +116,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         ImageView publication_image;
         TextView userName, songName;
         ImageButton askBtn, playBtn;
+        ProgressBar progressBar;
 
         public PublicationViewHolder(View itemView) {
             super(itemView);
@@ -119,7 +126,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             songName = itemView.findViewById(R.id.songNameMuro);
             askBtn = itemView.findViewById(R.id.btnAsk);
             playBtn = itemView.findViewById(R.id.btnPlaySong);
-
+            progressBar = itemView.findViewById(R.id.progress_bar_download);
+            progressBar.setVisibility(View.GONE);
 
         }
 

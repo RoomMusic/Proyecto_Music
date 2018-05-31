@@ -68,6 +68,15 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             <!-- POL poner imagenes de botones -->
         </RelativeLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_bar_download"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativePublicationData"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            style="?android:attr/progressBarStyleHorizontal"/>
+
 
     </RelativeLayout>
 
