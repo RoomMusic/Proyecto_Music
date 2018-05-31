@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.vidiic.proyecto_music.Login.LoginActivity;
+import com.example.vidiic.proyecto_music.MainActivity;
 import com.example.vidiic.proyecto_music.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -59,16 +60,14 @@ public class HomeActivity extends AppCompatActivity {
         //anem a la home
 
         //delcarem el valor del final
-        Button btnquanta = (Button) findViewById(R.id.finalBtn);
-        btnquanta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
-                Log.d("flx", "onClick()");
-                //option + enter i importa
-                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
+        Button btnquanta = findViewById(R.id.finalBtn);
+        btnquanta.setOnClickListener(view -> {
+
+            //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
+            Log.d("flx", "onClick()");
+            //option + enter i importa
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
 
