@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -29,6 +30,8 @@ import com.sendbird.android.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import at.markushi.ui.CircleButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +53,7 @@ public class Fragment_Add_Friend extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ImageButton search_user_btn;
+    private CircleButton search_user_btn;
     private EditText user_key;
     private RecyclerView rv_show_user;
     private AddUserAdapter addUserAdapter;

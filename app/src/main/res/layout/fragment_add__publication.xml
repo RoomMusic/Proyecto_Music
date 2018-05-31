@@ -11,46 +11,54 @@
         android:id="@+id/relative_publication_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="6dp">
 
         <TextView
             android:id="@+id/songNameAddPublication"
             android:layout_width="200dp"
-            android:layout_height="45dp"
+            android:layout_height="55dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="2dp"
-            android:textAlignment="center"/>
+            android:textAlignment="center" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/find_song_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
             android:layout_centerVertical="true"
-            android:backgroundTint="@color/blue"
+            android:layout_margin="10dp"
             android:layout_toRightOf="@+id/songNameAddPublication"
-            android:src="@drawable/select"/>
+            android:backgroundTint="@color/blue"
+            android:src="@drawable/select" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/cancel_add_publication"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
             android:layout_centerVertical="true"
-            android:backgroundTint="@color/red"
+            android:layout_margin="10dp"
             android:layout_toRightOf="@+id/find_song_btn"
-            android:src="@drawable/clearbutton"/>
+            android:backgroundTint="@color/red"
+            android:src="@drawable/clearbutton" />
 
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/success_add_publication"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
             android:layout_centerVertical="true"
-            android:backgroundTint="@color/green"
+            android:layout_margin="10dp"
             android:layout_toRightOf="@+id/cancel_add_publication"
-            android:src="@drawable/checked"/>
+            android:backgroundTint="@color/green"
+            android:src="@drawable/checked" />
+
+        <ImageView
+            android:layout_width="210dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/oval2" />
 
     </RelativeLayout>
 
@@ -63,7 +71,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_song_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp">
 
         </android.support.v7.widget.RecyclerView>
 

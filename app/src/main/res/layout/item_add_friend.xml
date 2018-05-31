@@ -42,10 +42,11 @@
                 <ImageButton
                     android:id="@+id/request_friend"
                     android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_height="95dp"
                     android:layout_toRightOf="@+id/user_name"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/adduser"/>
 
             </RelativeLayout>
 
