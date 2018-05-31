@@ -35,6 +35,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
     List<Song> music;
     List<Artist> listaArtistas;
     List<Artist> artistasUsuario;
+    List<Song> cancionesArtistas;
 
     public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
     private static final int MY_PERMISSION_REQUEST = 1;
@@ -56,6 +57,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
             music = new ArrayList<>();
             listaArtistas = new ArrayList<>();
             artistasUsuario = new ArrayList<>();
+            cancionesArtistas = new ArrayList<>();
             db = FirebaseFirestore.getInstance();
             new AsyncTaskSong(this).execute();
 
@@ -103,13 +105,21 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
             }
         }
         for (Artist artist: listaArtistas){
-            if (nameSong.toUpperCase().contains(artist.getName().toUpperCase())){
+            if (nameSong.contains(artist.getName().toUpperCase())){
                 artistasUsuario.add(artist);
             }
         }
         return artistasUsuario;
     }
-
+    public List<Song> checkArtist(String nameArtist, List<Song> music){
+        Log.d("Song", music.size()+"");
+            for (Song song: music){
+                if (song.getName().toUpperCase().contains(nameArtist.toUpperCase())){
+                    cancionesArtistas.add(song);
+                }
+            }
+        return cancionesArtistas;
+    }
     public void loadArtistFromFireBase(){
         if (listaArtistas.size()>0){
             listaArtistas.clear();
@@ -125,9 +135,10 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     for(DocumentSnapshot documentSnapshot: task.getResult()){
                         Artist artist = new Artist(documentSnapshot.getString("name"),
+                            "hey",
                             documentSnapshot.getString("genre"),
-                            documentSnapshot.getString("description"),
-                            documentSnapshot.getString("age"));
+                            documentSnapshot.getString("description"),documentSnapshot.getString("age"));
+                        Log.d("Yandel",artist.getName());
                         listaArtistas.add(artist);
                     }
                     int fin = 1;
@@ -136,6 +147,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
                         db.collection("users").document(idUser).collection("songlist").document("Song-" + song.getIdsong()).set(song);
                         for (Artist artist: artistasUsuario){
                             db.collection("users").document(idUser).collection("artistlist").document(artist.getName()).set(artist);
+                            cancionesArtistas.clear();
                         }
                         artistasUsuario.clear();
                         fin++;

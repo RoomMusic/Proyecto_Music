@@ -3,12 +3,35 @@ package com.example.vidiic.proyecto_music.fragments.social.chat;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.AddUserAdapter;
+import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.sendbird.android.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import at.markushi.ui.CircleButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +52,14 @@ public class Fragment_Add_Friend extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private CircleButton search_user_btn;
+    private EditText user_key;
+    private RecyclerView rv_show_user;
+    private AddUserAdapter addUserAdapter;
+    private List<UserApp> requested_users;
+    private FirebaseFirestore firebaseFirestore;
+    private UserApp userAux;
 
     public Fragment_Add_Friend() {
         // Required empty public constructor
@@ -66,12 +97,94 @@ public class Fragment_Add_Friend extends Fragment {
                              Bundle savedInstanceState) {
         View search_user_view = inflater.inflate(R.layout.fragment_fragment__add__friend, container, false);
 
+        search_user_btn = search_user_view.findViewById(R.id.search_user_btn);
+        user_key = search_user_view.findViewById(R.id.username_et);
+        rv_show_user = search_user_view.findViewById(R.id.recycler_view_add_user);
+        requested_users = new ArrayList<>();
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+        user_key.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0 && addUserAdapter != null) {
+                    requested_users.clear();
+                    rv_show_user.setAdapter(null);
+                    Log.d("add_friend", "sin texto");
+                    addUserAdapter.notifyDataSetChanged();
+                    getRequestUser();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //la variable que recibimos en esta funcino es lo que el usuario va escribienodo
+                //lo pasamos a una funcion que devolvera los resultados que coinciden con la busqueda del usuario
+
+            }
+        });
+
+        getRequestUser();
+
+
+        search_user_btn.setOnClickListener(v -> {
+
+            if (!user_key.getText().toString().equals("")) {
+
+                //obtenemos los nombres de usuarios que empiecen por lo que ha introducido el usuario y los pasamos al adapatador
+
+                addUserAdapter = new AddUserAdapter(getUsersByKey(requested_users, user_key.getText().toString()));
+
+                RecyclerView.LayoutManager layout = new LinearLayoutManager(search_user_view.getContext());
+
+                rv_show_user.setLayoutManager(layout);
+
+                rv_show_user.setAdapter(addUserAdapter);
+            } else {
+                Toast.makeText(getContext(), "Escribe algo.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         // Inflate the layout for this fragment
         return search_user_view;
     }
+
+    private void getRequestUser() {
+        firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot snapshot : task.getResult()) {
+                        userAux = snapshot.toObject(UserApp.class);
+                        Log.d("request_users", "nombre user" + userAux.getUserName());
+                        requested_users.add(userAux);
+                    }
+                }
+            }
+        });
+    }
+
+    private List<UserApp> filtered_user_list;
+
+    private List<UserApp> getUsersByKey(List<UserApp> user_list, String key) {
+
+        filtered_user_list = new ArrayList<>();
+
+        for (UserApp u : user_list) {
+            if (u.getUserName().contains(key)) filtered_user_list.add(u);
+        }
+
+        return filtered_user_list;
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

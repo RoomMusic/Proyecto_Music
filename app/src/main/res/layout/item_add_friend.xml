@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_margin="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/relative_add_user_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/user_image"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="250dp"
+                    android:layout_height="36dp" />
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="250dp"
+                    android:layout_height="36dp"
+                    android:layout_below="@+id/user_name"/>
+
+                <ImageButton
+                    android:id="@+id/request_friend"
+                    android:layout_width="45dp"
+                    android:layout_height="95dp"
+                    android:layout_toRightOf="@+id/user_name"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/adduser"/>
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

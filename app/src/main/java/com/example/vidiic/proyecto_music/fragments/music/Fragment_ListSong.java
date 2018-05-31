@@ -98,7 +98,6 @@ public class Fragment_ListSong extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment__list_song, container, false);
 
         database = FirebaseFirestore.getInstance();
-        database.collection("users").document(idUser).collection("music").document("songlist");
 
         songList = new ArrayList<>();
 
