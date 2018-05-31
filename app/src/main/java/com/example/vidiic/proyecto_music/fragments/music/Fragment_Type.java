@@ -2,12 +2,33 @@ package com.example.vidiic.proyecto_music.fragments.music;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.adapters.AdapterArtist;
+import com.example.vidiic.proyecto_music.adapters.AdapterGenre;
+import com.example.vidiic.proyecto_music.adapters.AdapterSong;
+import com.example.vidiic.proyecto_music.classes.Artist;
+import com.example.vidiic.proyecto_music.classes.Genre;
+import com.example.vidiic.proyecto_music.classes.Song;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +49,14 @@ public class Fragment_Type extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+    List<Genre> genreList;
+    RecyclerView recyclerViewGenre;
+    AdapterGenre adapterGenre;
+    FirebaseFirestore database;
+
+    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
 
     public Fragment_Type() {
         // Required empty public constructor
@@ -64,7 +93,16 @@ public class Fragment_Type extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment__type, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment__type, container, false);
+
+        database = FirebaseFirestore.getInstance();
+        genreList = new ArrayList<>();
+
+        setUpRecyclerView(view);
+        setUpFireBase();
+        loadDataFromFireBase();
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -72,6 +110,42 @@ public class Fragment_Type extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private void setUpFireBase() {
+        database = FirebaseFirestore.getInstance();
+    }
+
+    private void setUpRecyclerView(View view) {
+
+        recyclerViewGenre= view.findViewById(R.id.recycler_view_genre);
+        recyclerViewGenre.setHasFixedSize(true);
+        recyclerViewGenre.setLayoutManager(new GridLayoutManager(view.getContext(),1));
+    }
+    private void loadDataFromFireBase() {
+        if (genreList.size()>0){
+            genreList.clear();
+        }
+        database.collection("genre")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        Genre genre = documentSnapshot.toObject(Genre.class);
+                        genreList.add(genre);
+                    }
+                    adapterGenre = new AdapterGenre(getContext(),genreList);
+                    recyclerViewGenre.setAdapter(adapterGenre);
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(),"ERROR LOAD Genres",Toast.LENGTH_SHORT).show();
+                    Log.v("ERROR LOAD Genres",e.getMessage());
+                }
+            });
     }
 
 
