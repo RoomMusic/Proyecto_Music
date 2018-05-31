@@ -80,9 +80,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("loginactivity", "onClick()");
             //option + enter i importa
             Intent intent = new Intent(LoginActivity.this, Activity_Reg.class);
-
-
-
             startActivity(intent);
         });
 
@@ -114,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-
                 mainIntent.putExtra("email", email);
 
                 startActivity(mainIntent);
