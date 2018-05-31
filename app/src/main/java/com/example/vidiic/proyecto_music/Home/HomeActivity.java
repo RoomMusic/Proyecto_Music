@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         btnquanta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
                 Log.d("flx", "onClick()");
                 //option + enter i importa
