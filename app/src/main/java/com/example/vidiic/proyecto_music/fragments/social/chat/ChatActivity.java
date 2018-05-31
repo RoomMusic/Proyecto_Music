@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
         rvChat = findViewById(R.id.reyclerview_message_list);
 
         //linea para cuando el teclado aparezca, el recycler view o la vista que haya se suba con el teclado y no se solape
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Intent socialIntent = getIntent();
 

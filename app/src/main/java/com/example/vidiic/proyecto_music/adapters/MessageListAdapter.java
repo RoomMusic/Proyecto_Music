@@ -2,6 +2,7 @@ package com.example.vidiic.proyecto_music.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         UserMessage message = (UserMessage) mMessageList.get(position);
 
         if (message.getSender().getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-
 
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
