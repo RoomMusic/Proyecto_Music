@@ -66,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
             //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
             Log.d("flx", "onClick()");
             //option + enter i importa
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(intent);
         });
 
