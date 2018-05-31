@@ -56,6 +56,7 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
     private FirebaseAuth firebaseAuth;
     private RelativeLayout relative_muro;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private String current_user_id;
 
 
 
@@ -107,7 +108,9 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_layout_muro);
 
-        String user_id = firebaseAuth.getCurrentUser().getUid();
+        current_user_id = firebaseAuth.getCurrentUser().getUid();
+
+        Log.d("sergio", "current user id" + current_user_id);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -161,7 +164,7 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
                     Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
                 }
 
-                publicacionAdapter = new PublicacionAdapter(publicaciones_list);
+                publicacionAdapter = new PublicacionAdapter(current_user_id, getContext(), publicaciones_list);
 
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
@@ -209,28 +212,6 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onRefresh() {
 
         getAllPublicaciones();
-    }
-
-
-    private void updatePublicaciones(){
-
-        swipeRefreshLayout.setRefreshing(true);
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
-        publicaciones_list = new ArrayList<>();
-
-        firebaseFirestore.collection("publicaciones").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                for (DocumentSnapshot snapshot : task.getResult()){
-                    publicacion = snapshot.toObject(Publicacion.class);
-                    publicaciones_list.add(publicacion);
-                    Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());
-                }
-                swipeRefreshLayout.setRefreshing(false);
-                publicacionAdapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(e -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**

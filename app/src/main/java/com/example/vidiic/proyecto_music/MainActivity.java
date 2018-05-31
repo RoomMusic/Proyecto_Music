@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
                 case R.id.nav_share :
                      nMainNav.setItemBackgroundResource(R.color.rojologo);
-                        Log.d("test", "MainACtivityButton");
+                     //Log.d("test", "MainACtivityButton");
                      setFragment(fragment_social);
                      return true;
 

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.vidiic.proyecto_music.Login.LoginActivity;
+import com.example.vidiic.proyecto_music.MainActivity;
 import com.example.vidiic.proyecto_music.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -137,7 +138,6 @@ public class HomeActivity extends AppCompatActivity {
                 mBackBtn.setVisibility(View.VISIBLE);
                 mNextBtn.setVisibility(View.INVISIBLE);
                 mFinalBtn.setVisibility(View.VISIBLE);
-
 
 
                 mNextBtn.setText("");

@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
         passwordET = findViewById(R.id.passwordText);
 
-        handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
+        handler.postDelayed(runnable, 1000); //2000 is the timeout for the splash
 
 
         usernameET.setText("stucomtest@gmail.com");
@@ -111,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+
                 mainIntent.putExtra("useremail", email);
 
                 startActivity(mainIntent);

@@ -37,7 +37,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
     List<Artist> artistasUsuario;
     List<Song> cancionesArtistas;
 
-    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
+    public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
     private static final int MY_PERMISSION_REQUEST = 1;
 
 
@@ -47,13 +47,13 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         setContentView(R.layout.activity_sync__music_);
 
 
-        if(ContextCompat.checkSelfPermission(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                ActivityCompat.requestPermissions(Sync_Music_Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(Sync_Music_Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQUEST);
+                ActivityCompat.requestPermissions(Sync_Music_Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            } else {
+                ActivityCompat.requestPermissions(Sync_Music_Activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
             }
-        }else {
+        } else {
             music = new ArrayList<>();
             listaArtistas = new ArrayList<>();
             artistasUsuario = new ArrayList<>();
@@ -76,20 +76,21 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         loadArtistFromFireBase();
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case MY_PERMISSION_REQUEST:{
-                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if (ContextCompat.checkSelfPermission(Sync_Music_Activity.this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(this,"PermissionGranted",Toast.LENGTH_SHORT).show();
+        switch (requestCode) {
+            case MY_PERMISSION_REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "PermissionGranted", Toast.LENGTH_SHORT).show();
 
                         db = FirebaseFirestore.getInstance();
                         new AsyncTaskSong(this).execute();
 
                     }
-                }else {
-                    Toast.makeText(this,"PermissionDeneged",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "PermissionDeneged", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 return;
@@ -97,73 +98,76 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         }
     }
 
-    public List<Artist> checkList(String nameSong, List<Artist> artistasExistentes){
-        Log.d("Artistas", artistasExistentes.size()+"");
-        if (artistasExistentes.size() >= 0){
-            for (Artist artist : artistasExistentes){
+    public List<Artist> checkList(String nameSong, List<Artist> artistasExistentes) {
+        Log.d("Artistas", artistasExistentes.size() + "");
+        if (artistasExistentes.size() >= 0) {
+            for (Artist artist : artistasExistentes) {
                 artistasUsuario.add(artist);
             }
         }
-        for (Artist artist: listaArtistas){
-            if (nameSong.contains(artist.getName().toUpperCase())){
+        for (Artist artist : listaArtistas) {
+            if (nameSong.contains(artist.getName().toUpperCase())) {
                 artistasUsuario.add(artist);
             }
         }
         return artistasUsuario;
     }
-    public List<Song> checkArtist(String nameArtist, List<Song> music){
-        Log.d("Song", music.size()+"");
-            for (Song song: music){
-                if (song.getName().toUpperCase().contains(nameArtist.toUpperCase())){
-                    cancionesArtistas.add(song);
-                }
+
+    public List<Song> checkArtist(String nameArtist, List<Song> music) {
+        Log.d("Song", music.size() + "");
+        for (Song song : music) {
+            if (song.getName().toUpperCase().contains(nameArtist.toUpperCase())) {
+                cancionesArtistas.add(song);
             }
+        }
         return cancionesArtistas;
     }
-    public void loadArtistFromFireBase(){
-        if (listaArtistas.size()>0){
+
+    public void loadArtistFromFireBase() {
+        if (listaArtistas.size() > 0) {
             listaArtistas.clear();
         }
-        if (artistasUsuario.size()>0){
+        if (artistasUsuario.size() > 0) {
             artistasUsuario.clear();
         }
         setUpFireBase();
         db.collection("artist")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for(DocumentSnapshot documentSnapshot: task.getResult()){
-                        Artist artist = new Artist(documentSnapshot.getString("name"),
-                            "hey",
-                            documentSnapshot.getString("genre"),
-                            documentSnapshot.getString("description"),documentSnapshot.getString("age"));
-                        Log.d("Yandel",artist.getName());
-                        listaArtistas.add(artist);
-                    }
-                    int fin = 1;
-                    for (Song song: music) {
-                        song.setArtistList(checkList(song.getName().toUpperCase(),song.getArtistList()));
-                        db.collection("users").document(idUser).collection("songlist").document("Song-" + song.getIdsong()).set(song);
-                        for (Artist artist: artistasUsuario){
-                            db.collection("users").document(idUser).collection("artistlist").document(artist.getName()).set(artist);
-                            cancionesArtistas.clear();
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Artist artist = new Artist(documentSnapshot.getString("name"),
+                                    "hey",
+                                    documentSnapshot.getString("genre"),
+                                    documentSnapshot.getString("description"), documentSnapshot.getString("age"));
+                            Log.d("Yandel", artist.getName());
+                            listaArtistas.add(artist);
                         }
-                        artistasUsuario.clear();
-                        fin++;
-                        if (fin == 10) {
-                            break;
+                        int fin = 1;
+                        for (Song song : music) {
+                            song.setArtistList(checkList(song.getName().toUpperCase(), song.getArtistList()));
+                            db.collection("users").document(idUser).collection("songlist").document("Song-" + song.getIdsong()).set(song);
+                            for (Artist artist : artistasUsuario) {
+                                db.collection("users").document(idUser).collection("artistlist").document(artist.getName()).set(artist);
+                                cancionesArtistas.clear();
+                            }
+                            artistasUsuario.clear();
+                            fin++;
+                            if (fin == 10) {
+                                break;
+                            }
                         }
                     }
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.v("ERROR LOAD ARTIST",e.getMessage());
-                }
-            });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.v("ERROR LOAD ARTIST", e.getMessage());
+                    }
+                });
     }
+
     private void setUpFireBase() {
         db = FirebaseFirestore.getInstance();
     }

@@ -2,6 +2,7 @@ package com.example.vidiic.proyecto_music.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,17 @@ import com.sendbird.android.UserMessage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 //adaptador para el recycler view del chat, lo que haces es detectar si propietario del mensaje es el que envia o recibe para presentarlos en distintos layouts
 public class MessageListAdapter extends RecyclerView.Adapter {
 
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+
+    private static final int VIEW_TYPE_FILE_SENT = 3;
+    private static final int VIEW_TYPE_FILE_RECEIVED = 4;
+
 
     private Context mContext;
     private List<BaseMessage> mMessageList;
@@ -44,6 +50,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         UserMessage message = (UserMessage) mMessageList.get(position);
 
         if (message.getSender().getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -86,11 +93,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private static String formatDateTime(long fechaMensaje) {
 
-        //Date fecha = new Date(fechaMensaje * 1000);
-
-        Date fecha = new Date();
+        //Date fecha = new Date();
+        Date fecha = new Date(fechaMensaje);
 
         SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+
 
         return hourFormat.format(fecha);
     }
@@ -111,9 +118,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             // Format the stored timestamp into a readable String using method.
             timeText.setText(MessageListAdapter.formatDateTime(message.getCreatedAt()));
 
-
         }
     }
+
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
 

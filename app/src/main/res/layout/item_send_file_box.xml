@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:paddingTop="8dp">
+
+
+    <TextView
+        android:id="@+id/text_file_message_time"
+        android:text="11:40"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_toLeftOf="@+id/text_file_message_body"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="2dp"/>
+
+    <RelativeLayout
+        android:id="@+id/text_file_message_body"
+        android:background="@drawable/rounded_rectangle_green"
+        android:layout_width="250dp"
+        android:layout_height="180dp"
+        android:maxWidth="240dp"
+        android:textColor="#ffffff"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/relative_song_details"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp">
+
+            <ImageView
+                android:id="@+id/song_image_send"
+                android:layout_width="55dp"
+                android:src="@drawable/ic_action_music"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="55dp"
+                android:text="songname"
+                android:textSize="13dp"
+                android:layout_toRightOf="@id/song_image_send"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/relative_song_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:id="@+id/relative_accept_file">
+
+            <TextView
+                android:id="@+id/state_song"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Esperando respuesta..."
+                android:textSize="10dp"
+                android:textAlignment="center"
+                android:paddingTop="5dp"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

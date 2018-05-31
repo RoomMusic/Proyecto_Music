@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.chat;
+package com.example.vidiic.proyecto_music.fragments.social.chat;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -43,12 +43,14 @@ public class ChatActivity extends AppCompatActivity {
         rvChat = findViewById(R.id.reyclerview_message_list);
 
         //linea para cuando el teclado aparezca, el recycler view o la vista que haya se suba con el teclado y no se solape
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Intent socialIntent = getIntent();
 
         //obtenemos los ids pasados por el intent, id de usuario app e id del usuario escogido
         List<String> ids = Arrays.asList(socialIntent.getStringArrayExtra("userids"));
+
+
 
         //Log.d("sergio", "USERIDS " + ids[0] + " " + ids[1]);
 

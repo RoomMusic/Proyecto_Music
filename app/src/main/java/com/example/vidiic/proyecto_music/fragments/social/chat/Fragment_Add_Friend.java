@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
@@ -23,6 +24,7 @@ import com.example.vidiic.proyecto_music.adapters.AddUserAdapter;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -60,6 +62,11 @@ public class Fragment_Add_Friend extends Fragment {
     private List<UserApp> requested_users;
     private FirebaseFirestore firebaseFirestore;
     private UserApp userAux;
+    private String current_user_id;
+    private FirebaseAuth firebaseAuth;
+    private ImageButton btn_back;
+    private Fragment_User_Chat fragment_user_chat;
+    private RelativeLayout relativeLayout;
 
     public Fragment_Add_Friend() {
         // Required empty public constructor
@@ -100,9 +107,24 @@ public class Fragment_Add_Friend extends Fragment {
         search_user_btn = search_user_view.findViewById(R.id.search_user_btn);
         user_key = search_user_view.findViewById(R.id.username_et);
         rv_show_user = search_user_view.findViewById(R.id.recycler_view_add_user);
+        btn_back = search_user_view.findViewById(R.id.btnback);
         requested_users = new ArrayList<>();
+        fragment_user_chat = new Fragment_User_Chat();
+        firebaseAuth = FirebaseAuth.getInstance();
+        relativeLayout = search_user_view.findViewById(R.id.relative_edit_text_user);
+
+        current_user_id = firebaseAuth.getCurrentUser().getUid();
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        relativeLayout.setVisibility(View.VISIBLE);
+
+
+        btn_back.setOnClickListener(v -> {
+            relativeLayout.setVisibility(View.GONE);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_search_friends, fragment_user_chat).commit();
+        });
 
 
         user_key.addTextChangedListener(new TextWatcher() {
@@ -164,8 +186,10 @@ public class Fragment_Add_Friend extends Fragment {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot snapshot : task.getResult()) {
                         userAux = snapshot.toObject(UserApp.class);
-                        Log.d("request_users", "nombre user" + userAux.getUserName());
-                        requested_users.add(userAux);
+                        if (!userAux.getUserid().equals(current_user_id)) {
+                            Log.d("request_users", "nombre user" + userAux.getUserName());
+                            requested_users.add(userAux);
+                        }
                     }
                 }
             }
