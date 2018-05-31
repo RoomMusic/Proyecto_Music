@@ -62,7 +62,6 @@ public class HomeActivity extends AppCompatActivity {
         //delcarem el valor del final
         Button btnquanta = findViewById(R.id.finalBtn);
         btnquanta.setOnClickListener(view -> {
-
             //amb aixo mirme si el boto funciona, en el android monitor sortira si lo donem al boto o no "filtrem per flx"
             Log.d("flx", "onClick()");
             //option + enter i importa
@@ -135,7 +134,6 @@ public class HomeActivity extends AppCompatActivity {
                 mBackBtn.setVisibility(View.VISIBLE);
                 mNextBtn.setVisibility(View.INVISIBLE);
                 mFinalBtn.setVisibility(View.VISIBLE);
-
 
 
                 mNextBtn.setText("");
