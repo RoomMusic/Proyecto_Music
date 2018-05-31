@@ -50,6 +50,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             // If some other user sent the message
             return VIEW_TYPE_MESSAGE_RECEIVED;
         }
+
+
     }
 
     // Inflates the appropriate layout according to the ViewType.

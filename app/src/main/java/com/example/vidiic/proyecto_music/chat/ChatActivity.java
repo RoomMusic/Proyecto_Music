@@ -1,18 +1,23 @@
 package com.example.vidiic.proyecto_music.chat;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.MessageListAdapter;
+import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_Add_Friend;
+import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Add_Publication;
 import com.sendbird.android.BaseChannel;
 import com.sendbird.android.BaseMessage;
 import com.sendbird.android.FileMessage;
@@ -25,11 +30,13 @@ import com.sendbird.android.UserMessage;
 import java.util.Arrays;
 import java.util.List;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements Fragment_Add_Publication.OnFragmentInteractionListener{
 
     private String channelURL;
     private RecyclerView rvChat;
     private MessageListAdapter messageListAdapter;
+    private Fragment_Add_Publication fragment_add_publicatino;
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,9 @@ public class ChatActivity extends AppCompatActivity {
 
         EditText messageText = findViewById(R.id.edittext_chatbox);
         rvChat = findViewById(R.id.reyclerview_message_list);
+        fragment_add_publicatino = new Fragment_Add_Publication();
+        constraintLayout = findViewById(R.id.constraint_chat);
+
 
         //linea para cuando el teclado aparezca, el recycler view o la vista que haya se suba con el teclado y no se solape
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -107,6 +117,8 @@ public class ChatActivity extends AppCompatActivity {
 
                 sendFile.setOnClickListener(v -> {
                     //groupChannel.sendFileMessage(url, "test", "audio/mpeg", );
+
+
                 });
 
                 btnSendMessage.setOnClickListener(view -> {
@@ -135,6 +147,11 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
