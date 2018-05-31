@@ -1,4 +1,4 @@
-package com.example.vidiic.proyecto_music.chat;
+package com.example.vidiic.proyecto_music.fragments.social.chat;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +49,8 @@ public class ChatActivity extends AppCompatActivity {
 
         //obtenemos los ids pasados por el intent, id de usuario app e id del usuario escogido
         List<String> ids = Arrays.asList(socialIntent.getStringArrayExtra("userids"));
+
+
 
         //Log.d("sergio", "USERIDS " + ids[0] + " " + ids[1]);
 

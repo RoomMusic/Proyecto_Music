@@ -25,7 +25,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +63,8 @@ public class Fragment_Add_Publication extends Fragment {
     private RecyclerView rv_song_list;
     private PublicacionSongAdapter publicacionSongAdapter;
     private Publicacion publicacion;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
 
     public Fragment_Add_Publication() {
         // Required empty public constructor
@@ -135,8 +141,8 @@ public class Fragment_Add_Publication extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
                     relative_publication_details.setVisibility(View.GONE);
                     relative_song_list.setVisibility(View.GONE);
-
-                    Toast.makeText(view.getContext(), "Cancion añadida", Toast.LENGTH_SHORT).show();
+                    Log.d("sergio", "path sancion: " + song.getImageSong());
+                    Toast.makeText(view.getContext(), "Cancion añadida ", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -171,6 +177,34 @@ public class Fragment_Add_Publication extends Fragment {
         return view;
     }
 
+
+    private void uploadSongFile(UserApp user, String path) {
+
+        firebaseStorage = FirebaseStorage.getInstance();
+
+        storageReference = firebaseStorage.getReference();
+
+        //dividimos la ruta de la imagen por la /
+        String[] fileName = path.split("/");
+
+        //en la posicion 5 tenemos el string del titulo mas la extension .mp3
+        Log.d("sergio", "DATA NAME " + fileName[5] + user.getEmail());
+
+        //configuramos una ruta para guardar los archivos, esta ruta consistira en el email del usuario mas el nombre del archvio
+        //de esta manera los archivos se guardan por usuario
+        storageReference = firebaseStorage.getReference().child(user.getEmail() + "/" + fileName[5]);
+
+        Uri songFile = Uri.fromFile(new File(path));
+
+        //con uppload task subimos el archivo a firebase
+        //asi se sube y ya esta
+        storageReference.putFile(songFile);
+
+        //si guardamos en una variable la tarea podremos configurar distintas acciones para las distintas fases de subida de archvios
+        UploadTask uploadTask = storageReference.putFile(songFile);
+
+    }
+
     private int new_id;
     private Publicacion publicacionAux;
 
@@ -197,7 +231,8 @@ public class Fragment_Add_Publication extends Fragment {
                             if (!docList.isEmpty())
                                 publicacionAux = docList.get(0).toObject(Publicacion.class);
 
-                            if (publicacionAux != null) new_id = publicacionAux.getPublication_id() + 1;
+                            if (publicacionAux != null)
+                                new_id = publicacionAux.getPublication_id() + 1;
                             else new_id = 1;
 
                             Log.d("publicacion", "nuevo id: " + new_id);
@@ -206,7 +241,16 @@ public class Fragment_Add_Publication extends Fragment {
                             publicacion.setPublication_id(new_id);
 
                             firebaseFirestore.collection("publicaciones").document(String.valueOf(publicacion.getPublication_id())).set(publicacion)
-                                    .addOnCompleteListener(aVoid -> Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show());
+                                    .addOnCompleteListener(aVoid -> {
+
+                                        Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show();
+
+                                        uploadSongFile(publicacion.getPublication_user(), publicacion.getPublication_song().getImageSong());
+
+
+
+                                    });
+
 
                         }
                     });
