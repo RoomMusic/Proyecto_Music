@@ -68,9 +68,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 Song song_publicacion = publicacion.getPublication_song();
 
 
-                vh.progressBar.setVisibility(View.VISIBLE);
-                vh.progressBar.setIndeterminate(true);
-
                 //abrimos un canal con el usuario para mandarle el mensaje
                 Intent chat_intent = new Intent(context.getApplicationContext(), ChatActivity.class);
 
@@ -81,13 +78,19 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 Log.d("sergio", "nombre cancion: " + publicacion.getPublication_song().getName());
 
                 if (!current_user_id.equals(user_publitacion.getUserid())) {
-                    chat_intent.putExtra("userids", userIds);
-                    chat_intent.putExtra("url_song", url_song);
+                    //descargar cancion
+                    vh.progressBar.setVisibility(View.VISIBLE);
+                    vh.progressBar.setIndeterminate(true);
 
-                    Log.d("sergio", "id1 " + userIds[0] + " id2 " + userIds[1]);
 
-                    context.startActivity(chat_intent);
-                }else{
+
+//                    chat_intent.putExtra("userids", userIds);
+//                    chat_intent.putExtra("url_song", url_song);
+//
+//                    Log.d("sergio", "id1 " + userIds[0] + " id2 " + userIds[1]);
+//
+//                    context.startActivity(chat_intent);
+                } else {
                     Toast.makeText(context.getApplicationContext(), "Ya tienes esta cancion.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -96,8 +99,9 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         });
     }
 
+    private void downloadSong(){
 
-
+    }
 
     @Override
     public int getItemCount() {
