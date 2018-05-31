@@ -6,9 +6,7 @@
 
     <application
         android:allowBackup="true"
-
         android:label="@string/app_name"
-
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".launcher.Activity_Launcher">
@@ -22,9 +20,10 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.Activity_Reg" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".fragments.social.chat.ChatActivity" />
+        <activity android:name=".chat.ChatActivity" />
         <activity android:name=".Artist_Activity" />
         <activity android:name=".musicFireBase.Sync_Music_Activity" />
+        <activity android:name=".Genre_Activity"></activity>
     </application>
 
 </manifest>
