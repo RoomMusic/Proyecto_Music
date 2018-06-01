@@ -32,9 +32,9 @@
                 <TextView
                     android:id="@+id/nameSong"
                     android:maxLines="1"
+                    android:fontFamily="sans-serif-medium"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:fontFamily="sans-serif-condensed"
                     android:text="Nombre Cancion"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="17sp"
@@ -50,7 +50,7 @@
                     android:layout_height="35dp"
                     android:layout_below="@id/nameSong"
                     android:layout_toRightOf="@id/nameArtist"
-                    android:fontFamily="sans-serif-condensed"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="G"
                     android:textAlignment="center"
@@ -65,11 +65,11 @@
                     android:layout_width="260dp"
                     android:layout_height="35dp"
                     android:layout_below="@id/nameSong"
-                    android:fontFamily="sans-serif-condensed"
                     android:text="Artista"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="17sp"
                     android:typeface="monospace"
+                    android:fontFamily="sans-serif-light"
                     android:layout_marginLeft="10dp"
                     />
 

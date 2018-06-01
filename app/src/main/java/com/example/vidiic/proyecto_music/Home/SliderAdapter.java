@@ -44,10 +44,9 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_desc = {
-            "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
-            "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.",
-            "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen."
-
+            "El mejor método de compartir musica con tus amigos de la manera mas fácil, practica y rápida.",
+            "Disfruta de tus artistas favoritos directamente desde la aplicación de la manera mas cómoda.",
+            "Descubre nuevos artistas y canciones de mano de tus amigos. Te gusta la canción? pídele que te la envíen!"
     };
 
 

@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/slide_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
@@ -24,10 +24,13 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="40dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Heading"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:layout_marginRight="40dp" />
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/slide_image"/>
 
     <TextView
         android:id="@+id/slide_desc"
@@ -35,11 +38,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/slide_heading"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:padding="35dp"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
         android:text="TextView"
+        android:fontFamily="sans-serif-light"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="22sp"
         tools:text="Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta)" />
 </RelativeLayout>
