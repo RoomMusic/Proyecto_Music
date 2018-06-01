@@ -18,11 +18,12 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                app:civ_border_color="#000000"
+                app:civ_border_color="@color/white"
                 android:layout_centerVertical="true"
                 android:id="@+id/imageSong"
                 android:src="@drawable/ic_action_music"
-                app:civ_border_width="2dp"/>
+                app:civ_border_width="2dp"
+                 />
 
             <RelativeLayout
                 android:layout_width="300dp"

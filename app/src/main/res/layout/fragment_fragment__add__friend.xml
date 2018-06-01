@@ -45,15 +45,15 @@
                 android:layout_marginLeft="22dp"
                 android:layout_below="@id/titleaddfriends"
                 android:background="@drawable/oval"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="16dp"
                 android:hint="username"
                 android:padding="9dp"/>
 
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/search_user_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/username_et"
                 android:layout_below="@id/titleaddfriends"
@@ -67,7 +67,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/username_et"
                 android:layout_margin="10dp"
-                android:paddingTop="20dp">
+                android:paddingTop="30dp">
 
             </android.support.v7.widget.RecyclerView>
 
