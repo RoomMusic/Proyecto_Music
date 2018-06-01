@@ -41,7 +41,7 @@
                     android:typeface="monospace"
                     android:visibility="visible"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/white"/>
+                    />
 
                 <TextView
 
@@ -57,7 +57,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="17sp"
                     android:typeface="monospace"
-                    android:textColor="@color/white"
+
                     />
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:textSize="17sp"
                     android:typeface="monospace"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/white"/>
+                    />
 
             </RelativeLayout>
 
@@ -81,7 +81,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:layout_marginTop="100dp"
         android:src="@drawable/oval3" />
 
