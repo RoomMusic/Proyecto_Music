@@ -1,5 +1,6 @@
 package com.example.vidiic.proyecto_music.adapters;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.okhttp.internal.http.RequestException;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +50,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         this.current_user_id = current_user_id;
         this.context = context;
         this.publiaciones_list = publicaciones_list;
+        downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
     }
 
     @Override
@@ -122,11 +125,14 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     }
 
     private File song_file = null, song_file_aux = null;
+    private DownloadManager downloadManager;
+    private String song_name;
 
-    private void downloadSong(Publicacion publicacion, ProgressBar progressBar){
+
+    private void downloadSong(Publicacion publicacion, ProgressBar progressBar) {
 
         String song_user_email = publicacion.getPublication_user().getEmail();
-        String song_name = publicacion.getPublication_song().getImageSong();
+        song_name = publicacion.getPublication_song().getImageSong();
         StorageReference songReference;
 
 
@@ -153,25 +159,28 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         }
 
-//        song_storage_reference.child(song_user_email + "/" + song_name).getDownloadUrl().addOnSuccessListener(uri -> {
-//            song_file = new File(uri.toString());
-//
-//
-//            //actualizamos la lista del usuario
-//
-//
-//            Log.d("descarga", "URI: " + uri.toString());
-//            progressBar.setIndeterminate(false);
-//            progressBar.setVisibility(View.GONE);
-//            Toast.makeText(context, "Cancion descargada", Toast.LENGTH_SHORT).show();
-//        }).addOnFailureListener(e -> {
-//            progressBar.setIndeterminate(false);
-//            progressBar.setVisibility(View.GONE);
-//            Toast.makeText(context, "Error al descargar cancion", Toast.LENGTH_SHORT).show();
-//        });
+        song_storage_reference.child(song_user_email + "/" + song_name).getDownloadUrl().addOnSuccessListener(uri -> {
 
-        songReference.getFile(song_file).addOnSuccessListener(taskSnapshot -> {
-            Log.d("descarga", "song data: " + song_file.getPath());
+            song_file = new File(uri.toString());
+
+            String url = uri.toString();
+
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+
+            request.setTitle(song_name);
+
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, uri.toString());
+
+            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+
+            manager.enqueue(request);
+
+
+            //actualizamos la lista del usuario
+            Log.d("descarga", "URI: " + uri.toString());
             progressBar.setIndeterminate(false);
             progressBar.setVisibility(View.GONE);
             Toast.makeText(context, "Cancion descargada", Toast.LENGTH_SHORT).show();
@@ -179,8 +188,19 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             progressBar.setIndeterminate(false);
             progressBar.setVisibility(View.GONE);
             Toast.makeText(context, "Error al descargar cancion", Toast.LENGTH_SHORT).show();
-
         });
+
+//        songReference.getFile(song_file).addOnSuccessListener(taskSnapshot -> {
+//            Log.d("descarga", "song data: " + song_file.getPath());
+//            progressBar.setIndeterminate(false);
+//            progressBar.setVisibility(View.GONE);
+//            Toast.makeText(context, "Cancion descargada", Toast.LENGTH_SHORT).show();
+//        }).addOnFailureListener(e -> {
+//            progressBar.setIndeterminate(false);
+//            progressBar.setVisibility(View.GONE);
+//            Toast.makeText(context, "Error al descargar cancion", Toast.LENGTH_SHORT).show();
+//
+//        });
 
     }
 
