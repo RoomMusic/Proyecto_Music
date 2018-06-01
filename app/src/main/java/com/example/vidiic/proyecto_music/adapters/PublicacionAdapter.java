@@ -45,6 +45,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.ViewHolder> {
@@ -191,7 +192,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 
-            manager.enqueue(request);
+            //manager.enqueue(request);
 
 
             //actualizamos la lista del usuario
@@ -205,10 +206,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
             saveSongInFireBase(song, current_user_id);
 
-
-            Toast.makeText(context, "Cancion descargada", Toast.LENGTH_SHORT).show();
-
-
         }).addOnFailureListener(e -> {
 
             progressBar.setIndeterminate(false);
@@ -220,25 +217,76 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
     private void saveSongInFireBase(Song song, String user_id) {
 
+        //lista para guardar los ids de las canciones obtenidas
+        List<Integer> song_id_list = new ArrayList<>();
+        //lista para guardar todas las canciones descargadas
+        List<Song> song_list = new ArrayList<>();
 
-        firebaseFirestore.collection("users").document(user_id).collection("songlist").orderBy("idsong", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot snap : queryDocumentSnapshots) {
-                        Log.d("descarga", "cancion id: " + snap.toObject(Song.class).getIdsong());
-                    }
+
+        firebaseFirestore.collection("users").document(user_id).collection("songlist").orderBy("idsong", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+
+            if (!queryDocumentSnapshots.isEmpty()) {
+
+                for (DocumentSnapshot snap : queryDocumentSnapshots) {
+                    //Log.d("descarga", "cancion id: " + snap.toObject(Song.class).getIdsong() + "song id: " + song.getIdsong());
+                    Song s = snap.toObject(Song.class);
+
+                    //Log.d("descarga", "cancion aux: " + s.getName() + " cancion descargada: " + song.getName());
+
+                    song_list.add(s);
+                    song_id_list.add(s.getIdsong());
+
                 }
+
+                //si el id de la cancion descargada esta en la lista de ids descargados, comprobamos que no sea la misma cancion
+                if (song_id_list.contains(song.getIdsong())) {
+
+                    //recogemos la posicion del indice que coincide para obtener la cancion por id y comprobar que no son la misma comparando los nombres de la descargada y de la que tiene el mismo id
+                    int position = song_id_list.indexOf(song.getIdsong());
+
+                    Song songaux = song_list.get(position);
+
+                    //si el nombre es igual la cancion no se descargara ya que ya esta presente en la base de datos
+                    if (songaux.getName().equals(song.getName())) {
+                        Toast.makeText(context, "La cancion ya existe en la bbdd", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //si el nombre no es el mismo quiere decir que no existe en la bbdd por lo tanto le asignamos un nuevo id y la añadimos
+                        int new_song_id = Collections.max(song_id_list) + 1;
+
+                        song.setIdsong(new_song_id);
+
+                        firebaseFirestore.collection("users").document(current_user_id).collection("songlist")
+                                .document("Song-" + String.valueOf(song.getIdsong())).set(song).addOnSuccessListener(aVoid -> Toast.makeText(context, "Cancion guardada en firebase 1", Toast.LENGTH_SHORT).show());
+
+                    }
+                } else {
+
+                    boolean check = false;
+
+                    for (Song saux : song_list) {
+                        if (saux.getName().equals(song.getName())) {
+                            Log.d("descarga", "cancion aux: " + saux.getName() + " cancion descargada: " + song.getName());
+                            check = true;
+                        }
+                    }
+
+                    //si es falso quiere decir que no coincide el nombre por lo tanto la ingresamos en la bbdd
+                    if (!check) {
+
+                        firebaseFirestore.collection("users").document(current_user_id).collection("songlist")
+                                .document("Song-" + String.valueOf(song.getIdsong())).set(song).addOnSuccessListener(aVoid -> Toast.makeText(context, "Cancion guardada en firebase 2", Toast.LENGTH_SHORT).show());
+                    } else {
+                        Toast.makeText(context, "La cancion ya existe en la bbdd 2", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+
             }
         });
 
-        firebaseFirestore.collection("users").document(current_user_id).collection("songlist")
-                .document(String.valueOf(song.getIdsong())).set(song).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(context, "Cancion guardad en firebase", Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
