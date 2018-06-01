@@ -1,10 +1,13 @@
 package com.example.vidiic.proyecto_music.adapters;
 
 import android.app.DownloadManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,14 +21,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.classes.Artist;
 import com.example.vidiic.proyecto_music.fragments.social.chat.ChatActivity;
 import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.example.vidiic.proyecto_music.classes.Song;
 import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_User_Chat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +43,8 @@ import com.squareup.okhttp.internal.http.RequestException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.ViewHolder> {
@@ -44,6 +56,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     private FirebaseStorage song_firebase_storage;
     private StorageReference song_storage_reference;
     private String DOWNLOAD_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
 
     public PublicacionAdapter(String current_user_id, Context context, List<Publicacion> publicaciones_list) {
         super();
@@ -53,6 +67,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
     }
 
+    private List<Song> song_list;
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -60,7 +76,9 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 inflate(R.layout.item_user_muro, parent, false);
         //inicializamos la instancia firebase storage para poder hacer referncia al usuario al cual pertenece la cancion
         song_firebase_storage = FirebaseStorage.getInstance();
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        song_list = new ArrayList<>();
 
         return new PublicationViewHolder(publication_item);
     }
@@ -86,6 +104,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             public void onClick(View v) {
                 //guardamos el usuario de la publicacion
                 UserApp user_publitacion = publicacion.getPublication_user();
+
                 Song song_publicacion = publicacion.getPublication_song();
 
 
@@ -106,7 +125,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                     vh.progressBar.setIndeterminate(true);
 
 
-                    downloadSong(publicacion, vh.progressBar);
+                    downloadSong(publicacion, vh.progressBar, song_publicacion);
 
 
 //                    chat_intent.putExtra("userids", userIds);
@@ -129,11 +148,10 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     private String song_name;
 
 
-    private void downloadSong(Publicacion publicacion, ProgressBar progressBar) {
+    private void downloadSong(Publicacion publicacion, ProgressBar progressBar, Song song) {
 
         String song_user_email = publicacion.getPublication_user().getEmail();
         song_name = publicacion.getPublication_song().getImageSong();
-        StorageReference songReference;
 
 
         //dividimos la ruta de la imagen por la /
@@ -144,9 +162,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         //creamos una referencia al usuario del cual queremos obtenes el email
         song_storage_reference = song_firebase_storage.getReference();
-
-
-        songReference = song_storage_reference.child(song_user_email + "/" + song_name);
 
 
         Log.d("descarga", "useremail: " + song_user_email + " songname: " + song_name);
@@ -181,28 +196,52 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
             //actualizamos la lista del usuario
             Log.d("descarga", "URI: " + uri.toString());
+
             progressBar.setIndeterminate(false);
             progressBar.setVisibility(View.GONE);
+
+            //guardamos la cancion en firebase
+            Log.d("descarga", "song details: " + song_file.getPath());
+
+            saveSongInFireBase(song, current_user_id);
+
+
             Toast.makeText(context, "Cancion descargada", Toast.LENGTH_SHORT).show();
+
+
         }).addOnFailureListener(e -> {
+
             progressBar.setIndeterminate(false);
             progressBar.setVisibility(View.GONE);
             Toast.makeText(context, "Error al descargar cancion", Toast.LENGTH_SHORT).show();
         });
 
-//        songReference.getFile(song_file).addOnSuccessListener(taskSnapshot -> {
-//            Log.d("descarga", "song data: " + song_file.getPath());
-//            progressBar.setIndeterminate(false);
-//            progressBar.setVisibility(View.GONE);
-//            Toast.makeText(context, "Cancion descargada", Toast.LENGTH_SHORT).show();
-//        }).addOnFailureListener(e -> {
-//            progressBar.setIndeterminate(false);
-//            progressBar.setVisibility(View.GONE);
-//            Toast.makeText(context, "Error al descargar cancion", Toast.LENGTH_SHORT).show();
-//
-//        });
+    }
+
+    private void saveSongInFireBase(Song song, String user_id) {
+
+
+        firebaseFirestore.collection("users").document(user_id).collection("songlist").orderBy("idsong", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (DocumentSnapshot snap : queryDocumentSnapshots) {
+                        Log.d("descarga", "cancion id: " + snap.toObject(Song.class).getIdsong());
+                    }
+                }
+            }
+        });
+
+        firebaseFirestore.collection("users").document(current_user_id).collection("songlist")
+                .document(String.valueOf(song.getIdsong())).set(song).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(context, "Cancion guardad en firebase", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
+
 
     @Override
     public int getItemCount() {
