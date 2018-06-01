@@ -262,6 +262,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                     }
                 } else {
 
+                    int new_song_id = Collections.max(song_id_list) + 1;
+
                     boolean check = false;
 
                     for (Song saux : song_list) {
@@ -273,6 +275,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
                     //si es falso quiere decir que no coincide el nombre por lo tanto la ingresamos en la bbdd
                     if (!check) {
+
+                        song.setIdsong(new_song_id);
 
                         firebaseFirestore.collection("users").document(current_user_id).collection("songlist")
                                 .document("Song-" + String.valueOf(song.getIdsong())).set(song).addOnSuccessListener(aVoid -> Toast.makeText(context, "Cancion guardada en firebase 2", Toast.LENGTH_SHORT).show());
