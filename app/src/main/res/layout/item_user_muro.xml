@@ -5,11 +5,11 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="160dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="160dp">
 
         <ImageView
             android:id="@+id/songImageMuro"
@@ -20,7 +20,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
 
         <RelativeLayout
             android:id="@+id/relativePublicationData"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="75dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
@@ -30,13 +30,13 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             <TextView
                 android:id="@+id/userNameMuro"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="25dp"
                 android:text="username" />
 
             <TextView
                 android:id="@+id/songNameMuro"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="50dp"
                 android:layout_below="@+id/userNameMuro"
                 android:text="song name"
                 android:textSize="12dp" />
@@ -52,18 +52,20 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             <ImageButton
                 android:id="@+id/btnAsk"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="95dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/send" />
+                android:src="@drawable/send"
+                android:background="@color/gradStop" />
 
             <ImageButton
                 android:id="@+id/btnPlaySong"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="95dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-
-                android:src="@drawable/play" />
+                android:layout_marginRight="20dp"
+                android:src="@drawable/play"
+                android:background="@color/greenplay"/>
 
             <!-- POL poner imagenes de botones -->
         </RelativeLayout>
@@ -76,6 +78,12 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
             android:layout_margin="10dp"
             android:visibility="visible"
             style="?android:attr/progressBarStyleHorizontal"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="150dp"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
 
 
     </RelativeLayout>
