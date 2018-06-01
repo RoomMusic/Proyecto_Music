@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imgView_logo"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
@@ -30,13 +30,13 @@
             android:id="@+id/rellay1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgView_logo">
+            android:layout_below="@+id/imgView_logo"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Login"
                 android:textColor="@color/white"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_login"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -116,7 +116,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/linlay1"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/btn_bg"
                 android:fontFamily="sans-serif-medium"
                 android:paddingLeft="70dp"
@@ -136,7 +136,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/signUpBtn"
