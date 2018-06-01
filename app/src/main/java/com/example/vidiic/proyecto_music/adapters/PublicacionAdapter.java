@@ -118,6 +118,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
                 //Log.d("sergio", "nombre cancion: " + publicacion.getPublication_song().getName());
 
+
+                /*COMPROBAR LISTA DE CANCIONES DEL USUARIO EN LUGAR DE COMPARAR EL ID*/
                 if (!current_user_id.equals(user_publitacion.getUserid())) {
 
 
@@ -226,6 +228,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         firebaseFirestore.collection("users").document(user_id).collection("songlist").orderBy("idsong", Query.Direction.DESCENDING)
                 .get().addOnSuccessListener(queryDocumentSnapshots -> {
 
+            //si no esta vacia quiere decir que tiene canciones por lo tanto comprobamos si existe
             if (!queryDocumentSnapshots.isEmpty()) {
 
                 for (DocumentSnapshot snap : queryDocumentSnapshots) {
@@ -282,11 +285,26 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                                 .document("Song-" + String.valueOf(song.getIdsong())).set(song).addOnSuccessListener(aVoid -> Toast.makeText(context, "Cancion guardada en firebase 2", Toast.LENGTH_SHORT).show());
                     } else {
                         Toast.makeText(context, "La cancion ya existe en la bbdd 2", Toast.LENGTH_SHORT).show();
+
                     }
 
 
                 }
 
+                //si esta vacia añadimos la cancion
+            } else {
+                Toast.makeText(context, "No hay canciones en tu lista", Toast.LENGTH_SHORT).show();
+
+                //seteamos el id de la cancion a 1
+                song.setIdsong(1);
+
+                firebaseFirestore.collection("users").document(current_user_id).collection("songlist")
+                        .document("Song-" + String.valueOf(song.getIdsong()))
+                        .set(song)
+                        .addOnSuccessListener(aVoid -> {
+
+                            Toast.makeText(context, "Cancion guardada en firebase 3", Toast.LENGTH_SHORT).show();
+                        });
 
             }
         });
