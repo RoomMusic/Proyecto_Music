@@ -82,32 +82,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-        //si es diferente de null quiere decir que sigue loggeado
-        if (firebaseUser != null){
-
-            //obtener el correo del usuario por id
-            firebaseFirestore.collection("users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists()){
-                        UserApp u = documentSnapshot.toObject(UserApp.class);
-
-                        Log.d("sergio", "email: " + u.getEmail());
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        intent.putExtra("email", u.getEmail());
-
-                        startActivity(intent);
-
-                    }
-                }
-            });
-        }
-
         //delcarem el valor del final
         btnSignUp = (Button) findViewById(R.id.signUpBtn);
 
