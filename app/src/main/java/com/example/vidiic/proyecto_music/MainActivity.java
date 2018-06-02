@@ -94,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
 
         nMainNav = findViewById(R.id.main_nav);
+        BottomNavigationViewHelper.disableShiftMode(nMainNav);
         nMainNav.setSelectedItemId(R.id.nav_home);
+
         frameLayoutMain = findViewById(R.id.contenedorFragment);
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -111,27 +113,22 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     setFragment(fragment_home);
                     return true;
 
                 case R.id.nav_music:
-                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     setFragment(fragment_music);
                     return true;
 
                 case R.id.nav_share:
-                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     //Log.d("test", "MainACtivityButton");
                     setFragment(fragment_social);
                     return true;
                 case R.id.nav_perfil:
-                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     //Log.d("test", "MainACtivityButton");
                     setFragment(fragment_profile);
                     return true;
                 case R.id.nav_settings:
-                    nMainNav.setItemBackgroundResource(R.color.rojologo);
                     //Log.d("test", "MainACtivityButton");
                     setFragment(fragment_settings);
                     return true;
