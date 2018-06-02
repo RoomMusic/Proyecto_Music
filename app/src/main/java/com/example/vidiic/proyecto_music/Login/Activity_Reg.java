@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.example.vidiic.proyecto_music.musicFireBase.Sync_Music_Activity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -61,10 +62,6 @@ public class Activity_Reg extends AppCompatActivity {
         passwordET2 = findViewById(R.id.passwordSign2);
         signUpBtn = findViewById(R.id.btnSignUp);
 
-        userNameEditText.setText("stucom");
-        userEmailEditText.setText("stucomtest@gmail.com");
-        passwordET1.setText("ssoo++");
-        passwordET2.setText("ssoo++");
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -110,9 +107,10 @@ public class Activity_Reg extends AppCompatActivity {
                     if (task.isSuccessful()) {
 
                         //usuario registrado completamente
-                        Intent intent = new Intent(Activity_Reg.this, LoginActivity.class);
+                        Intent intent = new Intent(Activity_Reg.this, Sync_Music_Activity.class);
 
                         intent.putExtra("useremail", userMail);
+                        intent.putExtra("username", userName);
 
 
                         key = FirebaseAuth.getInstance().getCurrentUser().getUid();

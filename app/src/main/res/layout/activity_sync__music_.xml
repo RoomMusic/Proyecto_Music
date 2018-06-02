@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.vidiic.proyecto_music.musicFireBase.Sync_Music_Activity">
+    <RelativeLayout
+        android:id="@+id/sync-tit"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#232323">
+        <TextView
+            android:id="@+id/nombresync"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Sincronizando tú Música"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/nombreuser"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nombresync"
+            android:layout_margin="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Nombre Usuario"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_margin="8dp"
+        android:layout_below="@id/sync-tit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/paso1"
+            android:padding="8dp"
+            android:text="1. Paso acepta los permisos"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <ProgressBar
+            android:id="@+id/progresSync"
+            android:layout_below="@id/paso1"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnsync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progresSync"
+            android:layout_marginTop="100dp"
+            android:text="Operacion finalizada"
+            android:textSize="18sp"
+            android:background="#232323"
+            android:textColor="@color/white"
+            android:enabled="false"/>
+    </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
