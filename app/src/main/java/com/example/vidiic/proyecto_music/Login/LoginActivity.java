@@ -21,6 +21,7 @@ import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.google.android.gms.common.oob.SignUp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by poldominguez on 25/5/18.
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameET, passwordET;
     private FirebaseAuth firebaseAuth;
     private Fragment_Home fragment_home;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.signUpBtn);
         usernameET = findViewById(R.id.userEmail);
         fragment_home = new Fragment_Home();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         passwordET = findViewById(R.id.passwordText);
 
@@ -70,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
             //comprobamos que el usuario esta en la base de datos
             registerUser();
         });
+
+
 
 
         //delcarem el valor del final
