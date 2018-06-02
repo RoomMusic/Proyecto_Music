@@ -162,11 +162,11 @@ public class Fragment_Add_Publication extends Fragment {
 
             //publicacionSongAdapter.notifyDataSetChanged();
             Log.d("add_publicacion", "entro cabron");
-            Toast.makeText(view.getContext(), "Canciones mostradas", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "Canciones mostradas", Toast.LENGTH_SHORT).show();
         });
 
         cancel_add_publicacion.setOnClickListener(v -> {
-            Toast.makeText(view.getContext(), "Cancelado", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "Cancelado", Toast.LENGTH_SHORT).show();
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
             relative_song_list.setVisibility(View.GONE);
             relative_publication_details.setVisibility(View.GONE);
@@ -243,7 +243,7 @@ public class Fragment_Add_Publication extends Fragment {
                             firebaseFirestore.collection("publicaciones").document(String.valueOf(publicacion.getPublication_id())).set(publicacion)
                                     .addOnCompleteListener(aVoid -> {
 
-                                        Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(view.getContext(), "Cancion añadida a firebase.", Toast.LENGTH_SHORT).show();
 
                                         uploadSongFile(publicacion.getPublication_user(), publicacion.getPublication_song().getImageSong());
 
