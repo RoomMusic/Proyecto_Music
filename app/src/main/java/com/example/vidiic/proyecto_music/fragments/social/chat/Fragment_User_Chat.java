@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.UserChatAdapter;
 import com.example.vidiic.proyecto_music.classes.UserApp;
@@ -127,6 +128,9 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
             //escondemos el recycler view donde muestran los usuarios
             rvUserChat.setVisibility(View.GONE);
             Log.d("test", "ADD FRIEND ACTIVITY");
+
+//            firebaseAuth.signOut();
+//            startActivity(new Intent(getContext(), LoginActivity.class));
 
         });
 
