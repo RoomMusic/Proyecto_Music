@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
+import com.example.vidiic.proyecto_music.fragments.Fragment_Settings;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
 import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_Add_Friend;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     private Fragment_Social fragment_social;
     private Fragment_Music fragment_music;
     private Fragment_Profile fragment_profile;
+    private Fragment_Settings fragment_settings;
 
     private BottomNavigationView nMainNav;
     private FrameLayout frameLayoutMain;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         fragment_social = new Fragment_Social();
         fragment_music = new Fragment_Music();
         fragment_profile = new Fragment_Profile();
+        fragment_settings = new Fragment_Settings();
 
 
         //inicializamos el servicio de mensajeria una vez el usuario entra en la app
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
 
         nMainNav = findViewById(R.id.main_nav);
+        nMainNav.setSelectedItemId(R.id.nav_home);
         frameLayoutMain = findViewById(R.id.contenedorFragment);
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -120,6 +124,16 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
                     nMainNav.setItemBackgroundResource(R.color.rojologo);
                     //Log.d("test", "MainACtivityButton");
                     setFragment(fragment_social);
+                    return true;
+                case R.id.nav_perfil:
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
+                    //Log.d("test", "MainACtivityButton");
+                    setFragment(fragment_profile);
+                    return true;
+                case R.id.nav_settings:
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
+                    //Log.d("test", "MainACtivityButton");
+                    setFragment(fragment_settings);
                     return true;
 
                 default:

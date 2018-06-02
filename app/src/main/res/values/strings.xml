@@ -43,7 +43,6 @@
     <string name="SignUsernameExists">Nombre de usuario ya existe.</string>
 
 
-
     <!-- String PERMISOS-->
     <string name="MainPermisoSi">Permiso concedido</string>
     <string name="MainPermisoNo">Permiso denegado</string>
@@ -73,4 +72,6 @@
     <string name="nav_home">Home</string>
     <string name="nav_Music">Music</string>
     <string name="nav_Share">Share</string>
+    <string name="nav_Perfil">Profile</string>
+    <string name="nav_Setings">Settings</string>
 </resources>
