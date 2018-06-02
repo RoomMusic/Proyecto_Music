@@ -2,6 +2,7 @@ package com.example.vidiic.proyecto_music.musicFireBase;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -9,8 +10,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.MainActivity;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.asynctasks.AsyncTaskSong;
@@ -36,6 +41,10 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
     List<Artist> listaArtistas;
     List<Artist> artistasUsuario;
     List<Song> cancionesArtistas;
+    Button buttonsync;
+    TextView textnombre;
+    String emailUser;
+    String nameUser;
 
     public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
     private static final int MY_PERMISSION_REQUEST = 1;
@@ -46,6 +55,24 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync__music_);
 
+        buttonsync = findViewById(R.id.btnsync);
+        textnombre = findViewById(R.id.nombreuser);
+
+        Intent intent = getIntent();
+        nameUser = intent.getExtras().getString("username");
+        emailUser = intent.getExtras().getString("useremail");
+        textnombre.setText(nameUser);
+        buttonsync.setEnabled(false);
+
+        buttonsync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Sync_Music_Activity.this, LoginActivity.class);
+                intent.putExtra("useremail", nameUser);
+                intent.putExtra("username", emailUser);
+                startActivity(intent);
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -60,9 +87,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
             cancionesArtistas = new ArrayList<>();
             db = FirebaseFirestore.getInstance();
             new AsyncTaskSong(this).execute();
-
         }
-
     }
 
     @Override
@@ -85,6 +110,10 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
                     if (ContextCompat.checkSelfPermission(Sync_Music_Activity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this, "PermissionGranted", Toast.LENGTH_SHORT).show();
 
+                        music = new ArrayList<>();
+                        listaArtistas = new ArrayList<>();
+                        artistasUsuario = new ArrayList<>();
+                        cancionesArtistas = new ArrayList<>();
                         db = FirebaseFirestore.getInstance();
                         new AsyncTaskSong(this).execute();
 
@@ -158,6 +187,8 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
                                 break;
                             }
                         }
+
+                        buttonsync.setEnabled(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
