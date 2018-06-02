@@ -7,6 +7,10 @@
         android:icon="@drawable/round_queue_music_black_24dp"
         android:title="@string/nav_Music" />
     <item
+        android:id="@+id/nav_perfil"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/nav_Perfil" />
+    <item
         android:id="@+id/nav_home"
         android:icon="@drawable/round_home_black_24dp"
         android:title="@string/nav_home" />
@@ -14,4 +18,8 @@
         android:id="@+id/nav_share"
         android:icon="@drawable/round_share_black_24dp"
         android:title="@string/nav_Share" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/nav_Setings" />
 </menu>
