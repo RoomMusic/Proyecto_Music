@@ -1,16 +1,12 @@
 package com.example.vidiic.proyecto_music.launcher;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
 
 import com.example.vidiic.proyecto_music.Home.HomeActivity;
-import com.example.vidiic.proyecto_music.MainActivity;
+import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.R;
-
-import java.nio.BufferUnderflowException;
 
 /**
  * Created by poldominguez on 28/5/18.
@@ -18,34 +14,48 @@ import java.nio.BufferUnderflowException;
 
 public class Activity_Launcher extends AppCompatActivity {
 
+    //variable para saber si el usuario ya ha entrado a la app
+    Intent nextIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        final Intent i = new Intent(this, HomeActivity.class);
-        Thread timer = new Thread(){
+
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+
+        nextIntent = new Intent(this, HomeActivity.class);
+        Thread timer = new Thread() {
 
             public void run() {
 
-                try{
+                try {
 
                     sleep(1000);
 
-                }  catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
 
                 } finally {
 
-                    startActivity(i);
-                    finish();
+                    if (isFirstRun) {
+                        startActivity(nextIntent);
+                        finish();
+                    }else{
+                        nextIntent = new Intent(Activity_Launcher.this, LoginActivity.class);
+                        startActivity(nextIntent);
+                        finish();
+                    }
+
+                    getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
 
 
                 }
 
             }
         };
-                timer.start();
+        timer.start();
     }
 }

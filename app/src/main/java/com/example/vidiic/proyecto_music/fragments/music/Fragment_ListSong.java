@@ -22,6 +22,7 @@ import com.example.vidiic.proyecto_music.classes.Song;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -55,8 +56,7 @@ public class Fragment_ListSong extends Fragment {
     RecyclerView recyclerViewSong;
     AdapterSong adapterSongs;
     FirebaseFirestore database;
-
-    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
+    String idUser;
 
 
     public Fragment_ListSong() {
@@ -100,6 +100,9 @@ public class Fragment_ListSong extends Fragment {
         database = FirebaseFirestore.getInstance();
 
         songList = new ArrayList<>();
+
+        //obtenemos el id del usuario
+        idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         setUpRecyclerView(view);
         setUpFireBase();

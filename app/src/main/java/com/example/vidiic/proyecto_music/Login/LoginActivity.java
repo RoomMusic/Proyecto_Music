@@ -18,9 +18,14 @@ import android.widget.Toast;
 import com.example.vidiic.proyecto_music.Home.HomeActivity;
 import com.example.vidiic.proyecto_music.MainActivity;
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.google.android.gms.common.oob.SignUp;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * Created by poldominguez on 25/5/18.
@@ -43,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameET, passwordET;
     private FirebaseAuth firebaseAuth;
     private Fragment_Home fragment_home;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,9 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.signUpBtn);
         usernameET = findViewById(R.id.userEmail);
         fragment_home = new Fragment_Home();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         passwordET = findViewById(R.id.passwordText);
 
@@ -71,6 +81,32 @@ public class LoginActivity extends AppCompatActivity {
             registerUser();
         });
 
+
+
+        //si es diferente de null quiere decir que sigue loggeado
+        if (firebaseUser != null){
+
+            //obtener el correo del usuario por id
+            firebaseFirestore.collection("users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists()){
+                        UserApp u = documentSnapshot.toObject(UserApp.class);
+
+                        Log.d("sergio", "email: " + u.getEmail());
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        intent.putExtra("email", u.getEmail());
+
+                        startActivity(intent);
+
+                    }
+                }
+            });
+        }
 
         //delcarem el valor del final
         btnSignUp = (Button) findViewById(R.id.signUpBtn);
