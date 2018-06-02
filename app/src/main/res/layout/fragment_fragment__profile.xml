@@ -139,7 +139,7 @@
 
 
                         <Button
-                            android:id="@+id/logout"
+                            android:id="@+id/logoutt"
                             android:layout_width="90dp"
                             android:layout_height="200dp"
                             android:layout_marginLeft="250dp"
