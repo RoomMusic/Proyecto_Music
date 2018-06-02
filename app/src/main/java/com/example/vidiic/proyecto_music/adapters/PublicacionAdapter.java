@@ -69,6 +69,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     }
 
     private List<Song> song_list;
+    private List<Song> song_list_aux;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -80,6 +81,23 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         song_list = new ArrayList<>();
+        song_list_aux = new ArrayList<>();
+
+
+        firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid()).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()){
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots){
+                        Song song = snapshot.toObject(Song.class);
+                        Log.d("sergio", "cancion descargada: " + song.getName());
+                        song_list_aux.add(song);
+                    }
+                }
+            }
+        });
+
+
 
         return new PublicationViewHolder(publication_item);
     }
@@ -118,9 +136,18 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
                 //Log.d("sergio", "nombre cancion: " + publicacion.getPublication_song().getName());
 
+                boolean check_if_song_exists = false;
 
-                /*COMPROBAR LISTA DE CANCIONES DEL USUARIO EN LUGAR DE COMPARAR EL ID*/
-                if (!current_user_id.equals(user_publitacion.getUserid())) {
+                for (Song s : song_list_aux){
+                    if (s.getName().equalsIgnoreCase(song_publicacion.getName())){
+                        check_if_song_exists = true;
+                    }
+                }
+
+
+
+                //comprobamos que la cancion seleccionada por elusuario no la tiene en su lista
+                if (!check_if_song_exists) {
 
 
                     //descargar cancion
@@ -129,7 +156,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
 
                     downloadSong(publicacion, vh.progressBar, song_publicacion);
-
 
 //                    chat_intent.putExtra("userids", userIds);
 //                    chat_intent.putExtra("url_song", url_song);
@@ -140,8 +166,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 } else {
                     Toast.makeText(context.getApplicationContext(), "Ya tienes esta cancion.", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
     }

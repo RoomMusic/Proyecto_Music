@@ -31,7 +31,7 @@ import com.sendbird.android.SendBird;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener, Fragment_Add_Publication.OnFragmentInteractionListener, Fragment_Add_Friend.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener, Fragment_Add_Publication.OnFragmentInteractionListener, Fragment_Add_Friend.OnFragmentInteractionListener {
 
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;
@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
     private String userEmail, userKey;
     private UserApp userAux;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
         fragment_social = new Fragment_Social();
         fragment_music = new Fragment_Music();
         fragment_profile = new Fragment_Profile();
-
 
 
         //inicializamos el servicio de mensajeria una vez el usuario entra en la app
@@ -94,43 +91,44 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
 
         nMainNav = findViewById(R.id.main_nav);
-        frameLayoutMain =  findViewById(R.id.contenedorFragment);
+        frameLayoutMain = findViewById(R.id.contenedorFragment);
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_REQUEST);
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
             }
-        }else {
+        } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, fragment_home).commit();
         }
 
         nMainNav.setOnNavigationItemSelectedListener(item -> {
 
-            switch (item.getItemId()){
-                case R.id.nav_home :
+            switch (item.getItemId()) {
+                case R.id.nav_home:
                     nMainNav.setItemBackgroundResource(R.color.rojologo);
                     setFragment(fragment_home);
                     return true;
 
-                case R.id.nav_music :
-                     nMainNav.setItemBackgroundResource(R.color.rojologo);
-                     setFragment(fragment_music);
-                     return true;
+                case R.id.nav_music:
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
+                    setFragment(fragment_music);
+                    return true;
 
-                case R.id.nav_share :
-                     nMainNav.setItemBackgroundResource(R.color.rojologo);
-                     //Log.d("test", "MainACtivityButton");
-                     setFragment(fragment_social);
-                     return true;
+                case R.id.nav_share:
+                    nMainNav.setItemBackgroundResource(R.color.rojologo);
+                    //Log.d("test", "MainACtivityButton");
+                    setFragment(fragment_social);
+                    return true;
 
                 default:
                     return false;
             }
         });
     }
-    private void setFragment(Fragment fragment){
+
+    private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.contenedorFragment, fragment);
         fragmentTransaction.commit();
@@ -138,16 +136,16 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case MY_PERMISSION_REQUEST:{
-                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(this,"PermissionGranted",Toast.LENGTH_SHORT).show();
-                        Log.i("Main","Entramos2");
+        switch (requestCode) {
+            case MY_PERMISSION_REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, getResources().getString(R.string.MainPermisoSi), Toast.LENGTH_SHORT).show();
+                        Log.i("Main", "Entramos2");
                         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, fragment_listSong).commit();
                     }
-                }else {
-                    Toast.makeText(this,"PermissionDeneged",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.MainPermisoNo), Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 return;

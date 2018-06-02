@@ -1,6 +1,68 @@
 <resources>
     <string name="app_name">Proyecto Music</string>
 
+
+    <!-- Strings para los SLIDER ADAPTER -->
+    <string name="sliderShare">Comparte</string>
+    <string name="sliderShareText">El mejor método de compartir musica con tus amigos de la manera mas fácil, practica y rápida.</string>
+    <string name="slideListen">Esucha</string>
+    <string name="slideListenText">Disfruta de tus artistas favoritos directamente desde la aplicación de la manera mas cómoda.</string>
+    <string name="sliderFindOut">Descubre</string>
+    <string name="slideFindOutText">Descubre nuevos artistas y canciones de mano de tus amigos. Te gusta la canción? pídele que te la envíen!</string>
+    <string name="slideNextBtn">Siguiente</string>
+    <string name="slideBackBtn">Atrás</string>
+    <string name="slideStartBtn">Empezar</string>
+
+    <!-- String para LOGIN ACTIVITY-->
+    <string name="LoginName">Login</string>
+    <string name="LoginUserEmail">Nombre de usuario o correo.</string>
+    <string name="LoginPass">Contraseña</string>
+    <string name="LoginBtn">Login</string>
+    <string name="LoginSignUpBtn">Registrarse</string>
+    <string name="LoginSuccess">Sesión iniciada!</string>
+    <string name="LoginFail">No estas registrado! Registrate!</string>
+
+
+    <!-- String para el REGISTRO-->
+    <string name="SignName">Registro</string>
+    <string name="SignUsername">Nombre de usuario</string>
+    <string name="SignUseremail">Correo</string>
+    <string name="SignPass">Contraseña</string>
+    <string name="SignRepPass">Repetir Contraseña</string>
+    <string name="SignBtn">Registrarse</string>
+    <string name="SignEmptyField">Hay campos vacios.</string>
+    <string name="SignPasswordNoMatch">Las contraseñas no coinciden!</string>
+    <string name="SignUserRegistered">Usuario registrado.</string>
+    <string name="SignFail">Error</string>
+    <string name="SignUserAlreadyRegistered">El usuario ya esta registrado</string>
+    <string name="SignUsernameExists">Nombre de usuario ya existe.</string>
+
+
+
+    <!-- String PERMISOS-->
+    <string name="MainPermisoSi">Permiso concedido</string>
+    <string name="MainPermisoNo">Permiso denegado</string>
+
+
+    <!-- String FRAGMENT USER CHAT-->
+    <string name="ChatUsuarioConectado">Usuario Conectado</string>
+    <string name="ChatErrorSendBird">Código de error</string>
+    <string name="ChatSenBirdConect">Has iniciado sesion en SendBird</string>
+
+    <!-- String FRAGMENT ADD FRIEND-->
+    <string name="hintUsername">Nombre de usuario</string>
+    <string name="addedFriend">Amigo añadido</string>
+
+
+    <!-- String FRAGMENT_SOCIAL-->
+    <string name="SocialAmigos">Amigos</string>
+    <string name="SocialMuro">Muro</string>
+
+    <!-- String FRAGMENT MUSIC-->
+    <string name="MusicSong">Cancion</string>
+    <string name="MusicArtist">Artista</string>
+    <string name="MusicGenre">Genero</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_home">Home</string>
