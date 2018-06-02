@@ -38,15 +38,15 @@ public class SliderAdapter extends PagerAdapter {
 
     public String[] slide_headings = {
 
-            "Comparte",
-            "Escucha",
-            "Descubre"
+            context.getResources().getString(R.string.sliderShare),
+            context.getResources().getString(R.string.slideListen),
+            context.getResources().getString(R.string.sliderFindOut)
     };
 
     public String[] slide_desc = {
-            "El mejor método de compartir musica con tus amigos de la manera mas fácil, practica y rápida.",
-            "Disfruta de tus artistas favoritos directamente desde la aplicación de la manera mas cómoda.",
-            "Descubre nuevos artistas y canciones de mano de tus amigos. Te gusta la canción? pídele que te la envíen!"
+            context.getResources().getString(R.string.sliderShareText),
+            context.getResources().getString(R.string.slideListenText),
+            context.getResources().getString(R.string.slideFindOutText)
     };
 
 

@@ -80,9 +80,9 @@ public class Fragment_Music extends Fragment implements Fragment_ListSong.OnFrag
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
 
-        adapter.AddFragment(new Fragment_ListSong(),"Song");
-        adapter.AddFragment(new Fragment_Artist(),"Artist");
-        adapter.AddFragment(new Fragment_Type(),"Type");
+        adapter.AddFragment(new Fragment_ListSong(),getContext().getResources().getString(R.string.MusicSong));
+        adapter.AddFragment(new Fragment_Artist(),getContext().getResources().getString(R.string.MusicArtist));
+        adapter.AddFragment(new Fragment_Type(),getContext().getResources().getString(R.string.MusicGenre));
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

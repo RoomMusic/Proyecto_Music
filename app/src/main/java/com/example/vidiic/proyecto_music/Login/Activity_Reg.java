@@ -96,9 +96,9 @@ public class Activity_Reg extends AppCompatActivity {
         String userPassRep = passwordET2.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(userMail) && TextUtils.isEmpty(userPass) && TextUtils.isEmpty(userPassRep)) {
-            Toast.makeText(Activity_Reg.this, "There are empty fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignEmptyField), Toast.LENGTH_SHORT).show();
         } else if (!userPass.equals(userPassRep)) {
-            Toast.makeText(Activity_Reg.this, "Password fields does not match.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignPasswordNoMatch), Toast.LENGTH_SHORT).show();
         } else {
 
             //si es true quiere decir que el nombre de usuario no existe
@@ -121,8 +121,9 @@ public class Activity_Reg extends AppCompatActivity {
 
 
                         firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
-                                Toast.makeText(Activity_Reg.this, "Usuario registrado", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
-                                Toast.makeText(Activity_Reg.this, "Fallo", Toast.LENGTH_SHORT).show());
+                                Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserRegistered), Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e ->
+                                Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignFail), Toast.LENGTH_SHORT).show());
 
                         startActivity(intent);
 
@@ -132,13 +133,13 @@ public class Activity_Reg extends AppCompatActivity {
                     } else {
                         //Log.d("signup", "error: " + task.getException());
                         //usuario ya registrado
-                        Toast.makeText(Activity_Reg.this, "User is already registered.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserAlreadyRegistered), Toast.LENGTH_SHORT).show();
                     }
 
                 });
             } else {
                 //el nombre de usuario ya existe, avisamos al usuario
-                Toast.makeText(Activity_Reg.this, "Username already exists.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUsernameExists), Toast.LENGTH_SHORT).show();
             }
 
         }

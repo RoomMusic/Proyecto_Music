@@ -82,8 +82,8 @@ public class Fragment_Social extends Fragment implements Fragment_User_Chat.OnFr
         viewPager = view.findViewById(R.id.viewpagerChat);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
-        viewPagerAdapter.AddFragment(new Fragment_User_Chat(), "Friends");
-        viewPagerAdapter.AddFragment(new Fragment_Muro(), "Muro");
+        viewPagerAdapter.AddFragment(new Fragment_User_Chat(), getContext().getResources().getString(R.string.SocialAmigos));
+        viewPagerAdapter.AddFragment(new Fragment_Muro(), getContext().getResources().getString(R.string.SocialMuro));
 
 
         viewPager.setAdapter(viewPagerAdapter);

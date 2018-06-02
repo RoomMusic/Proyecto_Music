@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 //el usuario existe en la bbbd, correcto
-                Toast.makeText(LoginActivity.this, "Success.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getResources().getString(R.string.LoginSuccess), Toast.LENGTH_SHORT).show();
 
                 //setFragment(fragment_home);
 
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, Activity_Reg.class);
                 startActivity(intent);
 
-                Toast.makeText(LoginActivity.this, "User not registered. SignUp First", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getResources().getString(R.string.LoginFail), Toast.LENGTH_SHORT).show();
 
             }
         });
