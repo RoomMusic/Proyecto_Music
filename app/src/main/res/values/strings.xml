@@ -22,6 +22,11 @@
     <string name="LoginSuccess">Sesión iniciada!</string>
     <string name="LoginFail">No estas registrado! Registrate!</string>
 
+    <!-- String FRAGMENT ADD PUBLICATION-->
+
+    <string name="AddPubliSoloUna">Solo puedes seleccionar una cancion: </string>
+    <string name="AddPubliCancionAñadida">Cancion añadida</string>
+
 
     <!-- String para el REGISTRO-->
     <string name="SignName">Registro</string>
