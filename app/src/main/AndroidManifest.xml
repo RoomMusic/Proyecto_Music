@@ -29,8 +29,6 @@
         <activity android:name=".musicFireBase.Sync_Music_Activity" />
         <activity android:name=".Genre_Activity" />
         <activity android:name=".fragments.profile.UploadPhoto" />
-        <activity android:name=".Form_Artist" />
-        <activity android:name=".From_Genre"/>
     </application>
 
 </manifest>
