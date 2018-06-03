@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,6 +46,8 @@ public class Fragment_Profile extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private CircleImageView user_image;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference image_reference;
 
 
     public Fragment_Profile() {
@@ -89,6 +93,7 @@ public class Fragment_Profile extends Fragment {
         user_image = view.findViewById(R.id.user_image);
         btn_logout = view.findViewById(R.id.btn_log_out);
         btn_up_photo = view.findViewById(R.id.btnuploadpic);
+        firebaseStorage = FirebaseStorage.getInstance();
 
         //seteamos el nombre del usuario y el email con los valoresobtenidos de firebase
         setCurrentUserData();
@@ -138,6 +143,8 @@ public class Fragment_Profile extends Fragment {
 
                     userNameTV.setText(userApp.getUserName());
                     userEmailTV.setText(userApp.getEmail());
+
+                    image_reference = firebaseStorage.getReference().child(userApp.getEmail() + "/pictures/");
 
 
                 }
