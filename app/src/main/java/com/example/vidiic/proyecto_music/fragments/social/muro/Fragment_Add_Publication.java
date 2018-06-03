@@ -192,7 +192,7 @@ public class Fragment_Add_Publication extends Fragment {
 
         //configuramos una ruta para guardar los archivos, esta ruta consistira en el email del usuario mas el nombre del archvio
         //de esta manera los archivos se guardan por usuario
-        storageReference = firebaseStorage.getReference().child(user.getEmail() + "/" + fileName[5]);
+        storageReference = firebaseStorage.getReference().child(user.getEmail() + "/music/" + fileName[5]);
 
         Uri songFile = Uri.fromFile(new File(path));
 

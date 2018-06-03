@@ -73,7 +73,7 @@
     <!-- String UPLOAD ACTIVITY-->
     <string name="UploadTitle">Subir foto</string>
     <string name="UploadBtnUpPhoto">Subir</string>
-    <string name="UploadBtnCancel">Cancelar</string>
+    <string name="UploadBtnSelectPhoto">Seleccionar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -82,4 +82,5 @@
     <string name="nav_Share">Share</string>
     <string name="nav_Perfil">Profile</string>
     <string name="nav_Setings">Settings</string>
+    <string name="UploadPhotoSucces">Foto subida!</string>
 </resources>
