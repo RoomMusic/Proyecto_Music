@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.profile.UploadPhoto"
+    android:id="@+id/relative_take_photo">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <TextView
+            android:text="@string/UploadTitle"
+            android:textAlignment="center"
+            android:paddingTop="8dp"
+            android:id="@+id/title_upload"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/photo_uploaded"
+            android:layout_below="@+id/title_upload"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/photo_uploaded"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:text="@string/UploadBtnUpPhoto"
+                    android:id="@+id/btn_ready"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <Button
+                    android:id="@+id/btn_select_photo"
+                    android:text="@string/UploadBtnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/btn_ready" />
+
+
+            </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

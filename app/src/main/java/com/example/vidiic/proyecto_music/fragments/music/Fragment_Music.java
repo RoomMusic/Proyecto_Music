@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.ViewPagerAdapter;
-import com.example.vidiic.proyecto_music.fragments.Fragment_Artist;
 
 /**
  * A simple {@link Fragment} subclass.

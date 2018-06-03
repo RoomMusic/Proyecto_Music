@@ -1,14 +1,26 @@
-package com.example.vidiic.proyecto_music.fragments;
+package com.example.vidiic.proyecto_music.fragments.profile;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -26,6 +38,12 @@ public class Fragment_Profile extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Button btn_logout, btn_up_photo, btn_change_pass;
+    private TextView userNameTV, userEmailTV;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+    private CircleImageView user_image;
+
 
     public Fragment_Profile() {
         // Required empty public constructor
@@ -63,6 +81,31 @@ public class Fragment_Profile extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment__profile, container, false);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        userNameTV = view.findViewById(R.id.txtname);
+        userEmailTV = view.findViewById(R.id.txtmail);
+        user_image = view.findViewById(R.id.user_image);
+        btn_logout = view.findViewById(R.id.btn_log_out);
+        btn_up_photo = view.findViewById(R.id.btnuploadpic);
+
+        //seteamos el nombre del usuario y el email con los valoresobtenidos de firebase
+        setCurrentUserData();
+
+        btn_logout.setOnClickListener(v -> {
+            firebaseAuth.signOut();
+            Toast.makeText(getContext(), getResources().getString(R.string.ProfileLogOut), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        });
+
+        btn_up_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("profile", "click");
+                startActivity(new Intent(getContext(), UploadPhoto.class));
+            }
+        });
+
 
 
         // Inflate the layout for this fragment
@@ -74,6 +117,31 @@ public class Fragment_Profile extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private UserApp userApp;
+
+
+    private void setCurrentUserData(){
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        firebaseFirestore.collection("users").document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+                    userApp = documentSnapshot.toObject(UserApp.class);
+
+                    userNameTV.setText(userApp.getUserName());
+                    userEmailTV.setText(userApp.getEmail());
+
+                }
+            }
+        });
+
     }
 
 

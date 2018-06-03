@@ -25,7 +25,8 @@
         <activity android:name=".fragments.social.chat.ChatActivity" />
         <activity android:name=".Artist_Activity" />
         <activity android:name=".musicFireBase.Sync_Music_Activity" />
-        <activity android:name=".Genre_Activity"></activity>
+        <activity android:name=".Genre_Activity" />
+        <activity android:name=".fragments.profile.UploadPhoto" />
     </application>
 
 </manifest>
