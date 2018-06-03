@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".From_Genre">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/seccionImg"
+        android:layout_height="200dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_music"
+            android:layout_margin="10dp"
+            android:padding="8dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/seccionImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/nomgenre"
+            android:layout_width="200dp"
+            android:text="Name Genre"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_below="@id/nomgenre"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/formnomgenre"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:text="Save Genre"
+            android:id="@+id/btngenreform"
+            android:layout_below="@id/formnomgenre"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

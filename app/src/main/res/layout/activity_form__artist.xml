@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Form_Artist">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/seccionIm"
+        android:layout_height="200dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_music"
+            android:layout_margin="10dp"
+            android:padding="8dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/seccionIm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nomartist"
+            android:layout_width="200dp"
+            android:text="Name Artist"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_below="@id/nomartist"
+            android:id="@+id/formnom"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+
+            android:id="@+id/nomgenre"
+            android:layout_toRightOf="@id/nomartist"
+            android:layout_width="200dp"
+            android:text="Name Artist"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_toRightOf="@id/formnom"
+            android:layout_below="@id/nomgenre"
+            android:id="@+id/formgen"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/formnom"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:id="@+id/edadartist"
+            android:text="Age"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/edadartist"
+            android:id="@+id/formedad"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@id/formedad"
+            android:text="Description"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_margin="8dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/desartist"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/desartist"
+            android:id="@+id/formdes"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:text="Save Artist"
+            android:id="@+id/btnsenartist"
+            android:layout_below="@id/formdes"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
