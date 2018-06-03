@@ -47,17 +47,17 @@
                 android:layout_margin="10dp">
 
                 <Button
-                    android:text="@string/UploadBtnUpPhoto"
-                    android:id="@+id/btn_ready"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" />
-
-                <Button
                     android:id="@+id/btn_select_photo"
-                    android:text="@string/UploadBtnCancel"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/btn_ready" />
+                    android:text="@string/UploadBtnSelectPhoto"/>
+
+                <Button
+                    android:id="@+id/btn_upload_photo"
+                    android:text="@string/UploadBtnUpPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/btn_select_photo" />
 
 
             </RelativeLayout>

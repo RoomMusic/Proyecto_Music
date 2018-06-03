@@ -201,7 +201,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         }
 
-        song_storage_reference.child(song_user_email + "/" + song_name).getDownloadUrl().addOnSuccessListener(uri -> {
+        song_storage_reference.child(song_user_email + "/music/" + song_name).getDownloadUrl().addOnSuccessListener(uri -> {
 
             song_file = new File(uri.toString());
 
