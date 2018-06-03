@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:id="@+id/music_item"
-        android:background="#bcbcbc"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="15dp">
@@ -34,7 +33,6 @@
                     android:id="@+id/nameSong"
                     android:maxLines="1"
                     android:fontFamily="sans-serif-medium"
-                    android:background="#e0e0e0"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:text="Nombre Cancion"
@@ -53,7 +51,6 @@
                     android:fontFamily="sans-serif-light"
                     android:gravity="center"
                     android:text="G"
-                    android:background="#e0e0e0"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="17sp"
@@ -72,7 +69,6 @@
                     android:gravity="center"
                     android:typeface="monospace"
                     android:fontFamily="sans-serif-light"
-                    android:background="#eeeeee"
                     />
 
             </RelativeLayout>
