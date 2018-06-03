@@ -1,8 +1,10 @@
 package com.example.vidiic.proyecto_music.fragments.music;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.vidiic.proyecto_music.From_Genre;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.AdapterArtist;
 import com.example.vidiic.proyecto_music.adapters.AdapterGenre;
@@ -56,6 +59,8 @@ public class Fragment_Type extends Fragment {
     AdapterGenre adapterGenre;
     FirebaseFirestore database;
 
+    FloatingActionButton fab;
+
     public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
 
     public Fragment_Type() {
@@ -94,6 +99,15 @@ public class Fragment_Type extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment__type, container, false);
+
+        fab = view.findViewById(R.id.fabgenre);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), From_Genre.class));
+            }
+        });
+
 
         database = FirebaseFirestore.getInstance();
         genreList = new ArrayList<>();

@@ -1,9 +1,11 @@
 package com.example.vidiic.proyecto_music.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Toast;
 
+import com.example.vidiic.proyecto_music.Form_Artist;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.adapters.AdapterArtist;
 import com.example.vidiic.proyecto_music.adapters.AdapterSong;
@@ -54,6 +57,8 @@ public class Fragment_Artist extends Fragment {
     RecyclerView recyclerViewArtist;
     AdapterArtist adapterArtist;
     FirebaseFirestore database;
+
+    FloatingActionButton fab;
 
     public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
 
@@ -95,6 +100,13 @@ public class Fragment_Artist extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment__artist, container, false);
 
+        fab = view.findViewById(R.id.fabartist);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), Form_Artist.class));
+            }
+        });
         database = FirebaseFirestore.getInstance();
         database.collection("users").document(idUser).collection("music").document("artistlist");
 
