@@ -119,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 //setFragment(fragment_home);
 
-
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
 
                 mainIntent.putExtra("useremail", email);

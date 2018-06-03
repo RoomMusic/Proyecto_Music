@@ -122,15 +122,15 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
 
         btn_add_friend.setOnClickListener(v -> {
 
-//            //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
-//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
-//            btn_add_friend.hide();
-//            //escondemos el recycler view donde muestran los usuarios
-//            rvUserChat.setVisibility(View.GONE);
-//            Log.d("test", "ADD FRIEND ACTIVITY");
+            //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
+            btn_add_friend.hide();
+            //escondemos el recycler view donde muestran los usuarios
+            rvUserChat.setVisibility(View.GONE);
+            Log.d("test", "ADD FRIEND ACTIVITY");
 
-            firebaseAuth.signOut();
-            startActivity(new Intent(getContext(), LoginActivity.class));
+//            firebaseAuth.signOut();
+//            startActivity(new Intent(getContext(), LoginActivity.class));
 
         });
 

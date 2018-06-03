@@ -27,6 +27,19 @@ public class SliderAdapter extends PagerAdapter {
 
         this.context = context;
 
+        slide_headings = new String[]{
+
+                context.getResources().getString(R.string.sliderShare),
+                context.getResources().getString(R.string.slideListen),
+                context.getResources().getString(R.string.sliderFindOut)
+        };
+
+        slide_desc = new String[]{
+                context.getResources().getString(R.string.sliderShareText),
+                context.getResources().getString(R.string.slideListenText),
+                context.getResources().getString(R.string.slideFindOutText)
+        };
+
     }
 
     public int[] slide_images = {
@@ -36,18 +49,9 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.eyes
     };
 
-    public String[] slide_headings = {
+    String[] slide_headings;
 
-            context.getResources().getString(R.string.sliderShare),
-            context.getResources().getString(R.string.slideListen),
-            context.getResources().getString(R.string.sliderFindOut)
-    };
-
-    public String[] slide_desc = {
-            context.getResources().getString(R.string.sliderShareText),
-            context.getResources().getString(R.string.slideListenText),
-            context.getResources().getString(R.string.slideFindOutText)
-    };
+    String[] slide_desc;
 
 
 

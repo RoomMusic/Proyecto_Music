@@ -37,7 +37,7 @@ public class Activity_Launcher extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
-        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        //Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
 
         nextIntent = new Intent(this, HomeActivity.class);
         Thread timer = new Thread() {
@@ -46,48 +46,49 @@ public class Activity_Launcher extends AppCompatActivity {
 
                 try {
 
-                    sleep(1000);
+                    sleep(3000);
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
 
                 } finally {
 
-                    if (isFirstRun) {
+                    //if (isFirstRun) {
                         startActivity(nextIntent);
+
                         finish();
-                    } else {
+                    //} else {
 
                         //si es diferente de null quiere decir que sigue loggeado
-                        if (firebaseUser != null) {
+//                        if (firebaseUser != null) {
+//
+//                            //obtener el correo del usuario por id
+//                            firebaseFirestore.collection("users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                                @Override
+//                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                    if (documentSnapshot.exists()) {
+//                                        UserApp u = documentSnapshot.toObject(UserApp.class);
+//
+//                                        Log.d("sergio", "email: " + u.getEmail());
+//
+//                                        Intent intent = new Intent(Activity_Launcher.this, MainActivity.class);
+//
+//                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//                                        intent.putExtra("email", u.getEmail());
+//
+//                                        startActivity(intent);
+//
+//                                    }
+//                                }
+//                            });
+//                        } else {
+//                            nextIntent = new Intent(Activity_Launcher.this, LoginActivity.class);
+//                            startActivity(nextIntent);
+//                        }
+                    //}
 
-                            //obtener el correo del usuario por id
-                            firebaseFirestore.collection("users").document(firebaseUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    if (documentSnapshot.exists()) {
-                                        UserApp u = documentSnapshot.toObject(UserApp.class);
-
-                                        Log.d("sergio", "email: " + u.getEmail());
-
-                                        Intent intent = new Intent(Activity_Launcher.this, MainActivity.class);
-
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                        intent.putExtra("email", u.getEmail());
-
-                                        startActivity(intent);
-
-                                    }
-                                }
-                            });
-                        } else {
-                            nextIntent = new Intent(Activity_Launcher.this, LoginActivity.class);
-                            startActivity(nextIntent);
-                        }
-                    }
-
-                    getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+                    //getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
 
 
                 }
