@@ -1,14 +1,18 @@
 package com.example.vidiic.proyecto_music.fragments;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.R;
-
+import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
@@ -26,6 +30,9 @@ public class Fragment_Profile extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Button btn_logout, btn_up_photo, btn_change_pass;
+    private FirebaseAuth firebaseAuth;
+
 
     public Fragment_Profile() {
         // Required empty public constructor
@@ -63,6 +70,15 @@ public class Fragment_Profile extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment__profile, container, false);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        btn_logout = view.findViewById(R.id.btn_log_out);
+
+        btn_logout.setOnClickListener(v -> {
+            firebaseAuth.signOut();
+            Toast.makeText(getContext(), getResources().getString(R.string.ProfileLogOut), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        });
 
 
         // Inflate the layout for this fragment

@@ -62,6 +62,9 @@
     <string name="SocialAmigos">Amigos</string>
     <string name="SocialMuro">Muro</string>
 
+    <!-- String FRAGMENT PROFILE-->
+    <string name="ProfileLogOut">Sesión cerrada.</string>
+
     <!-- String FRAGMENT MUSIC-->
     <string name="MusicSong">Cancion</string>
     <string name="MusicArtist">Artista</string>

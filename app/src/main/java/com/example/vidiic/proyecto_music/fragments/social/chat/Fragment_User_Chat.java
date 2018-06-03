@@ -129,8 +129,6 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
             rvUserChat.setVisibility(View.GONE);
             Log.d("test", "ADD FRIEND ACTIVITY");
 
-//            firebaseAuth.signOut();
-//            startActivity(new Intent(getContext(), LoginActivity.class));
 
         });
 
