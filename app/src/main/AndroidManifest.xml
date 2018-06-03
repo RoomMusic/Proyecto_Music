@@ -14,7 +14,7 @@
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".launcher.Activity_Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.Activity_Reg" />
-        <activity android:name=".launcher.Activity_Launcher" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".fragments.social.chat.ChatActivity" />
         <activity android:name=".Artist_Activity" />
         <activity android:name=".musicFireBase.Sync_Music_Activity" />
