@@ -20,7 +20,7 @@ public class UserApp {
     private String password;
     private String userSecondName;
     private boolean firstIn;
-    private ImageView userImage;
+    private String userImage;
     private Date registerDate;
     private List<Song> songList;
 
@@ -37,11 +37,11 @@ public class UserApp {
         this.userName = userName;
     }
 
-    public ImageView getUserImage() {
+    public String getUserImage() {
         return userImage;
     }
 
-    public void setUserImage(ImageView userImage) {
+    public void setUserImage(String userImage) {
         this.userImage = userImage;
     }
 

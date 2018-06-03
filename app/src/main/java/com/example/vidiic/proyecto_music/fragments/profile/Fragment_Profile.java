@@ -23,6 +23,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -144,7 +146,14 @@ public class Fragment_Profile extends Fragment {
                     userNameTV.setText(userApp.getUserName());
                     userEmailTV.setText(userApp.getEmail());
 
-                    image_reference = firebaseStorage.getReference().child(userApp.getEmail() + "/pictures/");
+                    firebaseStorage.getReference().child(userApp.getEmail() + "/pictures/" + userApp.getUserImage() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            Picasso.get().load(uri).into(user_image);
+
+                        }
+                    });
 
 
                 }

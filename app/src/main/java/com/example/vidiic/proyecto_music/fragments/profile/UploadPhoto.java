@@ -74,9 +74,15 @@ public class UploadPhoto extends AppCompatActivity {
     //subimos las fotos a firestorage para tenerlas guardadas en la base ded atos y no en los dispositivos
     private void uploadPhoto() {
 
+        String image_name = selectedImage.getPath().split("/")[4];
 
         //ruta para guardar la image
-        image_reference = user_image_storage.getReference().child(userApp.getEmail() + "/pictures/" + selectedImage.getPath().split("/")[4] + ".jpg");
+        image_reference = user_image_storage.getReference().child(userApp.getEmail() + "/pictures/" + image_name + ".jpg");
+
+        userApp.setUserImage(image_name);
+
+        //actualizar usuario en la base de datos ya que hemos actualizado el nombre de la imagen
+        updateUser(userApp);
 
         image_reference.putFile(selectedImage);
 
@@ -86,6 +92,10 @@ public class UploadPhoto extends AppCompatActivity {
     }
 
     private Uri selectedImage;
+
+    private void updateUser(UserApp userApp){
+        firebaseFirestore.collection("users").document(userApp.getUserid()).set(userApp);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
