@@ -12,7 +12,7 @@
         android:id="@+id/recyclerArtists"/>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_margin="50dp"
+        android:layout_margin="5dp"
         android:layout_height="match_parent">
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
