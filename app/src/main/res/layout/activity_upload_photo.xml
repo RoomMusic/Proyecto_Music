@@ -23,7 +23,7 @@
         android:layout_below="@+id/toolbar">
 
         <TextView
-            android:text="Upload Photo"
+            android:text="@string/UploadTitle"
             android:textAlignment="center"
             android:paddingTop="8dp"
             android:id="@+id/title_upload"
@@ -47,12 +47,14 @@
                 android:layout_margin="10dp">
 
                 <Button
+                    android:text="@string/UploadBtnUpPhoto"
                     android:id="@+id/btn_ready"
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
                 <Button
                     android:id="@+id/btn_select_photo"
+                    android:text="@string/UploadBtnCancel"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/btn_ready" />
