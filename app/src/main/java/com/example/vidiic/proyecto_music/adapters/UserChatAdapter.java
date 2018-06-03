@@ -87,7 +87,7 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
         vh.user = user;
 
         if (user.getUserImage() != null) {
-            vh.userImage.setImageBitmap(user.getUserImage().getDrawingCache());
+            //vh.userImage.setImageBitmap(user.getUserImage().getDrawingCache());
         } else {
             vh.userImage.setImageResource(R.drawable.ic_action_music);
         }
