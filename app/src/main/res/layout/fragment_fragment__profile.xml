@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.vidiic.proyecto_music.fragments.Fragment_Profile">
+    tools:context="com.example.vidiic.proyecto_music.fragments.profile.Fragment_Profile">
 
     <View
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
             android:layout_marginTop="30dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@drawable/profile"
@@ -54,7 +55,6 @@
                             android:id="@+id/txtname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Lionel Messi"
                             android:textStyle="bold"
                             android:textSize="25dp"
                             android:layout_marginTop="60dp"
@@ -65,8 +65,8 @@
                             android:id="@+id/txtmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="lionel.messi@fcbarcelona.com"
                             android:textSize="17dp"
+                            android:layout_margin="2dp"
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"/>
 

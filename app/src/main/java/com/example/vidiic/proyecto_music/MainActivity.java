@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
-import com.example.vidiic.proyecto_music.fragments.Fragment_Profile;
+import com.example.vidiic.proyecto_music.fragments.profile.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Settings;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
