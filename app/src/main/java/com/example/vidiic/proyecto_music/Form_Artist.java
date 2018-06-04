@@ -19,6 +19,7 @@ import com.example.vidiic.proyecto_music.classes.Song;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,7 +32,7 @@ public class Form_Artist extends AppCompatActivity {
     EditText editname,editdesc,editage,editgen;
     Button button;
     FirebaseFirestore db;
-    public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
+    public String idUser;
     Boolean existgenre;
     Artist artistnew;
     Toolbar toolbar_form_artist;
@@ -61,6 +62,8 @@ public class Form_Artist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form__artist);
+
+        idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         editage = findViewById(R.id.formedad);
         editdesc =findViewById(R.id.formdes);
