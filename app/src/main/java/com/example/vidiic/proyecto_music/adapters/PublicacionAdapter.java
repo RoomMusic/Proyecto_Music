@@ -51,7 +51,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.ViewHolder> {
+public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.ViewHolder> implements MediaPlayer.OnPreparedListener {
 
     private List<Publicacion> publiaciones_list;
     private Context context;
@@ -92,8 +92,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid()).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
-                    for (DocumentSnapshot snapshot : queryDocumentSnapshots){
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                         Song song = snapshot.toObject(Song.class);
                         Log.d("sergio", "cancion descargada: " + song.getName());
                         song_list_aux.add(song);
@@ -105,11 +105,15 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         return new PublicationViewHolder(publication_item);
     }
 
-    private MediaPlayer mediaPlayer;;
+    private MediaPlayer mediaPlayer;
+    ;
     private String FIRE_STORAGE_URL;
 
-    private void getAudioFromFirebase(UserApp user, Song song, View view){
+    private void getAudioFromFirebase(Publicacion publi, View view) {
 
+
+        UserApp user = publi.getPublication_user();
+        Song song = publi.getPublication_song();
 
 
         FIRE_STORAGE_URL = context.getResources().getString(R.string.FireStorageURL);
@@ -123,17 +127,19 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                try{
+                try {
 
+                    mediaPlayer = new MediaPlayer();
 
-                    mediaPlayer = MediaPlayer.create(view.getContext(), uri);
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
                     String url = uri.toString();
 
                     Log.d("sergio", url);
 
-                    mediaPlayer.setDataSource(FIRE_STORAGE_URL);
+                    mediaPlayer.setDataSource(url);
+
+                    mediaPlayer.prepareAsync();
 
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
@@ -142,10 +148,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                         }
                     });
 
-                    mediaPlayer.prepareAsync();
 
-
-                }catch(IOException e){
+                } catch (IOException e) {
                     Log.d("sergio", e.getMessage());
                 }
             }
@@ -159,6 +163,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     }
 
     boolean play_pause = false;
+    int id_publi_playing;
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -174,53 +179,31 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         vh.userName.setText(publicacion.getPublication_user().getUserName());
         vh.songName.setText(publicacion.getPublication_song().getName());
 
-        String datasource = "https://firebasestorage.googleapis.com/v0/b/musicproject-dc678.appspot.com/o/bruizfernandez%40gmail.com%2Fmusic%2FTu%20No%20Metes%20Cabra%20(Remix)%20Bad%20Bunny%20Ft.%20Anuel%20AA%2C%20Daddy%20Yankee%20y%20Cosculluela.mp3?alt=media&token=fc609b99-8708-4486-863b-50e0f5916893";
+        //String datasource = "https://firebasestorage.googleapis.com/v0/b/musicproject-dc678.appspot.com/o/bruizfernandez%40gmail.com%2Fmusic%2FTu%20No%20Metes%20Cabra%20(Remix)%20Bad%20Bunny%20Ft.%20Anuel%20AA%2C%20Daddy%20Yankee%20y%20Cosculluela.mp3?alt=media&token=fc609b99-8708-4486-863b-50e0f5916893";
 
         //function click play in song
         vh.playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                UserApp us = publicacion.getPublication_user();
-                Song so = publicacion.getPublication_song();
+                int id_publi_selected = publicacion.getPublication_id();
 
-                if (!mediaPlayer.isPlaying()){
-                    getAudioFromFirebase(us, so, v);
-                    vh.playBtn.setEnabled(false);
-
+                if (!mediaPlayer.isPlaying()) {
+                    getAudioFromFirebase(publicacion, v);
+                    play_pause = true;
                     Log.d("sergio", "play");
-                }else{
-
-                    if (mediaPlayer != null){
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
+                    id_publi_playing = id_publi_selected;
+                } else {
+                    if (id_publi_selected == id_publi_playing) {
+                        if (mediaPlayer != null) {
+                            //hacemos reset ya que no queremos dejar de utilizar el media player
+                            mediaPlayer.reset();
+                        }
+                        Log.d("sergio", "pause");
+                        play_pause = false;
                     }
-                    Log.d("sergio", "pause");
                 }
-                /*MediaPlayer mediaPlayer = new MediaPlayer();
-                    try {
-                        mediaPlayer.setDataSource(datasource);
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                            @Override
-                            public void onPrepared(MediaPlayer mp) {
-                                if (!mediaPlayer.isPlaying()) {
-                                    mediaPlayer.start();
-                                    vh.playBtn.setBackgroundResource(R.drawable.ic_pause);
-                                    Toast.makeText(v.getContext(), "Hey aqui", Toast.LENGTH_LONG).show();
-
-                                } else {
-                                    mediaPlayer.stop();
-                                    vh.playBtn.setBackgroundResource(R.drawable.ic_play);
-                                }
-                            }
-                        });
-                        mediaPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
-                }
+            }
         });
 
 
@@ -246,12 +229,11 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
                 boolean check_if_song_exists = false;
 
-                for (Song s : song_list_aux){
-                    if (s.getName().equalsIgnoreCase(song_publicacion.getName())){
+                for (Song s : song_list_aux) {
+                    if (s.getName().equalsIgnoreCase(song_publicacion.getName())) {
                         check_if_song_exists = true;
                     }
                 }
-
 
 
                 //comprobamos que la cancion seleccionada por elusuario no la tiene en su lista
@@ -265,12 +247,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
                     downloadSong(publicacion, vh.progressBar, song_publicacion);
 
-//                    chat_intent.putExtra("userids", userIds);
-//                    chat_intent.putExtra("url_song", url_song);
-//
-//                    Log.d("sergio", "id1 " + userIds[0] + " id2 " + userIds[1]);
-//
-//                    context.startActivity(chat_intent);
                 } else {
                     Toast.makeText(context.getApplicationContext(), "Ya tienes esta cancion.", Toast.LENGTH_SHORT).show();
                 }
@@ -281,8 +257,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     private File song_file = null, song_file_aux = null;
     private DownloadManager downloadManager;
     private String song_name;
-
-
 
 
     private void downloadSong(Publicacion publicacion, ProgressBar progressBar, Song song) {
@@ -333,7 +307,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             manager.enqueue(request);
 
 
-
             //actualizamos la lista del usuario
             Log.d("descarga", "URI: " + uri.toString());
 
@@ -341,7 +314,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             progressBar.setVisibility(View.GONE);
 
             //guardamos la cancion en firebase
-            Log.d("descarga", "song details: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" +  song_name);
+            Log.d("descarga", "song details: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
 
             //al descargar la cancion en el dispositivo le seteamos la ruta de la carpeta de descargas con el nombre de la cancion
             song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
@@ -456,6 +429,11 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     @Override
     public int getItemCount() {
         return publiaciones_list.size();
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+//        mediaPlayer.start();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
