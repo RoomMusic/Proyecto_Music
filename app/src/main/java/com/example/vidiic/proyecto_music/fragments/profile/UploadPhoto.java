@@ -48,7 +48,7 @@ public class UploadPhoto extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("RooMusic");
+        getSupportActionBar().setTitle(getResources().getString(R.string.UploadTitle));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
