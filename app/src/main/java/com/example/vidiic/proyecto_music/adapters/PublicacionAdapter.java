@@ -103,6 +103,51 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         return new PublicationViewHolder(publication_item);
     }
 
+    private MediaPlayer mediaPlayer;;
+    private String FIRE_STORAGE_URL;
+
+    private void getAudioFromFirebase(UserApp user, Song song){
+
+        FIRE_STORAGE_URL = context.getResources().getString(R.string.FireStorageURL);
+
+        String song_file_name = Song.splitImageSong(song.getImageSong());
+
+        Log.d("sergio", "song file name: " + song_file_name);
+
+        //obtenemos la cancion del usuario y la descargamos
+        song_firebase_storage.getReferenceFromUrl(FIRE_STORAGE_URL + "/" + user.getEmail() + "/music/" + song_file_name)
+                .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                try{
+                    String url = uri.toString();
+
+                    Log.d("sergio", url);
+                    mediaPlayer.setDataSource(url);
+
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mediaPlayer.start();
+                        }
+                    });
+
+                    mediaPlayer.prepareAsync();
+
+
+                }catch(IOException e){
+                    Log.d("sergio", e.getMessage());
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("sergio", e.getMessage());
+            }
+        });
+
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -117,18 +162,19 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         vh.userName.setText(publicacion.getPublication_user().getUserName());
         vh.songName.setText(publicacion.getPublication_song().getName());
 //        MediaPlayer mediaPlayer = new MediaPlayer();
-        MediaPlayer mediaPlayer;
+
         String datasource = "https://firebasestorage.googleapis.com/v0/b/musicproject-dc678.appspot.com/o/bruizfernandez%40gmail.com%2Fmusic%2FTu%20No%20Metes%20Cabra%20(Remix)%20Bad%20Bunny%20Ft.%20Anuel%20AA%2C%20Daddy%20Yankee%20y%20Cosculluela.mp3?alt=media&token=fc609b99-8708-4486-863b-50e0f5916893";
-//        try {
-//            mediaPlayer.setDataSource(datasource);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
         //function click play in song
         vh.playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayer mediaPlayer = new MediaPlayer();
+
+                UserApp us = publicacion.getPublication_user();
+                Song so = publicacion.getPublication_song();
+
+                getAudioFromFirebase(us, so);
+                /*MediaPlayer mediaPlayer = new MediaPlayer();
                     try {
                         mediaPlayer.setDataSource(datasource);
                         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -149,7 +195,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                         mediaPlayer.prepare();
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
         });
 
@@ -172,6 +218,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 //Log.d("sergio", "id1 " + userIds[0] + " id2 " + userIds[1]);
 
                 //Log.d("sergio", "nombre cancion: " + publicacion.getPublication_song().getName());
+                //Log.d("sergio", "nombre cancion: " + publicacion.getPublication_song().getImageSong());
 
                 boolean check_if_song_exists = false;
 
