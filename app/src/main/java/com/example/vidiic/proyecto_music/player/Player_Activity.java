@@ -25,6 +25,8 @@ public class Player_Activity extends AppCompatActivity {
     SeekBar positionBar;
     MediaPlayer mediaPlayer;
     TextView finshtime,currentime;
+    TextView elapsedTimeLabel;
+    TextView emainingTimeLabel;
     int totalTime;
 
     @Override
@@ -39,8 +41,11 @@ public class Player_Activity extends AppCompatActivity {
         btnplay = findViewById(R.id.playSong);
         positionBar = findViewById(R.id.songtime);
         volumenBar = findViewById(R.id.songvolum);
-        finshtime = findViewById(R.id.finishtime);
+       // finshtime = findViewById(R.id.finishtime);
         currentime = findViewById(R.id.currenttime);
+        elapsedTimeLabel = findViewById(R.id.elapsedTimelabel);
+        emainingTimeLabel = findViewById(R.id.remainingTimelabel);
+
         Uri uri = Uri.parse(path);
 
         mediaPlayer = MediaPlayer.create(this, uri);
@@ -49,6 +54,20 @@ public class Player_Activity extends AppCompatActivity {
         mediaPlayer.setVolume(0.5f, 0.5f);
         totalTime = mediaPlayer.getDuration();
         //finshtime.setText(totalTime);
+
+        btnplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mediaPlayer.isPlaying()){
+                    mediaPlayer.start();
+                    btnplay.setBackgroundResource(R.drawable.ic_pause);
+
+                }else {
+                    mediaPlayer.pause();
+                    btnplay.setBackgroundResource(R.drawable.ic_play);
+                }
+            }
+        });
 
         positionBar.setMax(totalTime);
         positionBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -74,7 +93,7 @@ public class Player_Activity extends AppCompatActivity {
         volumenBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                float volumeNum = progress / 100;
+                float volumeNum = progress / 100f;
                 mediaPlayer.setVolume(volumeNum, volumeNum);
             }
 
@@ -104,31 +123,20 @@ public class Player_Activity extends AppCompatActivity {
             }
         }).start();
 
-        btnplay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!mediaPlayer.isPlaying()){
-                    mediaPlayer.start();
-                    btnplay.setBackgroundResource(R.drawable.ic_pause);
-
-                }else {
-                    mediaPlayer.pause();
-                    btnplay.setBackgroundResource(R.drawable.ic_play);
-                }
-            }
-        });
     }
 
         private Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                super.handleMessage(msg);
                 int currentPosition = msg.what;
                 //update position
                 positionBar.setProgress(currentPosition);
                 //updatelabel
-                String time = createTimeLabel(totalTime-currentPosition);
-                currentime.setText(time);
+                String elapsedTime = createTimeLabel(currentPosition);
+                elapsedTimeLabel.setText(elapsedTime);
+
+                String remainingtime = createTimeLabel(totalTime-currentPosition);
+                emainingTimeLabel.setText("- "+ remainingtime);
 
 
 
@@ -137,8 +145,8 @@ public class Player_Activity extends AppCompatActivity {
 
         public String createTimeLabel(int time){
             String timelabel = "";
-            int min = time / 1000 /60;
-            int seg = time /100 % 60 ;
+            int min = time / 1000 / 60;
+            int seg = time /1000 % 60 ;
 
             timelabel = min + ":";
             if (seg<10) timelabel += "0";
