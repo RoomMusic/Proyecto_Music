@@ -85,6 +85,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         song_list = new ArrayList<>();
         song_list_aux = new ArrayList<>();
 
+        mediaPlayer = new MediaPlayer();
 
 
         firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid()).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -106,7 +107,9 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     private MediaPlayer mediaPlayer;;
     private String FIRE_STORAGE_URL;
 
-    private void getAudioFromFirebase(UserApp user, Song song){
+    private void getAudioFromFirebase(UserApp user, Song song, View view){
+
+
 
         FIRE_STORAGE_URL = context.getResources().getString(R.string.FireStorageURL);
 
@@ -120,10 +123,16 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             @Override
             public void onSuccess(Uri uri) {
                 try{
+
+
+                    mediaPlayer = MediaPlayer.create(view.getContext(), uri);
+                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
                     String url = uri.toString();
 
                     Log.d("sergio", url);
-                    mediaPlayer.setDataSource(url);
+
+                    mediaPlayer.setDataSource(FIRE_STORAGE_URL);
 
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
@@ -148,6 +157,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
     }
 
+    boolean play_pause = false;
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -161,7 +172,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         vh.userName.setText(publicacion.getPublication_user().getUserName());
         vh.songName.setText(publicacion.getPublication_song().getName());
-//        MediaPlayer mediaPlayer = new MediaPlayer();
 
         String datasource = "https://firebasestorage.googleapis.com/v0/b/musicproject-dc678.appspot.com/o/bruizfernandez%40gmail.com%2Fmusic%2FTu%20No%20Metes%20Cabra%20(Remix)%20Bad%20Bunny%20Ft.%20Anuel%20AA%2C%20Daddy%20Yankee%20y%20Cosculluela.mp3?alt=media&token=fc609b99-8708-4486-863b-50e0f5916893";
 
@@ -173,7 +183,20 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 UserApp us = publicacion.getPublication_user();
                 Song so = publicacion.getPublication_song();
 
-                getAudioFromFirebase(us, so);
+                if (!mediaPlayer.isPlaying()){
+                    getAudioFromFirebase(us, so, v);
+                    vh.playBtn.setEnabled(false);
+
+                    Log.d("sergio", "play");
+                }else{
+
+                    if (mediaPlayer != null){
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    Log.d("sergio", "pause");
+                }
                 /*MediaPlayer mediaPlayer = new MediaPlayer();
                     try {
                         mediaPlayer.setDataSource(datasource);
