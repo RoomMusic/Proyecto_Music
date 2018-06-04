@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import android.support.v4.app.Fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,7 +39,7 @@ import java.util.List;
  * Use the {@link Fragment_ListSong#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_ListSong extends Fragment {
+public class Fragment_ListSong extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,6 +58,8 @@ public class Fragment_ListSong extends Fragment {
     AdapterSong adapterSongs;
     FirebaseFirestore database;
     String idUser;
+
+    public SwipeRefreshLayout swr;
 
 
     public Fragment_ListSong() {
@@ -99,16 +102,28 @@ public class Fragment_ListSong extends Fragment {
 
         database = FirebaseFirestore.getInstance();
 
+        swr = view.findViewById(R.id.swipe_refresh_listsong);
+        swr.setOnRefreshListener(this);
+        swr.setVisibility(View.VISIBLE);
+
         songList = new ArrayList<>();
 
         //obtenemos el id del usuario
         idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         setUpRecyclerView(view);
-        setUpFireBase();
-        loadDataFromFireBase();
+
+        getdata();
 
         return view;
+    }
+
+    public void getdata(){
+
+
+        setUpFireBase();
+        loadDataFromFireBase();
+        swr.setRefreshing(false);
     }
 
     private void loadDataFromFireBase() {
@@ -159,6 +174,11 @@ public class Fragment_ListSong extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        getdata();
     }
 
 

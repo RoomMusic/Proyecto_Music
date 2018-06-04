@@ -5,11 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
     tools:context="com.example.vidiic.proyecto_music.fragments.music.Fragment_Artist">
-
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_artist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerArtists"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerArtists"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_margin="5dp"

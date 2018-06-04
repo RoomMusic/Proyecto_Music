@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,7 +38,7 @@ import java.util.List;
  * Use the {@link Fragment_Artist#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Artist extends Fragment {
+public class Fragment_Artist extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,6 +54,7 @@ public class Fragment_Artist extends Fragment {
     RecyclerView recyclerViewArtist;
     AdapterArtist adapterArtist;
     FirebaseFirestore database;
+    SwipeRefreshLayout swp;
 
     FloatingActionButton fab;
 
@@ -98,6 +100,10 @@ public class Fragment_Artist extends Fragment {
 
         idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        swp = view.findViewById(R.id.swipe_refresh_artist);
+        swp.setOnRefreshListener(this);
+        swp.setVisibility(View.VISIBLE);
+
         fab = view.findViewById(R.id.fabartista);
         fab.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -111,10 +117,16 @@ public class Fragment_Artist extends Fragment {
         artistList = new ArrayList<>();
 
         setUpRecyclerView(view);
-        setUpFireBase();
-        loadDataFromFireBase();
+        getData();
+
+
 
         return view;
+    }
+    public void getData(){
+        setUpFireBase();
+        loadDataFromFireBase();
+        swp.setRefreshing(false);
     }
 
     private void loadDataFromFireBase() {
@@ -166,6 +178,11 @@ public class Fragment_Artist extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        getData();
     }
 
     /**
