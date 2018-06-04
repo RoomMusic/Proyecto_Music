@@ -7,11 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@drawable/iconapp"
+        android:label="@string/app_name"
         android:roundIcon="@drawable/iconapp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,13 +31,13 @@
         <activity android:name=".Genre_Activity" />
         <activity android:name=".fragments.profile.UploadPhoto" />
         <activity android:name=".Form_Artist" />
-        <activity android:name=".From_Genre"/>
+        <activity android:name=".From_Genre" />
         <activity android:name=".fragments.social.chat.AddFriendActivity" />
-        <activity android:name=".fragments.social.muro.AddPublicacionActivity"/>
-        <activity android:name=".player.Player_Activity"/>
-        <activity android:name=".fragments.profile.RequestCredentials"/>
+        <activity android:name=".fragments.social.muro.AddPublicacionActivity" />
+        <activity android:name=".player.Player_Activity" />
+        <activity android:name=".fragments.profile.RequestCredentials" />
         <activity android:name=".fragments.profile.ChangePassword" />
-
+        <activity android:name=".AddSongActivity"></activity>
     </application>
 
 </manifest>

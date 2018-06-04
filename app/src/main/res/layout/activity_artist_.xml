@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre Artista"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:textSize="18sp"
                 android:id="@+id/artist_name"
@@ -48,11 +48,18 @@
                 android:id="@+id/artist_cat"
                 android:layout_below="@id/artist_name"
                 android:layout_toRightOf="@id/artist_image"
-
-                android:layout_margin="25dp"
+                android:layout_margin="15dp"
                 android:background="#edecec"
                 android:padding="8dp"
-                android:layout_marginTop="10dp"/>
+                />
+            <Button
+                android:id="@+id/btn_addSong"
+                android:layout_below="@id/artist_cat"
+                android:layout_width="150dp"
+                android:text="Add Song"
+                android:layout_toRightOf="@id/artist_image"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"/>
             <TextView
                 android:layout_below="@id/artist_image"
                 android:layout_centerHorizontal="true"
