@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.adapters.AdapterArtistGenre;
+import com.example.vidiic.proyecto_music.adapters.AdapterSong;
+import com.example.vidiic.proyecto_music.adapters.AdapterSongGenre;
 import com.example.vidiic.proyecto_music.adapters.AdapterSongsArtist;
 import com.example.vidiic.proyecto_music.classes.Artist;
 import com.example.vidiic.proyecto_music.classes.Song;
@@ -38,6 +40,7 @@ public class Genre_Activity extends AppCompatActivity {
     RecyclerView recyclerViewSong;
     RecyclerView recyclerViewArtist;
     AdapterArtistGenre adapterArtistGenre;
+    AdapterSongGenre adapterSongGenre;
     FirebaseFirestore database;
     Toolbar toolbar_genre;
     public String idUser;
@@ -62,6 +65,7 @@ public class Genre_Activity extends AppCompatActivity {
         addToolbar(R.id.toolbar_genre, R.string.GenreTitle);
 
         artistList = new ArrayList<>();
+        songList = new ArrayList<>();
 
         database = FirebaseFirestore.getInstance();
 
@@ -71,11 +75,13 @@ public class Genre_Activity extends AppCompatActivity {
 
         Log.e("heyy","aaa");
 
-//        recyclerViewSong = findViewById(R.id.recyclerSongsArtists);
-//        recyclerViewSong.setHasFixedSize(true);
-//        recyclerViewSong.setLayoutManager(new LinearLayoutManager(Genre_Activity.this));
+        recyclerViewSong = findViewById(R.id.recyclersongsOneGenre);
+        recyclerViewSong.setHasFixedSize(true);
+        recyclerViewSong.setLayoutManager(new LinearLayoutManager(Genre_Activity.this));
+
         Log.d("heyy",genreArtist);
         loadArtistsFromFireBase(genreArtist);
+        loadMusicFromFireBase(genreArtist);
 
     }
 
@@ -118,6 +124,37 @@ public class Genre_Activity extends AppCompatActivity {
                     }
                     adapterArtistGenre = new AdapterArtistGenre(Genre_Activity.this,artistList);
                     recyclerViewArtist.setAdapter(adapterArtistGenre);
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Genre_Activity.this,"ERROR LOAD MUSIC",Toast.LENGTH_SHORT).show();
+                    Log.v("ERROR LOAD MUSIC",e.getMessage());
+                }
+            });
+    }
+    private void loadMusicFromFireBase(String nameArtist) {
+        if (songList.size()>0){
+            songList.clear();
+        }
+        Log.e("heyy","aaa");
+        database.collection("users").document(idUser).collection("songlist")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        Song song = documentSnapshot.toObject(Song.class);
+                        for (Artist artist :song.getArtistList()){
+                            if (artist.getGenre().toUpperCase().equals(nameArtist.toUpperCase())){
+                                songList.add(song);
+                                Log.e("heyy",artist.getGenre());
+                            }
+                        }
+                    }
+                    adapterSongGenre = new AdapterSongGenre(Genre_Activity.this,songList);
+                    recyclerViewSong.setAdapter(adapterSongGenre);
                 }
             })
             .addOnFailureListener(new OnFailureListener() {
