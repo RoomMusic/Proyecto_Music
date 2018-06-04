@@ -28,7 +28,7 @@
             android:id="@+id/container_buttons"
             android:layout_width="230dp"
             android:layout_height="70dp"
-            android:src="@drawable/oval2"
+            android:src="@drawable/oval3"
             android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"/>
 
@@ -60,8 +60,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/cancel_add_publication"
-            android:backgroundTint="@color/green"
-            android:src="@drawable/checked" />
+            android:backgroundTint="@color/gradStart"
+            android:src="@drawable/network" />
 
 
         <TextView

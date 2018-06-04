@@ -55,7 +55,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
                 android:layout_height="115dp"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/network"
+                android:src="@drawable/download"
                 android:background="@drawable/oval4" />
 
             <ImageButton
