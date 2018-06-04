@@ -21,8 +21,6 @@ import com.example.vidiic.proyecto_music.fragments.profile.Fragment_Profile;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Settings;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_ListSong;
 import com.example.vidiic.proyecto_music.fragments.music.Fragment_Music;
-import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_Add_Friend;
-import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Add_Publication;
 import com.example.vidiic.proyecto_music.fragments.social.muro.Fragment_Muro;
 import com.example.vidiic.proyecto_music.fragments.social.Fragment_Social;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +30,7 @@ import com.sendbird.android.SendBird;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener, Fragment_Add_Publication.OnFragmentInteractionListener, Fragment_Add_Friend.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements Fragment_Music.OnFragmentInteractionListener, Fragment_Social.OnFragmentInteractionListener, Fragment_Muro.OnFragmentInteractionListener {
 
     private Fragment_ListSong fragment_listSong;
     private Fragment_Home fragment_home;

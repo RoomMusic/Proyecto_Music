@@ -1,5 +1,6 @@
 package com.example.vidiic.proyecto_music.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +31,13 @@ public class PublicacionSongAdapter extends RecyclerView.Adapter<PublicacionSong
 
     private List<Song> songList;
     private List<Song> selected_song_list;
-    private View publication_main_view;
+    private Context context;
     private FirebaseFirestore firebaseFirestore;
+    private TextView selected_song_title;
 
-    public PublicacionSongAdapter(List<Song> songList, View view) {
+    public PublicacionSongAdapter(List<Song> songList, TextView selected_song_title) {
         super();
-        this.publication_main_view = view;
+        this.selected_song_title = selected_song_title;
         this.songList = songList;
         selected_song_list = new ArrayList<>();
     }
@@ -46,7 +50,6 @@ public class PublicacionSongAdapter extends RecyclerView.Adapter<PublicacionSong
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View song_item = LayoutInflater.from(parent.getContext()).inflate(R.layout.publicacion_song_list_item, parent, false);
-
 
         return new SongPostViewHolder(song_item);
     }
@@ -71,12 +74,12 @@ public class PublicacionSongAdapter extends RecyclerView.Adapter<PublicacionSong
                 selected_song_list.remove(song);
                 Log.d("songadapter", "Cancion eliminada " + song.getIdsong() + selected_song_list.size());
                 //vh.song_name.setText("");
-                ((TextView) publication_main_view.findViewById(R.id.songNameAddPublication)).setText("");
+                selected_song_title.setText("");
             } else {
                 selected_song_list.add(song);
                 Log.d("songadapter", "Cancion añadida " + song.getIdsong() + selected_song_list.size());
                 //vh.song_name.setText(song.getName());
-                ((TextView) publication_main_view.findViewById(R.id.songNameAddPublication)).setText(song.getName());
+                selected_song_title.setText(song.getName());
             }
 
             Log.d("songadapter", "Cancion seleccionada " + song.getName());

@@ -1,6 +1,7 @@
 package com.example.vidiic.proyecto_music.fragments.social.muro;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ import java.util.List;
  * Use the {@link Fragment_Muro#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,7 +50,6 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
 
     //variables
     private FloatingActionButton addPublicationBtn;
-    private Fragment_Add_Publication fragmentAdd_publication_fragment;
     private RecyclerView rv_muro;
     private List<Publicacion> publicaciones_list;
     private PublicacionAdapter publicacionAdapter;
@@ -57,7 +58,6 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
     private RelativeLayout relative_muro;
     private SwipeRefreshLayout swipeRefreshLayout;
     private String current_user_id;
-
 
 
     public Fragment_Muro() {
@@ -119,16 +119,14 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
         swipeRefreshLayout.setVisibility(View.VISIBLE);
 
 
-        fragmentAdd_publication_fragment = new Fragment_Add_Publication();
-
         //añadimos una publicacion
         addPublicationBtn.setOnClickListener(v -> {
             //mostramos el fragment para añadir una publicacion
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_publication, fragmentAdd_publication_fragment).commit();
-
+            //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_publication, fragmentAdd_publication_fragment).commit();
+            startActivity(new Intent(getContext(), AddPublicacionActivity.class));
             //ocultamos el boton de añadir publicacion
-            addPublicationBtn.hide();
-            swipeRefreshLayout.setVisibility(View.GONE);
+            //addPublicationBtn.hide();
+            //swipeRefreshLayout.setVisibility(View.GONE);
 
         });
 
@@ -149,7 +147,7 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private Publicacion publicacion;
 
-    private List<Publicacion> getAllPublicaciones(){
+    private List<Publicacion> getAllPublicaciones() {
 
         //swipeRefreshLayout.setRefreshing(true);
 
@@ -157,8 +155,8 @@ public class Fragment_Muro extends Fragment implements SwipeRefreshLayout.OnRefr
         publicaciones_list = new ArrayList<>();
 
         firebaseFirestore.collection("publicaciones").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                for (DocumentSnapshot snapshot : task.getResult()){
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot snapshot : task.getResult()) {
                     publicacion = snapshot.toObject(Publicacion.class);
                     publicaciones_list.add(publicacion);
                     Log.d("publicacion", "publication user and song " + publicacion.getPublication_user().getUserName() + " and " + publicacion.getPublication_song().getName());

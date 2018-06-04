@@ -101,4 +101,6 @@
     <string name="LoginPassFail">Contraseña incorrecta!</string>
     <string name="ChangePassTitle">Change Password</string>
     <string name="SignMalformedEmail">Proporcione una dirección de correo correcta, porfavor.</string>
+    <string name="AddFriendToolbarText">Buscar amigos</string>
+    <string name="AddPubliTitle">Añadir publicación</string>
 </resources>
