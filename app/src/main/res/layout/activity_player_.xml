@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".player.Player_Activity">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_action_music"
+        android:layout_margin="50dp"
+        app:civ_border_color="@color/grey"
+        app:civ_border_width="5dp"
+        app:civ_border_overlay="true"/>
+    <SeekBar
+        android:id="@+id/songtime"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="42dp"
+            android:text="0:00"/>
+        <TextView
+            android:id="@+id/finishtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4:03"
+            android:layout_marginLeft="250dp"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/currenttime"
+        android:text="00:00"/>
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/grey">
+        <Button
+            android:id="@+id/pauseSong"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="64dp"
+            android:background="@drawable/ic_play"
+            />
+        <Button
+            android:id="@+id/playSong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/ic_play"
+            />
+        <Button
+            android:id="@+id/stopSong"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/ic_play"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:background="@color/colorPrimaryDark">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/ic_volumeoff"
+            />
+        <SeekBar
+            android:id="@+id/songvolum"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:progress="50"
+            android:max="100"
+            android:layout_marginTop="22dp" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="22dp"
+            android:src="@drawable/ic_volumeoff"
+            />
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
