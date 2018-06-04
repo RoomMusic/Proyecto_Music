@@ -109,4 +109,5 @@
     <string name="GenreTitle">Genero</string>
     <string name="ChatTitle">Chat</string>
     <string name="PlayerTitle">Reproducción</string>
+    <string name="WeakPass">Contraseña débil</string>
 </resources>

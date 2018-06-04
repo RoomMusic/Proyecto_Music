@@ -47,6 +47,7 @@ public class Player_Activity extends AppCompatActivity {
         volumenBar = findViewById(R.id.songvolum);
        // finshtime = findViewById(R.id.finishtime);
         currentime = findViewById(R.id.currenttime);
+
         elapsedTimeLabel = findViewById(R.id.elapsedTimelabel);
         emainingTimeLabel = findViewById(R.id.remainingTimelabel);
 

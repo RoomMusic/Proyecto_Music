@@ -133,28 +133,28 @@ public class Activity_Reg extends AppCompatActivity {
 
                     } else {
                         //Log.d("signup", "error: " + task.getException());
-                        Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserAlreadyRegistered), Toast.LENGTH_SHORT).show();
 
-//                        try{
-//                            throw task.getException();
-//                        }
-//                        catch(FirebaseAuthWeakPasswordException weakException){
-//
-//                        }
-//                        // if user enters wrong password.
-//                        catch (FirebaseAuthInvalidCredentialsException malformedEmail)
-//                        {
-//                            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignMalformedEmail), Toast.LENGTH_LONG).show();
-//                        }
-//                        catch (FirebaseAuthUserCollisionException existEmail)
-//                        {
-//                            //usuario ya registrado
-//
-//                        }
-//                        catch (Exception e)
-//                        {
-//
-//                        }
+                        try{
+                            throw task.getException();
+                        }
+                        catch(FirebaseAuthWeakPasswordException weakException){
+                            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.WeakPass), Toast.LENGTH_SHORT).show();
+                        }
+                        // if user enters wrong password.
+                        catch (FirebaseAuthInvalidCredentialsException malformedEmail)
+                        {
+                            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignMalformedEmail), Toast.LENGTH_LONG).show();
+                        }
+                        catch (FirebaseAuthUserCollisionException existEmail)
+                        {
+                            //usuario ya registrado
+                            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserAlreadyRegistered), Toast.LENGTH_SHORT).show();
+
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
 
                     }
 
