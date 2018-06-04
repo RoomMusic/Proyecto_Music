@@ -269,12 +269,17 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             //guardamos la cancion en firebase
             Log.d("descarga", "song details: " + song_file.getPath());
 
+
+
+            song.setImageSong("descargas/" + song.getName());
+
             saveSongInFireBase(song, current_user_id);
 
         }).addOnFailureListener(e -> {
 
             progressBar.setIndeterminate(false);
             progressBar.setVisibility(View.GONE);
+            Log.d("descarga", "error: " + e.getMessage());
             Toast.makeText(context, "Error al descargar cancion", Toast.LENGTH_SHORT).show();
         });
 
