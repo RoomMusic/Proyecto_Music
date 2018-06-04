@@ -126,10 +126,6 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
                     //Log.d("test", "MainACtivityButton");
                     setFragment(fragment_profile);
                     return true;
-                case R.id.nav_settings:
-                    //Log.d("test", "MainACtivityButton");
-                    setFragment(fragment_settings);
-                    return true;
 
                 default:
                     return false;
