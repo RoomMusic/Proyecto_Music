@@ -2,6 +2,7 @@ package com.example.vidiic.proyecto_music.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.Song;
+import com.example.vidiic.proyecto_music.player.Player_Activity;
 
 import java.util.List;
 
@@ -67,14 +70,30 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.SongViewHolder
                 TextView dialog_name = dialog.findViewById(R.id.dialog_name);
                 TextView dialog_artist = dialog.findViewById(R.id.dialog_artist);
                 ImageView dialog_Image = dialog.findViewById(R.id.dialog_image);
+                Button btnplay = dialog.findViewById(R.id.dialog_btnplay);
+
+                btnplay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(), Player_Activity.class);
+
+                        intent.putExtra("NameSong",songsList.get(position).getName());
+                        intent.putExtra("Path",songsList.get(position).getImageSong());
+
+                        view.getContext().startActivity(intent);
+                    }
+                });
 
                 dialog_name.setText(songsList.get(position).getName());
                 dialog_artist.setText(songsList.get(position).nameOfArtists());
                 //dialog_Image.setImageBitmap();
                 dialog_Image.setImageResource(R.drawable.ic_action_music);
+
+
                 dialog.show();
             }
         });
+
 
     }
 
