@@ -51,7 +51,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
 
             <ImageButton
                 android:id="@+id/btnAsk"
-                android:layout_width="55dp"
+                android:layout_width="50dp"
                 android:layout_height="115dp"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
@@ -60,7 +60,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
 
             <ImageButton
                 android:id="@+id/btnPlaySong"
-                android:layout_width="55dp"
+                android:layout_width="50dp"
                 android:layout_height="115dp"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentRight="true"

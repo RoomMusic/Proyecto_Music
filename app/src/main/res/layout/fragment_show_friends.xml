@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".fragments.social.chat.Fragment_User_Chat">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Mis amigos"
+        android:layout_marginLeft="120dp"
+        android:textSize="30dp"
+        android:layout_marginTop="15dp"/>
 
 
        <RelativeLayout
            android:id="@+id/relative_add_friend"
            android:layout_width="match_parent"
-           android:layout_height="match_parent">
+           android:layout_height="match_parent"
+           android:layout_marginTop="60dp">
+
 
 
            <android.support.v7.widget.RecyclerView
