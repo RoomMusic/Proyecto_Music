@@ -31,18 +31,19 @@ public class Player_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_);
-//
-//        Intent intent = getIntent();
-//        String nameSong = intent.getExtras().getString("NameSong");
-//        String path = intent.getExtras().getString("Path");
+
+        Intent intent = getIntent();
+        String nameSong = intent.getExtras().getString("NameSong");
+        String path = intent.getExtras().getString("Path");
 
         btnplay = findViewById(R.id.playSong);
         positionBar = findViewById(R.id.songtime);
         volumenBar = findViewById(R.id.songvolum);
         finshtime = findViewById(R.id.finishtime);
         currentime = findViewById(R.id.currenttime);
+        Uri uri = Uri.parse(path);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.music);
+        mediaPlayer = MediaPlayer.create(this, uri);
         mediaPlayer.setLooping(true);
         mediaPlayer.seekTo(0);
         mediaPlayer.setVolume(0.5f, 0.5f);
