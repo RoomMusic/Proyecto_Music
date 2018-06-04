@@ -29,4 +29,6 @@
     <color name="verdepassword">#4bf261</color>
 
     <color name="greenplay">#58D68D</color>
+    <color name="orange">#f48342</color>
+    <color name="greybar">#707072</color>
 </resources>

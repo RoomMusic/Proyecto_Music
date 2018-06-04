@@ -60,7 +60,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/cancel_add_publication"
-            android:backgroundTint="@color/gradStart"
+            android:backgroundTint="@color/orange"
             android:src="@drawable/network" />
 
 
