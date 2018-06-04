@@ -55,7 +55,7 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
                 android:layout_height="95dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/send"
-                android:background="@color/gradStop" />
+                android:background="@drawable/oval2" />
 
             <ImageButton
                 android:id="@+id/btnPlaySong"
