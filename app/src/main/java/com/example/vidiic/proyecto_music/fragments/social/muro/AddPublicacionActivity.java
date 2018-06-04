@@ -1,18 +1,18 @@
 package com.example.vidiic.proyecto_music.fragments.social.muro;
 
-import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
@@ -34,30 +34,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Fragment_Add_Publication.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Fragment_Add_Publication#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Fragment_Add_Publication extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
+public class AddPublicacionActivity extends AppCompatActivity {
 
     private FloatingActionButton success_add_publication_btn, show_songs_btn, cancel_add_publicacion;
-    private Fragment_Muro fragment_muro;
-    private RelativeLayout relative_publication_details, relative_song_list;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private RecyclerView rv_song_list;
@@ -65,56 +44,34 @@ public class Fragment_Add_Publication extends Fragment {
     private Publicacion publicacion;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-
-    public Fragment_Add_Publication() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Add_Publication.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_Add_Publication newInstance(String param1, String param2) {
-        Fragment_Add_Publication fragment = new Fragment_Add_Publication();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Toolbar toolbar_add_publication;
+    private TextView selected_song_title;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+        setContentView(R.layout.activity_add_publicacion);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_add__publication, container, false);
-        success_add_publication_btn = view.findViewById(R.id.success_add_publication);
-        //relative con el nombre de la cancion seleccionada y los tres botones
-        relative_publication_details = view.findViewById(R.id.relative_publication_details);
-        show_songs_btn = view.findViewById(R.id.find_song_btn);
-        rv_song_list = view.findViewById(R.id.rv_song_list);
-        cancel_add_publicacion = view.findViewById(R.id.cancel_add_publication);
-        //relative donde se muestran las canciones del usuario para que seleccione una y la suba
-        relative_song_list = view.findViewById(R.id.relative_publication_song_list);
+        success_add_publication_btn = findViewById(R.id.success_add_publication);
 
-        fragment_muro = new Fragment_Muro();
+        show_songs_btn = findViewById(R.id.find_song_btn);
+        rv_song_list = findViewById(R.id.rv_song_list);
+        cancel_add_publicacion = findViewById(R.id.cancel_add_publication);
+
+        selected_song_title = findViewById(R.id.songNameAddPublication);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         String user_id = firebaseAuth.getCurrentUser().getUid();
+        toolbar_add_publication = findViewById(R.id.toolbar_add_publicacion);
+
+        //configuramos la app bar
+        setSupportActionBar(toolbar_add_publication);
+
+        getSupportActionBar().setTitle(R.string.AddPubliTitle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //añadimos la publicacion
         success_add_publication_btn.setOnClickListener(v -> {
@@ -122,27 +79,30 @@ public class Fragment_Add_Publication extends Fragment {
             //obtenemos los datos de la cancion seleccionada
             if (publicacionSongAdapter.getSelectedSongList().size() > 1) {
                 Log.d("songadapter", "solo pueds seleccionar una cancion: " + publicacionSongAdapter.getSelectedSongList().size());
-                Toast.makeText(view.getContext(), "Solo puedes seleccionar una cancion. Seleccionadas: " + publicacionSongAdapter.getSelectedSongList().size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Solo puedes seleccionar una cancion. Seleccionadas: " + publicacionSongAdapter.getSelectedSongList().size(), Toast.LENGTH_SHORT).show();
             } else {
 
                 if (publicacionSongAdapter.getSelectedSongList().isEmpty()) {
 
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-                    relative_publication_details.setVisibility(View.GONE);
-                    relative_song_list.setVisibility(View.GONE);
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
+//                    relative_publication_details.setVisibility(View.GONE);
+//                    relative_song_list.setVisibility(View.GONE);
+
+                    finish();
 
                 } else {
 
                     publicacion = new Publicacion(new Date(), publicacionSongAdapter.getSelectedSongList().get(0));
 
                     //agregamos la publicacion a firebase
-                    addPublicationToFirebase(user_id, firebaseFirestore, publicacion, view);
+                    addPublicationToFirebase(user_id, firebaseFirestore, publicacion, v);
 
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-                    relative_publication_details.setVisibility(View.GONE);
-                    relative_song_list.setVisibility(View.GONE);
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
+                    //relative_publication_details.setVisibility(View.GONE);
+                    //relative_song_list.setVisibility(View.GONE);
+                    finish();
                     Log.d("sergio", "path sancion: " + song.getImageSong());
-                    Toast.makeText(view.getContext(), "Cancion añadida ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Cancion añadida ", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -152,9 +112,9 @@ public class Fragment_Add_Publication extends Fragment {
         //mostramos las canciones del usuario
         show_songs_btn.setOnClickListener(v -> {
 
-            publicacionSongAdapter = new PublicacionSongAdapter(getSongList(firebaseFirestore, user_id), view);
+            publicacionSongAdapter = new PublicacionSongAdapter(getSongList(firebaseFirestore, user_id), selected_song_title);
 
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
             rv_song_list.setLayoutManager(layoutManager);
             rv_song_list.setItemAnimator(new DefaultItemAnimator());
@@ -167,16 +127,24 @@ public class Fragment_Add_Publication extends Fragment {
 
         cancel_add_publicacion.setOnClickListener(v -> {
             //Toast.makeText(view.getContext(), "Cancelado", Toast.LENGTH_SHORT).show();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-            relative_song_list.setVisibility(View.GONE);
-            relative_publication_details.setVisibility(View.GONE);
+//            getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
+//            relative_song_list.setVisibility(View.GONE);
+//            relative_publication_details.setVisibility(View.GONE);
+            finish();
         });
 
 
-        // Inflate the layout for this fragment
-        return view;
+
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) finish();
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void uploadSongFile(UserApp user, String path) {
 
@@ -259,7 +227,6 @@ public class Fragment_Add_Publication extends Fragment {
 
     }
 
-
     private Song song;
     private List<Song> song_list;
 
@@ -280,45 +247,5 @@ public class Fragment_Add_Publication extends Fragment {
         });
 
         return song_list;
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

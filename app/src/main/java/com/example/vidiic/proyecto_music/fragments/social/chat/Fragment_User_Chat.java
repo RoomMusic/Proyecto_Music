@@ -79,7 +79,6 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     private Activity activityShare;
     private String APP_ID;
     private FloatingActionButton btn_add_friend;
-    private Fragment_Add_Friend fragment_add_friend;
     private RelativeLayout relative_show_friend;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -118,18 +117,12 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
         btn_add_friend.show();
         rvUserChat.setVisibility(View.VISIBLE);
 
-        fragment_add_friend = new Fragment_Add_Friend();
 
         btn_add_friend.show();
 
         btn_add_friend.setOnClickListener(v -> {
-
-            //reemplazamos el relative layout de mostrar amigos por el de añadir amigo
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_friend, fragment_add_friend).commit();
-            btn_add_friend.hide();
-            //escondemos el recycler view donde muestran los usuarios
-            rvUserChat.setVisibility(View.GONE);
             Log.d("test", "ADD FRIEND ACTIVITY");
+            startActivity(new Intent(getContext(), AddFriendActivity.class));
 
 
         });

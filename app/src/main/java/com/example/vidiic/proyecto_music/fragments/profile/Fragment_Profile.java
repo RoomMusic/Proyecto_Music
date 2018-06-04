@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,6 +92,8 @@ public class Fragment_Profile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment__profile, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+
 
         userNameTV = view.findViewById(R.id.txtname);
         userEmailTV = view.findViewById(R.id.txtmail);

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -41,6 +42,8 @@ public class ChangePassword extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         fragment_profile = new Fragment_Profile();
         toolbar_pass = findViewById(R.id.toolbar_password);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         setSupportActionBar(toolbar_pass);
 

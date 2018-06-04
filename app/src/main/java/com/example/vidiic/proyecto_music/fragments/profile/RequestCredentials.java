@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,6 +38,9 @@ public class RequestCredentials extends AppCompatActivity {
         btn_continuar = findViewById(R.id.btn_check_credentials);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         toolbar_credentials = findViewById(R.id.toolbar_credentials);
+
+
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         setSupportActionBar(toolbar_credentials);
 

@@ -12,41 +12,30 @@
         android:layout_height="match_parent"
         android:id="@+id/relative_search_friends">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_add_friend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
         <RelativeLayout
+            android:layout_below="@+id/toolbar_add_friend"
             android:id="@+id/relative_edit_text_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/btnback"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="22dp"
-                android:src="@drawable/back" />
-
-            <TextView
-                android:id="@+id/titleaddfriends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Añadir amigos"
-                android:textStyle="bold"
-                android:textSize="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="110dp"
-                android:layout_marginBottom="40dp"
-                android:layout_gravity="center_horizontal" />
 
             <EditText
                 android:id="@+id/username_et"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
                 android:textSize="17dp"
-                android:layout_marginLeft="22dp"
-                android:layout_below="@id/titleaddfriends"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/oval"
                 android:layout_marginTop="16dp"
-                android:hint="username"
+                android:hint="@string/hintUsername"
                 android:padding="9dp"/>
 
 
@@ -56,7 +45,6 @@
                 android:layout_height="65dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/username_et"
-                android:layout_below="@id/titleaddfriends"
                 app:cb_color="@color/rojologo"
                 android:src="@drawable/search"/>
 

@@ -9,8 +9,8 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".launcher.Activity_Launcher">
@@ -30,9 +30,11 @@
         <activity android:name=".Genre_Activity" />
         <activity android:name=".fragments.profile.UploadPhoto" />
         <activity android:name=".fragments.profile.ChangePassword" />
-        <activity android:name=".fragments.profile.RequestCredentials"></activity>
+        <activity android:name=".fragments.profile.RequestCredentials" />
         <activity android:name=".Form_Artist" />
-        <activity android:name=".From_Genre"/>
+        <activity android:name=".From_Genre" />
+        <activity android:name=".fragments.social.chat.AddFriendActivity" />
+        <activity android:name=".fragments.social.muro.AddPublicacionActivity"></activity>
     </application>
 
 </manifest>
