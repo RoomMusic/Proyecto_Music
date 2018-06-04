@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,9 +95,12 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
         vh.user = user;
 
         if (user.getUserImage() != null) {
+
             firebaseStorage.getReference().child(user.getEmail() + "/pictures/" + user.getUserImage() + IMAGE_FORMAT).getDownloadUrl()
                     .addOnSuccessListener(uri ->
                             Picasso.get().load(uri).into(vh.userImage));
+            //vh.userImage.setImageBitmap(user.getUserImage().getDrawingCache());
+
         } else {
             vh.userImage.setImageResource(R.drawable.ic_action_music);
         }
