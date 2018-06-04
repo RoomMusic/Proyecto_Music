@@ -46,7 +46,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
     String emailUser;
     String nameUser;
 
-    public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
+    public String idUser;
     private static final int MY_PERMISSION_REQUEST = 1;
 
 
@@ -61,6 +61,8 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         Intent intent = getIntent();
         nameUser = intent.getExtras().getString("username");
         emailUser = intent.getExtras().getString("useremail");
+        idUser = intent.getExtras().getString("userid");
+
         textnombre.setText(nameUser);
         buttonsync.setEnabled(false);
 

@@ -112,21 +112,23 @@ public class Activity_Reg extends AppCompatActivity {
                         //usuario registrado completamente
                         Intent intent = new Intent(Activity_Reg.this, Sync_Music_Activity.class);
 
-                        intent.putExtra("useremail", userMail);
-                        intent.putExtra("username", userName);
-
-
                         key = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                         UserApp user = new UserApp(key, userName, userMail, userPass, new Date(), false);
 
 
-                        firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid ->
-                                Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserRegistered), Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(e ->
+                        firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid -> {
+                            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserRegistered), Toast.LENGTH_SHORT).show();
+
+                            intent.putExtra("useremail", userMail);
+                            intent.putExtra("username", userName);
+                            intent.putExtra("userid",user.getUserid());
+
+                            startActivity(intent);
+                        }).addOnFailureListener(e ->
                                 Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignFail), Toast.LENGTH_SHORT).show());
 
-                        startActivity(intent);
+
 
 
                         //Toast.makeText(Activity_Reg.this, "User Registered Succesfully", Toast.LENGTH_SHORT).show();

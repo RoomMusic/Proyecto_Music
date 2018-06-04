@@ -21,6 +21,7 @@ import com.example.vidiic.proyecto_music.classes.Artist;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -55,7 +56,7 @@ public class Fragment_Artist extends Fragment {
 
     FloatingActionButton fab;
 
-    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
+    public String idUser;
 
 
     public Fragment_Artist() {
@@ -94,6 +95,8 @@ public class Fragment_Artist extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment__artist, container, false);
+
+        idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         fab = view.findViewById(R.id.fabartista);
         fab.setOnClickListener(new View.OnClickListener() {
