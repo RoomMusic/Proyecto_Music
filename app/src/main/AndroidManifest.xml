@@ -33,6 +33,9 @@
         <activity android:name=".fragments.profile.UploadPhoto" />
         <activity android:name=".Form_Artist" />
         <activity android:name=".From_Genre"/>
+        <activity android:name=".fragments.social.chat.AddFriendActivity" />
+        <activity android:name=".fragments.social.muro.AddPublicacionActivity"/>
+        <activity android:name=".player.Player_Activity"/>
     </application>
 
 </manifest>
