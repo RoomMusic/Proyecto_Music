@@ -16,6 +16,9 @@ import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.musicFireBase.Sync_Music_Activity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -130,8 +133,29 @@ public class Activity_Reg extends AppCompatActivity {
 
                     } else {
                         //Log.d("signup", "error: " + task.getException());
-                        //usuario ya registrado
                         Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserAlreadyRegistered), Toast.LENGTH_SHORT).show();
+
+//                        try{
+//                            throw task.getException();
+//                        }
+//                        catch(FirebaseAuthWeakPasswordException weakException){
+//
+//                        }
+//                        // if user enters wrong password.
+//                        catch (FirebaseAuthInvalidCredentialsException malformedEmail)
+//                        {
+//                            Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignMalformedEmail), Toast.LENGTH_LONG).show();
+//                        }
+//                        catch (FirebaseAuthUserCollisionException existEmail)
+//                        {
+//                            //usuario ya registrado
+//
+//                        }
+//                        catch (Exception e)
+//                        {
+//
+//                        }
+
                     }
 
                 });

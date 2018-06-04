@@ -17,7 +17,6 @@ public class UserApp {
     private String userid;
     private String userName;
     private String email;
-    private String password;
     private String userSecondName;
     private boolean firstIn;
     private String userImage;
@@ -31,7 +30,6 @@ public class UserApp {
     public UserApp(String userId, String userName, String email, String password, Date registerDate, boolean firstIn) {
         this.userid = userId;
         this.email = email;
-        this.password = password;
         this.registerDate = registerDate;
         this.firstIn = firstIn;
         this.userName = userName;
@@ -63,10 +61,6 @@ public class UserApp {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public boolean isFirstIn() {

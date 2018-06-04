@@ -175,6 +175,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     private String song_name;
 
 
+
+
     private void downloadSong(Publicacion publicacion, ProgressBar progressBar, Song song) {
 
         String song_user_email = publicacion.getPublication_user().getEmail();

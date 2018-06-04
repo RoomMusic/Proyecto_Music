@@ -1,5 +1,6 @@
 package com.example.vidiic.proyecto_music.adapters;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -77,6 +81,9 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
         return new UserViewHolder(userChatItem);
     }
 
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    private String IMAGE_FORMAT = ".jpg";
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -88,7 +95,12 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
         vh.user = user;
 
         if (user.getUserImage() != null) {
+
+            firebaseStorage.getReference().child(user.getEmail() + "/pictures/" + user.getUserImage() + IMAGE_FORMAT).getDownloadUrl()
+                    .addOnSuccessListener(uri ->
+                            Picasso.get().load(uri).into(vh.userImage));
             //vh.userImage.setImageBitmap(user.getUserImage().getDrawingCache());
+
         } else {
             vh.userImage.setImageResource(R.drawable.ic_action_music);
         }

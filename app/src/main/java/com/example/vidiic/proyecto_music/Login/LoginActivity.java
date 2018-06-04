@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -21,8 +22,13 @@ import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
 import com.google.android.gms.common.oob.SignUp;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -125,12 +131,25 @@ public class LoginActivity extends AppCompatActivity {
 
                 startActivity(mainIntent);
             } else {
-                //usuario no registrado, redirigir al signup
-                Intent intent = new Intent(LoginActivity.this, Activity_Reg.class);
-                startActivity(intent);
 
-                Toast.makeText(LoginActivity.this, getResources().getString(R.string.LoginFail), Toast.LENGTH_SHORT).show();
+                try {
+                    throw task.getException();
 
+                } catch (FirebaseAuthInvalidUserException invalidemail) {
+                    //usuario no registrado, redirigir al signup
+                    Intent intent = new Intent(LoginActivity.this, Activity_Reg.class);
+
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.LoginFail), Toast.LENGTH_SHORT).show();
+
+                    startActivity(intent);
+
+                } catch (FirebaseAuthInvalidCredentialsException wrongPassword) {
+
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.LoginPassFail), Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+
+                }
             }
         });
     }

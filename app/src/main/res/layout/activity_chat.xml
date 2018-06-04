@@ -1,76 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vidiic.proyecto_music.fragments.social.chat.ChatActivity">
+    tools:context=".fragments.social.chat.ChatActivity">
 
-
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/reyclerview_message_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="55dp"
-        android:layout_marginTop="55dp">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <RelativeLayout
+            android:id="@+id/relative_chat_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <!-- A horizontal line between the chatbox and RecyclerView -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="0dp"
-        android:background="#dfdfdf"
-        app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_chat"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:background="@color/red">
 
-    <LinearLayout
-        android:id="@+id/layout_chatbox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:minHeight="48dp"
-        android:orientation="horizontal"
-        android:layout_margin="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+            </android.support.v7.widget.Toolbar>
 
-        <EditText
-            android:id="@+id/edittext_chatbox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="Enter message"
-            android:maxLines="6" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reyclerview_message_list"
+                android:layout_width="match_parent"
+                android:layout_height="455dp"
+                android:layout_below="@+id/toolbar_chat">
 
-        <Button
-            android:id="@+id/sendFilesBtn"
-            android:layout_width="60dp"
-            android:layout_height="46dp"
-            android:clickable="true"
-            android:text="File"
-            android:textSize="14dp"
-            android:gravity="center" />
-        <Button
-            android:id="@+id/button_chatbox_send"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:layout_gravity="bottom"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="SEND"
-            android:textSize="14dp" />
+            </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/relative_chat_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relative_chat_view">
 
-</android.support.constraint.ConstraintLayout>
+            <EditText
+                android:id="@+id/edittext_chatbox"
+                android:layout_width="300dp"
+                android:layout_height="55dp"
+                android:hint="@string/ChatHint"
+                android:layout_alignParentBottom="true"/>
+
+            <Button
+                android:id="@+id/button_chatbox_send"
+                android:layout_width="70dp"
+                android:layout_height="55dp"
+                android:layout_toRightOf="@+id/edittext_chatbox"
+                android:text="@string/ChatSendMessage"
+                android:textSize="10dp"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
