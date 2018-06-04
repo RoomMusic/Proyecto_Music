@@ -107,6 +107,16 @@ public class MainActivity extends AppCompatActivity implements Fragment_Music.On
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, fragment_home).commit();
         }
 
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            }
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, fragment_home).commit();
+        }
+
         nMainNav.setOnNavigationItemSelectedListener(item -> {
 
             switch (item.getItemId()) {

@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -323,11 +324,14 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-            request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, uri.toString());
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, song_name);
+
+            //request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, uri.toString());
 
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 
-            //manager.enqueue(request);
+            manager.enqueue(request);
+
 
 
             //actualizamos la lista del usuario
@@ -337,7 +341,10 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             progressBar.setVisibility(View.GONE);
 
             //guardamos la cancion en firebase
-            Log.d("descarga", "song details: " + song_file.getPath());
+            Log.d("descarga", "song details: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" +  song_name);
+
+            //al descargar la cancion en el dispositivo le seteamos la ruta de la carpeta de descargas con el nombre de la cancion
+            song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
 
             saveSongInFireBase(song, current_user_id);
 
