@@ -51,11 +51,6 @@ public class AdapterAddSong extends RecyclerView.Adapter<AdapterAddSong.SongView
         return songsList.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
-
-
     public class SongViewHolder extends RecyclerView.ViewHolder {
 
 
