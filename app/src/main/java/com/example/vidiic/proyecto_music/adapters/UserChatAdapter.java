@@ -1,6 +1,7 @@
 package com.example.vidiic.proyecto_music.adapters;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
@@ -31,7 +32,7 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
         this.userList = userList;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -102,7 +103,19 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
             //vh.userImage.setImageBitmap(user.getUserImage().getDrawingCache());
 
         } else {
-            vh.userImage.setImageResource(R.drawable.ic_action_music);
+            firebaseStorage.getReference().child(user.getEmail() + "/pictures/" + user.getUserImage() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+
+                    Picasso.get().load(uri).into(vh.userImage);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Picasso.get().load(R.drawable.user_empty_image).into(vh.userImage);
+                }
+            });
         }
 
         vh.userName.setText(user.getUserName());

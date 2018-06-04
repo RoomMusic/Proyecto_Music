@@ -110,4 +110,5 @@
     <string name="ChatTitle">Chat</string>
     <string name="PlayerTitle">Reproducción</string>
     <string name="WeakPass">Contraseña débil</string>
+    <string name="AddedFriendText">Amigo añadido</string>
 </resources>
