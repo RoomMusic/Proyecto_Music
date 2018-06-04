@@ -59,6 +59,19 @@ public class Song {
         this.artistList = artistList;
     }
 
+    public static String splitImageSong(String song_path){
+
+        String image_name_with_extension;
+
+        String name_array[] = song_path.split("/");
+
+        int last_item = name_array.length - 1;
+
+        image_name_with_extension = name_array[last_item];
+
+        return image_name_with_extension;
+    }
+
     public String nameOfArtists() {
         StringBuilder sb = new StringBuilder();
 
