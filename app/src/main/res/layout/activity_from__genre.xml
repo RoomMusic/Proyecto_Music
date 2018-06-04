@@ -5,10 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".From_Genre">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_form_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@color/white"/>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/seccionImg"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar_form_genre">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

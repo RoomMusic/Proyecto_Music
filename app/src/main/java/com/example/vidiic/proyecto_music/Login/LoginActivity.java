@@ -52,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
 
+
+    @Override
+    protected void onStart() {
+        loginBtn.setEnabled(true);
+        super.onStart();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +78,13 @@ public class LoginActivity extends AppCompatActivity {
 
         passwordET = findViewById(R.id.passwordText);
 
-        handler.postDelayed(runnable, 1000); //2000 is the timeout for the splash
+        handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
 
 
         usernameET.setText("stucomtest@gmail.com");
         passwordET.setText("ssoo++");
+
+        loginBtn.setEnabled(true);
 
         loginBtn.setOnClickListener(v -> {
             //deshabilitmaos el boton para que no puedan hacer doble click

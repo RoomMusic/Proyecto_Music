@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.social.chat.Fragment_Add_Friend">
+    tools:context=".fragments.social.chat.AddFriendActivity">
 
 
     <RelativeLayout
@@ -19,7 +19,8 @@
             android:layout_alignParentTop="true"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:titleTextColor="@color/white"/>
 
         <RelativeLayout
             android:layout_below="@+id/toolbar_add_friend"
@@ -33,6 +34,7 @@
                 android:layout_height="40dp"
                 android:textSize="17dp"
                 android:layout_marginLeft="10dp"
+
                 android:background="@drawable/oval"
                 android:layout_marginTop="22dp"
                 android:hint="@string/hintUsername"

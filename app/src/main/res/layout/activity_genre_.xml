@@ -3,12 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Genre_Activity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@color/white"/>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/grey"
-        android:id="@+id/layout_topG">
+        android:id="@+id/layout_topG"
+        android:layout_below="@+id/toolbar_genre">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"

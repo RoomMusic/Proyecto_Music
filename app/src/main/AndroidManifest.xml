@@ -36,6 +36,9 @@
         <activity android:name=".fragments.social.chat.AddFriendActivity" />
         <activity android:name=".fragments.social.muro.AddPublicacionActivity"/>
         <activity android:name=".player.Player_Activity"/>
+        <activity android:name=".fragments.profile.RequestCredentials"/>
+        <activity android:name=".fragments.profile.ChangePassword" />
+
     </application>
 
 </manifest>

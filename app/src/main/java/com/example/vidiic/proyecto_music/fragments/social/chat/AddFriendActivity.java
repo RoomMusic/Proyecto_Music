@@ -63,6 +63,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(R.string.AddFriendToolbarText);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         current_user_id = firebaseAuth.getCurrentUser().getUid();
