@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -84,6 +85,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         song_list_aux = new ArrayList<>();
 
 
+
         firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid()).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -96,8 +98,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 }
             }
         });
-
-
 
         return new PublicationViewHolder(publication_item);
     }
@@ -115,6 +115,41 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         vh.userName.setText(publicacion.getPublication_user().getUserName());
         vh.songName.setText(publicacion.getPublication_song().getName());
+//        MediaPlayer mediaPlayer = new MediaPlayer();
+        MediaPlayer mediaPlayer;
+        String datasource = "https://firebasestorage.googleapis.com/v0/b/musicproject-dc678.appspot.com/o/bruizfernandez%40gmail.com%2Fmusic%2FTu%20No%20Metes%20Cabra%20(Remix)%20Bad%20Bunny%20Ft.%20Anuel%20AA%2C%20Daddy%20Yankee%20y%20Cosculluela.mp3?alt=media&token=fc609b99-8708-4486-863b-50e0f5916893";
+//        try {
+//            mediaPlayer.setDataSource(datasource);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        //function click play in song
+        vh.playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                    try {
+                        mediaPlayer.setDataSource(datasource);
+                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                if (!mediaPlayer.isPlaying()) {
+                                    mediaPlayer.start();
+                                    vh.playBtn.setBackgroundResource(R.drawable.ic_pause);
+                                    Toast.makeText(v.getContext(), "Hey aqui", Toast.LENGTH_LONG).show();
+
+                                } else {
+                                    mediaPlayer.stop();
+                                    vh.playBtn.setBackgroundResource(R.drawable.ic_play);
+                                }
+                            }
+                        });
+                        mediaPlayer.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        });
 
 
         //funcion para pedir la cancion al usuario
