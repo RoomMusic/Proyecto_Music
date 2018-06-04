@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class Artist_Activity extends AppCompatActivity {
 
     private TextView name, desc, cat;
     private ImageView img;
+    private Button btnaddsong;
 
     public String idUser;
 
@@ -44,6 +46,9 @@ public class Artist_Activity extends AppCompatActivity {
     FirebaseFirestore database;
     Toolbar toolbar_artist;
 
+    String nameArtist;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +57,29 @@ public class Artist_Activity extends AppCompatActivity {
 
         idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        btnaddsong = findViewById(R.id.btn_addSong);
         name = findViewById(R.id.artist_name);
         desc = findViewById(R.id.artist_desc);
         cat = findViewById(R.id.artist_cat);
         img = findViewById(R.id.artist_image);
 
+
+
         Intent intent = getIntent();
-        String nameArtist = intent.getExtras().getString("NameArtist");
+        nameArtist = intent.getExtras().getString("NameArtist");
         String descArtist = intent.getExtras().getString("DescriptionArtist");
         String catArtist = intent.getExtras().getString("GenereArtist");
         String age = intent.getExtras().getString("age");
         int imgArtist = intent.getExtras().getInt("ImageArtist");
+
+        btnaddsong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("nameArtist",nameArtist);
+                startActivity(intent);
+            }
+        });
 
         name.setText(nameArtist);
         desc.setText(descArtist);
