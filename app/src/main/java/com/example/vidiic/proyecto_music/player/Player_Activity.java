@@ -31,10 +31,10 @@ public class Player_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_);
-
-        Intent intent = getIntent();
-        String nameSong = intent.getExtras().getString("NameSong");
-        String path = intent.getExtras().getString("Path");
+//
+//        Intent intent = getIntent();
+//        String nameSong = intent.getExtras().getString("NameSong");
+//        String path = intent.getExtras().getString("Path");
 
         btnplay = findViewById(R.id.playSong);
         positionBar = findViewById(R.id.songtime);
@@ -42,12 +42,12 @@ public class Player_Activity extends AppCompatActivity {
         finshtime = findViewById(R.id.finishtime);
         currentime = findViewById(R.id.currenttime);
 
-        mediaPlayer = MediaPlayer.create(this, Uri.parse(new File(path).toString()));
+        mediaPlayer = MediaPlayer.create(this, R.raw.music);
         mediaPlayer.setLooping(true);
         mediaPlayer.seekTo(0);
         mediaPlayer.setVolume(0.5f, 0.5f);
         totalTime = mediaPlayer.getDuration();
-        finshtime.setText(totalTime);
+        //finshtime.setText(totalTime);
 
         positionBar.setMax(totalTime);
         positionBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
