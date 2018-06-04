@@ -2,6 +2,8 @@ package com.example.vidiic.proyecto_music.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +16,10 @@ import android.widget.TextView;
 import com.example.vidiic.proyecto_music.Genre_Activity;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.Genre;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,7 +51,22 @@ public class AdapterGenre extends RecyclerView.Adapter<AdapterGenre.MyViewHolder
 
         holder.text_name_genre.setText(genreList.get(position).getName());
         Log.e("GENRES",genreList.get(position).getName());
-        holder.image_genre.setImageResource(R.drawable.ic_action_music);
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+
+
+        firebaseStorage.getReference().child("generopics/"+ genreList.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Picasso.get().load(uri).into(holder.image_genre);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Picasso.get().load(R.drawable.user_empty_image).into(holder.image_genre);
+            }
+        });
 
         //click listener
         holder.cardView.setOnClickListener(new View.OnClickListener() {
