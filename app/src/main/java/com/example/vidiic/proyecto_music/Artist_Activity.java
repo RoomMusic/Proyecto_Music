@@ -22,6 +22,7 @@ import com.example.vidiic.proyecto_music.classes.Song;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,7 +35,7 @@ public class Artist_Activity extends AppCompatActivity {
     private TextView name, desc, cat;
     private ImageView img;
 
-    public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
+    public String idUser;
 
     List<Song> songList;
     List<Song> songListUser;
@@ -47,6 +48,9 @@ public class Artist_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_);
+
+
+        idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         name = findViewById(R.id.artist_name);
         desc = findViewById(R.id.artist_desc);
