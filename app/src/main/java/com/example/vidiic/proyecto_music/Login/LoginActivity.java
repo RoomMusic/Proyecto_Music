@@ -1,12 +1,10 @@
 package com.example.vidiic.proyecto_music.Login;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,21 +14,18 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.vidiic.proyecto_music.Home.HomeActivity;
+
 import com.example.vidiic.proyecto_music.MainActivity;
 import com.example.vidiic.proyecto_music.R;
-import com.example.vidiic.proyecto_music.classes.UserApp;
+
 import com.example.vidiic.proyecto_music.fragments.Fragment_Home;
-import com.google.android.gms.common.oob.SignUp;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -83,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordET.setText("ssoo++");
 
         loginBtn.setOnClickListener(v -> {
+            //deshabilitmaos el boton para que no puedan hacer doble click
+            loginBtn.setEnabled(false);
             //comprobamos que el usuario esta en la base de datos
             registerUser();
         });
@@ -109,12 +106,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-
+            loginBtn.setEnabled(true);
             return;
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-
+            loginBtn.setEnabled(true);
             return;
         }
 
@@ -149,6 +146,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
 
+                }
+                finally {
+                    loginBtn.setEnabled(true);
                 }
             }
         });
