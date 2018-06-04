@@ -62,6 +62,7 @@ public class Sync_Music_Activity extends AppCompatActivity implements AsyncTaskS
         nameUser = intent.getExtras().getString("username");
         emailUser = intent.getExtras().getString("useremail");
         idUser = intent.getExtras().getString("userid");
+
         textnombre.setText(nameUser);
         buttonsync.setEnabled(false);
 
