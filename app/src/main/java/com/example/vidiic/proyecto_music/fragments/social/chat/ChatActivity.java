@@ -31,13 +31,14 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView rvChat;
     private MessageListAdapter messageListAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Button btnSendMessage = findViewById(R.id.button_chatbox_send),
-                sendFile = findViewById(R.id.sendFilesBtn);
+        Button btnSendMessage = findViewById(R.id.button_chatbox_send);
+                //sendFile = findViewById(R.id.sendFilesBtn);
 
         EditText messageText = findViewById(R.id.edittext_chatbox);
         rvChat = findViewById(R.id.reyclerview_message_list);
@@ -49,7 +50,6 @@ public class ChatActivity extends AppCompatActivity {
 
         //obtenemos los ids pasados por el intent, id de usuario app e id del usuario escogido
         List<String> ids = Arrays.asList(socialIntent.getStringArrayExtra("userids"));
-
 
 
         //Log.d("sergio", "USERIDS " + ids[0] + " " + ids[1]);
@@ -107,9 +107,9 @@ public class ChatActivity extends AppCompatActivity {
                 String url = "https://firebasestorage.googleapis.com/v0/b/roomusic-3eaf7.appspot.com/o/bruizfernandez%40gmail.com%2FMedia?alt=media&token=c7d5a56b-6031-4fad-831f-6f71387516f3";
 
 
-                sendFile.setOnClickListener(v -> {
-                    //groupChannel.sendFileMessage(url, "test", "audio/mpeg", );
-                });
+//                sendFile.setOnClickListener(v -> {
+//                    //groupChannel.sendFileMessage(url, "test", "audio/mpeg", );
+//                });
 
                 btnSendMessage.setOnClickListener(view -> {
 

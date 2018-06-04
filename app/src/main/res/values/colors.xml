@@ -26,6 +26,7 @@
     <color name="carne">#ffcc99</color>
     <color name="rojologo">#f53a40</color>
     <color name="grey">#232733</color>
+    <color name="verdepassword">#4bf261</color>
 
     <color name="greenplay">#58D68D</color>
 </resources>

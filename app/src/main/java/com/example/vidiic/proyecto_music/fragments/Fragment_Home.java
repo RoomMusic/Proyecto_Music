@@ -3,12 +3,26 @@ package com.example.vidiic.proyecto_music.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.sendbird.android.SendBird;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,9 +43,15 @@ public class Fragment_Home extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private CircleImageView image_profile;
+    private FirebaseStorage firebaseStorage;
+    private FirebaseFirestore firebaseStore;
+    private String USER_ID;
+    private UserApp userApp;
+    private TextView username_tv;
 
     public Fragment_Home() {
-        // Required empty public constructor
+
     }
 
     /**
@@ -64,8 +84,43 @@ public class Fragment_Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_fragment__home, container, false);
+
+        image_profile = view.findViewById(R.id.imageprof);
+        username_tv = view.findViewById(R.id.username);
+
+        firebaseStore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+
+        USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        firebaseStore.collection("users").document(USER_ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    userApp = documentSnapshot.toObject(UserApp.class);
+
+                    username_tv.setText(userApp.getUserName());
+
+                    firebaseStorage.getReference().child(userApp.getEmail() + "/pictures/" + userApp.getUserImage() + ".jpg")
+                            .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(image_profile);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Picasso.get().load(R.drawable.user_empty_image).into(image_profile);
+                        }
+                    });
+
+
+                }
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment__home, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

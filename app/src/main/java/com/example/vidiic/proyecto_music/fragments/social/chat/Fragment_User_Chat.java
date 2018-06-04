@@ -77,7 +77,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     private UserChatAdapter userChatAdapter;
     private FirebaseFirestore firebaseFirestore;
     private Activity activityShare;
-    private static final String APP_ID = "60DA930F-248F-479A-B406-028DEF5060D7";
+    private String APP_ID;
     private FloatingActionButton btn_add_friend;
     private Fragment_Add_Friend fragment_add_friend;
     private RelativeLayout relative_show_friend;
@@ -108,6 +108,8 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
         firebaseFirestore = FirebaseFirestore.getInstance();
         btn_add_friend = view.findViewById(R.id.add_friend_btn);
         relative_show_friend = view.findViewById(R.id.relative_add_friend);
+
+        APP_ID = view.getContext().getResources().getString(R.string.sendbirdKey);
 
 
         SendBird.init(APP_ID, this.getContext());

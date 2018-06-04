@@ -42,6 +42,8 @@
     <string name="SignUserAlreadyRegistered">El usuario ya esta registrado</string>
     <string name="SignUsernameExists">Nombre de usuario ya existe.</string>
 
+    <!-- String FRAGMENT HOME-->
+    <string name="cancionDia">Canción del día.</string>
 
     <!-- String PERMISOS-->
     <string name="MainPermisoSi">Permiso concedido</string>
@@ -83,4 +85,20 @@
     <string name="nav_Perfil">Profile</string>
     <string name="nav_Setings">Settings</string>
     <string name="UploadPhotoSucces">Foto subida!</string>
+    <string name="ChatSendMessage">Enviar</string>
+    <string name="ChatHint">Escriba un mensaje...</string>
+    <string name="sendbirdKey">60DA930F-248F-479A-B406-028DEF5060D7</string>
+    <string name="email_change_password">Correo Electrónico</string>
+    <string name="password_change_password">Contraseña</string>
+    <string name="new_password1">Nueva contraseña</string>
+    <string name="new_password2">Repita la contraseña</string>
+    <string name="btnCheckText">Continuar</string>
+    <string name="pass_empty">Contraseña vacía!</string>
+    <string name="wrong_pass">Contraseña incorrecta!</string>
+    <string name="ChangeBtnPass">Confirmar</string>
+    <string name="pass_no_match">No coinciden!</string>
+    <string name="pass_size">Debe contener al menos 6 caracteres!</string>
+    <string name="LoginPassFail">Contraseña incorrecta!</string>
+    <string name="ChangePassTitle">Change Password</string>
+    <string name="SignMalformedEmail">Proporcione una dirección de correo correcta, porfavor.</string>
 </resources>

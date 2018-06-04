@@ -3,6 +3,7 @@ package com.example.vidiic.proyecto_music.fragments.profile;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.vidiic.proyecto_music.Login.LoginActivity;
 import com.example.vidiic.proyecto_music.R;
 import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -95,6 +97,7 @@ public class Fragment_Profile extends Fragment {
         user_image = view.findViewById(R.id.user_image);
         btn_logout = view.findViewById(R.id.btn_log_out);
         btn_up_photo = view.findViewById(R.id.btnuploadpic);
+        btn_change_pass = view.findViewById(R.id.btn_change_pass);
         firebaseStorage = FirebaseStorage.getInstance();
 
         //seteamos el nombre del usuario y el email con los valoresobtenidos de firebase
@@ -114,11 +117,19 @@ public class Fragment_Profile extends Fragment {
             }
         });
 
+        btn_change_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), RequestCredentials.class));
+            }
+        });
+
 
 
         // Inflate the layout for this fragment
         return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -136,27 +147,28 @@ public class Fragment_Profile extends Fragment {
 
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        firebaseFirestore.collection("users").document(userid).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()){
+                userApp = documentSnapshot.toObject(UserApp.class);
 
-        firebaseFirestore.collection("users").document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()){
-                    userApp = documentSnapshot.toObject(UserApp.class);
+                userNameTV.setText(userApp.getUserName());
+                userEmailTV.setText(userApp.getEmail());
 
-                    userNameTV.setText(userApp.getUserName());
-                    userEmailTV.setText(userApp.getEmail());
+                firebaseStorage.getReference().child(userApp.getEmail() + "/pictures/" + userApp.getUserImage() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
 
-                    firebaseStorage.getReference().child(userApp.getEmail() + "/pictures/" + userApp.getUserImage() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(user_image);
 
-                            Picasso.get().load(uri).into(user_image);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Picasso.get().load(R.drawable.user_empty_image).into(user_image);
+                    }
+                });
 
-                        }
-                    });
 
-
-                }
             }
         });
 
