@@ -94,7 +94,6 @@ public class Fragment_Profile extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-
         userNameTV = view.findViewById(R.id.txtname);
         userEmailTV = view.findViewById(R.id.txtmail);
         user_image = view.findViewById(R.id.user_image);

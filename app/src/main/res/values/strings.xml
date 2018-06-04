@@ -103,4 +103,10 @@
     <string name="SignMalformedEmail">Proporcione una dirección de correo correcta, porfavor.</string>
     <string name="AddFriendToolbarText">Buscar amigos</string>
     <string name="AddPubliTitle">Añadir publicación</string>
+    <string name="FormArtistAddArtist">Añadir artista</string>
+    <string name="FormGenreTitle">Añadir genero</string>
+    <string name="ArtistTitle">Artista</string>
+    <string name="GenreTitle">Genero</string>
+    <string name="ChatTitle">Chat</string>
+    <string name="PlayerTitle">Reproducción</string>
 </resources>

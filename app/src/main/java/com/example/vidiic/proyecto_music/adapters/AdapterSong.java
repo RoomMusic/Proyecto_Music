@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.SongViewHolder
     public SongViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView =
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.viewholder_songlist,parent,false);
+                        .inflate(R.layout.viewholder_songlist, parent, false);
 
         itemView.setOnClickListener(this);
         dialog = new Dialog(parent.getContext());
@@ -77,8 +78,10 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.SongViewHolder
                     public void onClick(View view) {
                         Intent intent = new Intent(view.getContext(), Player_Activity.class);
 
-                        intent.putExtra("NameSong",songsList.get(position).getName());
-                        intent.putExtra("Path",songsList.get(position).getImageSong());
+                        intent.putExtra("NameSong", songsList.get(position).getName());
+                        intent.putExtra("Path", songsList.get(position).getImageSong());
+
+                        Log.d("player", "name song: " + songsList.get(position).getImageSong());
 
                         view.getContext().startActivity(intent);
                     }
@@ -102,18 +105,18 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.SongViewHolder
         return songsList.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
 
     @Override
     public void onClick(View view) {
-        if (listener!=null){
+        if (listener != null) {
             listener.onClick(view);
         }
     }
 
-    public class SongViewHolder extends RecyclerView.ViewHolder  {
+    public class SongViewHolder extends RecyclerView.ViewHolder {
 
         private RelativeLayout item_music;
         public ImageView imagen;

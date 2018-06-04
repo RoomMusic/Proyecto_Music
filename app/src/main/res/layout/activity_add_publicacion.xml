@@ -5,7 +5,7 @@
     android:id="@+id/relative_add_publication"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.social.muro.Fragment_Add_Publication">
+    tools:context=".fragments.social.muro.AddPublicacionActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_add_publicacion"
@@ -14,7 +14,8 @@
         android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@color/white"/>
 
     <RelativeLayout
         android:id="@+id/relative_publication_details"

@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ public class ChatActivity extends AppCompatActivity {
     private String channelURL;
     private RecyclerView rvChat;
     private MessageListAdapter messageListAdapter;
+    private Toolbar toolbar_chat;
 
 
     @Override
@@ -45,6 +48,8 @@ public class ChatActivity extends AppCompatActivity {
 
         //linea para cuando el teclado aparezca, el recycler view o la vista que haya se suba con el teclado y no se solape
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        addToolbar(R.id.toolbar_chat, R.string.ChatTitle);
 
         Intent socialIntent = getIntent();
 
@@ -137,6 +142,26 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToolbar(int resource_id, int title) {
+
+        Toolbar toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 }

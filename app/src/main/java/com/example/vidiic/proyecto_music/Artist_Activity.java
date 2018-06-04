@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,16 +31,17 @@ import java.util.List;
 
 public class Artist_Activity extends AppCompatActivity {
 
-    private TextView name,desc,cat;
+    private TextView name, desc, cat;
     private ImageView img;
 
-    public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
+    public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
 
     List<Song> songList;
     List<Song> songListUser;
     RecyclerView recyclerViewSong;
     AdapterSongsArtist adapterSongsArtist;
     FirebaseFirestore database;
+    Toolbar toolbar_artist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class Artist_Activity extends AppCompatActivity {
         songList = new ArrayList<>();
         songListUser = new ArrayList<>();
 
+        addToolbar(R.id.toolbar_artist, R.string.ArtistTitle);
+
         database = FirebaseFirestore.getInstance();
 
         recyclerViewSong = findViewById(R.id.recyclerSongsArtists);
@@ -74,34 +79,55 @@ public class Artist_Activity extends AppCompatActivity {
         loadDataFromFireBase(nameArtist);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToolbar(int resource_id, int title) {
+
+        Toolbar toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
     private void loadDataFromFireBase(String nameArtist) {
-        if (songList.size()>0){
+        if (songList.size() > 0) {
             songList.clear();
         }
         database.collection("users").document(idUser).collection("songlist")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for(DocumentSnapshot documentSnapshot: task.getResult()){
-                        Song song = documentSnapshot.toObject(Song.class);
-                        for (Artist artist :song.getArtistList()){
-                            if (artist.getName().equals(nameArtist)){
-                                songListUser.add(song);
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Song song = documentSnapshot.toObject(Song.class);
+                            for (Artist artist : song.getArtistList()) {
+                                if (artist.getName().equals(nameArtist)) {
+                                    songListUser.add(song);
+                                }
                             }
                         }
+                        adapterSongsArtist = new AdapterSongsArtist(Artist_Activity.this, songListUser);
+                        recyclerViewSong.setAdapter(adapterSongsArtist);
                     }
-                    adapterSongsArtist = new AdapterSongsArtist(Artist_Activity.this,songListUser);
-                    recyclerViewSong.setAdapter(adapterSongsArtist);
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Artist_Activity.this,"ERROR LOAD MUSIC",Toast.LENGTH_SHORT).show();
-                    Log.v("ERROR LOAD MUSIC",e.getMessage());
-                }
-            });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Artist_Activity.this, "ERROR LOAD MUSIC", Toast.LENGTH_SHORT).show();
+                        Log.v("ERROR LOAD MUSIC", e.getMessage());
+                    }
+                });
     }
 
 }

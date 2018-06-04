@@ -2,9 +2,12 @@ package com.example.vidiic.proyecto_music;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,28 @@ public class Form_Artist extends AppCompatActivity {
     public static final String idUser = "pRwOSof611Uw8Xluuy1ntvptYC73";
     Boolean existgenre;
     Artist artistnew;
+    Toolbar toolbar_form_artist;
+
+    private void addToolbar(Toolbar toolbar, int resource_id, int title) {
+
+
+
+        toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +67,8 @@ public class Form_Artist extends AppCompatActivity {
         editname = findViewById(R.id.formnom);
         editgen = findViewById(R.id.formgen);
         button = findViewById(R.id.btnsenartist);
+
+        addToolbar(toolbar_form_artist, R.id.toolbar_form_artist, R.string.FormArtistAddArtist);
 
         existgenre = false;
 

@@ -1,10 +1,11 @@
 package com.example.vidiic.proyecto_music;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class From_Genre extends AppCompatActivity {
     EditText editname;
     Button btn;
     FirebaseFirestore db;
+    Toolbar toolbar_form_genre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class From_Genre extends AppCompatActivity {
         btn = findViewById(R.id.btngenreform);
 
         db = FirebaseFirestore.getInstance();
+
+        addToolbar(R.id.toolbar_form_genre, R.string.FormGenreTitle);
 
         btn.setOnClickListener(new View.OnClickListener() {
 
@@ -64,8 +68,25 @@ public class From_Genre extends AppCompatActivity {
         });
 
 
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToolbar(int resource_id, int title) {
+
+        Toolbar toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 }

@@ -5,93 +5,115 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Form_Artist">
-    <RelativeLayout
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_form_artist"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@color/white"/>
+
+
+    <RelativeLayout
         android:id="@+id/seccionIm"
-        android:layout_height="200dp">
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar_form_artist">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_action_music"
             android:layout_margin="10dp"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:src="@drawable/ic_action_music" />
     </RelativeLayout>
 
+
     <RelativeLayout
-        android:layout_below="@id/seccionIm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/seccionIm">
 
         <TextView
             android:id="@+id/nomartist"
             android:layout_width="200dp"
-            android:text="Name Artist"
-            android:gravity="center"
-            android:textSize="18sp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:text="Name Artist"
+            android:textSize="18sp" />
+
         <EditText
-            android:layout_below="@id/nomartist"
             android:id="@+id/formnom"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nomartist" />
 
         <TextView
 
             android:id="@+id/nomgenre"
-            android:layout_toRightOf="@id/nomartist"
             android:layout_width="200dp"
-            android:text="Name Artist"
-            android:gravity="center"
-            android:textSize="18sp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_height="wrap_content" />
+            android:layout_toRightOf="@id/nomartist"
+            android:gravity="center"
+            android:text="Name Artist"
+            android:textSize="18sp" />
+
         <EditText
-            android:layout_toRightOf="@id/formnom"
-            android:layout_below="@id/nomgenre"
             android:id="@+id/formgen"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nomgenre"
+            android:layout_toRightOf="@id/formnom" />
+
         <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/formnom"
-            android:layout_margin="8dp"
-            android:textSize="18sp"
-            android:gravity="center"
             android:id="@+id/edadartist"
-            android:text="Age"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
-        <EditText
+            android:layout_height="wrap_content"
+            android:layout_below="@id/formnom"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/edadartist"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="Age"
+            android:textSize="18sp" />
+
+        <EditText
             android:id="@+id/formedad"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edadartist"
+            android:layout_centerHorizontal="true" />
+
         <TextView
-            android:layout_below="@id/formedad"
-            android:text="Description"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:layout_centerHorizontal="true"
             android:id="@+id/desartist"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/desartist"
-            android:id="@+id/formdes"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
-        <Button
-            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_below="@id/formedad"
             android:layout_centerHorizontal="true"
             android:layout_margin="8dp"
-            android:text="Save Artist"
+            android:gravity="center"
+            android:text="Description"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/formdes"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/desartist"
+            android:layout_centerHorizontal="true" />
+
+        <Button
             android:id="@+id/btnsenartist"
-            android:layout_below="@id/formdes"/>
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/formdes"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:text="Save Artist" />
 
     </RelativeLayout>
 

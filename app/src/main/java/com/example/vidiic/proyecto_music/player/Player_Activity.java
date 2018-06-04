@@ -8,7 +8,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -28,6 +30,8 @@ public class Player_Activity extends AppCompatActivity {
     TextView elapsedTimeLabel;
     TextView emainingTimeLabel;
     int totalTime;
+    Toolbar toolbar_player;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class Player_Activity extends AppCompatActivity {
         currentime = findViewById(R.id.currenttime);
         elapsedTimeLabel = findViewById(R.id.elapsedTimelabel);
         emainingTimeLabel = findViewById(R.id.remainingTimelabel);
+
+        addToolbar(toolbar_player, R.id.toolbar_player, R.string.PlayerTitle);
 
         Uri uri = Uri.parse(path);
 
@@ -155,4 +161,26 @@ public class Player_Activity extends AppCompatActivity {
             return timelabel;
 
         }
+
+
+    private void addToolbar(Toolbar toolbar, int resource_id, int title) {
+
+
+
+        toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
 }

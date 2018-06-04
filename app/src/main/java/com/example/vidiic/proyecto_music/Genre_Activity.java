@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class Genre_Activity extends AppCompatActivity {
     RecyclerView recyclerViewArtist;
     AdapterArtistGenre adapterArtistGenre;
     FirebaseFirestore database;
+    Toolbar toolbar_genre;
 
     public static final String idUser ="pRwOSof611Uw8Xluuy1ntvptYC73";
 
@@ -54,6 +57,8 @@ public class Genre_Activity extends AppCompatActivity {
         name.setText(genreArtist);
         img.setImageResource(imgArtist);
 
+        addToolbar(R.id.toolbar_genre, R.string.GenreTitle);
+
         artistList = new ArrayList<>();
 
         database = FirebaseFirestore.getInstance();
@@ -71,6 +76,27 @@ public class Genre_Activity extends AppCompatActivity {
         loadArtistsFromFireBase(genreArtist);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToolbar(int resource_id, int title) {
+
+        Toolbar toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
     private void loadArtistsFromFireBase(String nameArtist) {
         if (artistList.size()>0){
             artistList.clear();
