@@ -22,19 +22,9 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <TextView
-            android:text="@string/UploadTitle"
-            android:textAlignment="center"
-            android:paddingTop="8dp"
-            android:id="@+id/title_upload"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:layout_centerHorizontal="true"/>
 
         <ImageView
             android:id="@+id/photo_uploaded"
-            android:layout_below="@+id/title_upload"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
