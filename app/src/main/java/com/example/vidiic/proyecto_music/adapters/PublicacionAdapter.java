@@ -1,17 +1,11 @@
 package com.example.vidiic.proyecto_music.adapters;
 
 import android.app.DownloadManager;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,30 +18,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.R;
-import com.example.vidiic.proyecto_music.classes.Artist;
-import com.example.vidiic.proyecto_music.fragments.social.chat.ChatActivity;
 import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.example.vidiic.proyecto_music.classes.Song;
 import com.example.vidiic.proyecto_music.classes.UserApp;
-import com.example.vidiic.proyecto_music.fragments.social.chat.Fragment_User_Chat;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.okhttp.internal.http.RequestException;
+import com.squareup.picasso.Picasso;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -109,89 +98,90 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     ;
     private String FIRE_STORAGE_URL;
 
-    private void getAudioFromFirebase(Publicacion publi, View view) {
+    private void getAudioFromFirebase(Publicacion publi) {
 
-
+        //guardamos el usuario y la cancion en variables
         UserApp user = publi.getPublication_user();
         Song song = publi.getPublication_song();
 
-
+        //guardamos la url a la cual tenemos que acceder a los archivos streaming
         FIRE_STORAGE_URL = context.getResources().getString(R.string.FireStorageURL);
 
+        //recoggemos el nombre de la cacion para buscarla en firestorage
         String song_file_name = Song.splitImageSong(song.getImageSong());
 
         Log.d("sergio", "song file name: " + song_file_name);
 
         //obtenemos la cancion del usuario y la descargamos
         song_firebase_storage.getReferenceFromUrl(FIRE_STORAGE_URL + "/" + user.getEmail() + "/music/" + song_file_name)
-                .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                try {
+                .getDownloadUrl().addOnSuccessListener(uri -> {
+                    try {
 
-                    mediaPlayer = new MediaPlayer();
+                        mediaPlayer = new MediaPlayer();
 
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        //servicio streaming
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                    String url = uri.toString();
+                        String url = uri.toString();
 
-                    Log.d("sergio", url);
+                        Log.d("sergio", url);
 
-                    mediaPlayer.setDataSource(url);
+                        mediaPlayer.setDataSource(url);
 
-                    mediaPlayer.prepareAsync();
+                        mediaPlayer.prepareAsync();
 
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mediaPlayer.start();
-                        }
-                    });
+                        //empieza a reproducir
+                        mediaPlayer.setOnPreparedListener(mp -> mediaPlayer.start());
 
 
-                } catch (IOException e) {
-                    Log.d("sergio", e.getMessage());
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("sergio", e.getMessage());
-            }
-        });
+                    } catch (IOException e) {
+                        Log.d("sergio", e.getMessage());
+                    }
+                }).addOnFailureListener(e -> Log.d("sergio", e.getMessage()));
 
     }
 
-    boolean play_pause = false;
-    int id_publi_playing;
+
+    //id de la publicacion que esta reproduciendo
+    private int id_publi_playing;
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Publicacion publicacion = publiaciones_list.get(position);
+        UserApp u = publicacion.getPublication_user();
 
         PublicationViewHolder vh = (PublicationViewHolder) holder;
 
         if (publicacion.getPublication_image() == null) {
             vh.publication_image.setImageResource(R.drawable.ic_action_music);
+        }else{
+            song_firebase_storage.getReference().child(publicacion.getPublication_user().getEmail() + "/pictures/" + publicacion.getPublication_user().getUserImage() + ".jpg").getDownloadUrl().
+                    addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(vh.publication_image);
+                    vh.publication_image.invalidate();
+                }
+            });
         }
 
         vh.userName.setText(publicacion.getPublication_user().getUserName());
         vh.songName.setText(publicacion.getPublication_song().getName());
-
-        //String datasource = "https://firebasestorage.googleapis.com/v0/b/musicproject-dc678.appspot.com/o/bruizfernandez%40gmail.com%2Fmusic%2FTu%20No%20Metes%20Cabra%20(Remix)%20Bad%20Bunny%20Ft.%20Anuel%20AA%2C%20Daddy%20Yankee%20y%20Cosculluela.mp3?alt=media&token=fc609b99-8708-4486-863b-50e0f5916893";
 
         //function click play in song
         vh.playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //guardamos el id de la publicacion que ha clicado el usuario
                 int id_publi_selected = publicacion.getPublication_id();
 
                 if (!mediaPlayer.isPlaying()) {
-                    getAudioFromFirebase(publicacion, v);
-                    play_pause = true;
-                    Log.d("sergio", "play");
+                    //obtenemos y reproducimos la cancion seleccionada
+                    getAudioFromFirebase(publicacion);
+
+//                    Log.d("sergio", "play");
                     id_publi_playing = id_publi_selected;
                 } else {
                     if (id_publi_selected == id_publi_playing) {
@@ -199,8 +189,8 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                             //hacemos reset ya que no queremos dejar de utilizar el media player
                             mediaPlayer.reset();
                         }
-                        Log.d("sergio", "pause");
-                        play_pause = false;
+//                        Log.d("sergio", "pause");
+
                     }
                 }
             }
@@ -254,7 +244,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         });
     }
 
-    private File song_file = null, song_file_aux = null;
     private DownloadManager downloadManager;
     private String song_name;
 
@@ -279,15 +268,13 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         //archivo de la cancion
         try {
-            song_file = File.createTempFile("audio", "mpeg");
+            File.createTempFile("audio", "mpeg");
         } catch (IOException e) {
             e.printStackTrace();
 
         }
 
         song_storage_reference.child(song_user_email + "/music/" + song_name).getDownloadUrl().addOnSuccessListener(uri -> {
-
-            song_file = new File(uri.toString());
 
             String url = uri.toString();
 
@@ -300,12 +287,9 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, song_name);
 
-            //request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, uri.toString());
-
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 
             manager.enqueue(request);
-
 
             //actualizamos la lista del usuario
             Log.d("descarga", "URI: " + uri.toString());
@@ -318,8 +302,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
             //al descargar la cancion en el dispositivo le seteamos la ruta de la carpeta de descargas con el nombre de la cancion
             song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
-
-
 
             song.setImageSong("descargas/" + song.getName());
 
