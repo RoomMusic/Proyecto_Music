@@ -182,6 +182,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                     getAudioFromFirebase(publicacion);
 
 //                    Log.d("sergio", "play");
+                    vh.playBtn.setBackgroundResource(R.drawable.ic_pause);
                     id_publi_playing = id_publi_selected;
                 } else {
                     if (id_publi_selected == id_publi_playing) {
@@ -190,6 +191,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                             mediaPlayer.reset();
                         }
 //                        Log.d("sergio", "pause");
+                        vh.playBtn.setBackgroundResource(R.drawable.ic_play);
 
                     }
                 }
@@ -301,7 +303,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             Log.d("descarga", "song details: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
 
             //al descargar la cancion en el dispositivo le seteamos la ruta de la carpeta de descargas con el nombre de la cancion
-            song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
+            song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name+".mp3");
 
 
             saveSongInFireBase(song, current_user_id);

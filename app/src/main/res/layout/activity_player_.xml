@@ -54,9 +54,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/currenttime"
         android:text="00:00"/>
+
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/grey">
@@ -64,7 +65,7 @@
             android:id="@+id/pauseSong"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="64dp"
+            android:layout_marginLeft="90dp"
             android:background="@drawable/ic_fast_rewind_black_24dp"
             />
         <Button
@@ -81,30 +82,32 @@
             />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="79dp"
         android:background="@color/colorPrimaryDark">
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="22dp"
-            android:layout_marginLeft="40dp"
-            android:src="@drawable/ic_volumeoff"
-            />
+            android:src="@drawable/ic_volumeoff" />
+
         <SeekBar
             android:id="@+id/songvolum"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:progress="50"
+            android:layout_marginTop="22dp"
             android:max="100"
-            android:layout_marginTop="22dp" />
+            android:progress="50" />
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="22dp"
-            android:src="@drawable/ic_volumeoff"
-            />
+            android:src="@drawable/ic_volume_up_black_24dp" />
     </LinearLayout>
 
 

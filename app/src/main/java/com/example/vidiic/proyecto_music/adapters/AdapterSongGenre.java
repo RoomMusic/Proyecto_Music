@@ -49,7 +49,7 @@ public class AdapterSongGenre extends RecyclerView.Adapter<AdapterSongGenre.MyVi
 
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(myContext);
-        view = layoutInflater.inflate(R.layout.viewholder_songlist, parent, false);
+        view = layoutInflater.inflate(R.layout.viewholder_genresonglist, parent, false);
         return new MyViewHolder(view);
     }
 
