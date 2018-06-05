@@ -97,13 +97,14 @@
                             android:id="@+id/btn_change_pass"
                             android:layout_width="130dp"
                             android:layout_height="200dp"
-                            android:background="@color/transparent"/>
+                            android:background="@color/transparent"
+                            android:layout_marginLeft="110dp" />
 
                         <ImageView
                             android:id="@+id/imglock"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginLeft="40dp"
+                            android:layout_marginLeft="150dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/lock" />
 
@@ -112,13 +113,36 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="60dp"
                             android:text="Cambiar contraseña"
-                            android:textSize="14dp" />
+                            android:textSize="14dp"
+                            android:layout_marginLeft="110dp"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="left"
+                    android:weightSum="1"
+                    android:layout_marginTop="20sp">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="0dp"
+                        android:orientation="vertical">
 
                         <Button
                             android:id="@+id/btnuploadpic"
                             android:layout_width="90dp"
                             android:layout_height="200dp"
-                            android:layout_marginLeft="140dp"
+                            android:layout_marginLeft="120dp"
                             android:background="@color/transparent"/>
 
 
@@ -126,7 +150,7 @@
                             android:id="@+id/imgpic"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginLeft="160dp"
+                            android:layout_marginLeft="153dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/photo" />
 
@@ -135,22 +159,44 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="60dp"
                             android:text="Subir foto"
-                            android:layout_marginLeft="150dp"
+                            android:layout_marginLeft="140dp"
                             android:textSize="14dp" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="left"
+                    android:weightSum="1"
+                    android:layout_marginTop="20sp">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="0dp"
+                        android:orientation="vertical">
 
 
                         <Button
                             android:id="@+id/btn_log_out"
                             android:layout_width="90dp"
                             android:layout_height="200dp"
-                            android:layout_marginLeft="250dp"
+                            android:layout_marginLeft="130dp"
                             android:background="@color/transparent"/>
 
                         <ImageView
                             android:id="@+id/imglogout"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginLeft="273dp"
+                            android:layout_marginLeft="155dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/logout" />
 
@@ -159,64 +205,16 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="60dp"
                             android:text="Salir"
-                            android:layout_marginLeft="275dp"
+                            android:layout_marginLeft="155dp"
                             android:textSize="14dp" />
+
 
                     </RelativeLayout>
 
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/shareinfo"
-                    android:layout_width="360dp"
-                    android:layout_height="190dp"
-                    android:layout_below="@id/musicinfo"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="25dp"
-                    app:cardCornerRadius="20dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="190dp">
-
-                    <LinearLayout
-                        android:id="@+id/linear_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:orientation="vertical">
 
 
-                        <TextView
-                            android:id="@+id/txtactivitydiary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="5dp"
-                            android:text="Actividad diaria"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:id="@+id/graphics"
-                            android:layout_width="300dp"
-                            android:layout_height="150dp"
-                            android:layout_below="@+id/linear_layout"
-                            android:src="@drawable/graficos"
-                            android:layout_marginLeft="30dp"/>
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 

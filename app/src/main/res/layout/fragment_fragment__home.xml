@@ -100,24 +100,23 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
-                    android:id="@+id/idsong"
+                    android:id="@+id/random_song_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="65dp"
                     android:layout_toRightOf="@id/imgsong"
-                    android:text="Tu no metes cabra"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/artist_random_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/idsong"
+                    android:layout_below="@id/random_song_name"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="7dp"
                     android:layout_toRightOf="@id/imgsong"
-                    android:text="Bad Bunny - Daddy Yankee"
                     android:textSize="14dp"
                     android:textStyle="bold" />
 

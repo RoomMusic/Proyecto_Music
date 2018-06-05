@@ -1,6 +1,7 @@
 package com.example.vidiic.proyecto_music.Login;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private Fragment_Home fragment_home;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firebaseFirestore;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -76,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        progressDialog = new ProgressDialog(this);
+
         passwordET = findViewById(R.id.passwordText);
 
         handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
@@ -87,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setEnabled(true);
 
         loginBtn.setOnClickListener(v -> {
+            progressDialog.setTitle(R.string.LoginLoading);
+            progressDialog.show();
             //deshabilitmaos el boton para que no puedan hacer doble click
             loginBtn.setEnabled(false);
             //comprobamos que el usuario esta en la base de datos
@@ -130,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, getResources().getString(R.string.LoginSuccess), Toast.LENGTH_SHORT).show();
 
                 //setFragment(fragment_home);
+                progressDialog.dismiss();
 
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
 

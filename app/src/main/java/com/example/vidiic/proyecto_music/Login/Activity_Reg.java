@@ -1,5 +1,6 @@
 package com.example.vidiic.proyecto_music.Login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class Activity_Reg extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private UserApp userAux = null;
     private List<UserApp> listUser = new ArrayList<>();
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +67,18 @@ public class Activity_Reg extends AppCompatActivity {
         passwordET1 = findViewById(R.id.passwordSign1);
         passwordET2 = findViewById(R.id.passwordSign2);
         signUpBtn = findViewById(R.id.btnSignUp);
+        progressDialog = new ProgressDialog(this);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        signUpBtn.setOnClickListener(v ->
-                registerUser()
-        );
+        signUpBtn.setOnClickListener(v -> {
+            progressDialog.setTitle(R.string.SigningUser);
+            progressDialog.show();
+
+            registerUser();
+        });
 
         //obtenemos todos los usuarios disponibles
         firebaseFirestore.collection("users").get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -118,17 +125,18 @@ public class Activity_Reg extends AppCompatActivity {
 
 
                         firebaseFirestore.collection("users").document(key).set(user).addOnSuccessListener(aVoid -> {
+                            //usuario registrado con exito
                             Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserRegistered), Toast.LENGTH_SHORT).show();
+
+                            progressDialog.dismiss();
 
                             intent.putExtra("useremail", userMail);
                             intent.putExtra("username", userName);
-                            intent.putExtra("userid",user.getUserid());
+                            intent.putExtra("userid", user.getUserid());
 
                             startActivity(intent);
                         }).addOnFailureListener(e ->
                                 Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignFail), Toast.LENGTH_SHORT).show());
-
-
 
 
                         //Toast.makeText(Activity_Reg.this, "User Registered Succesfully", Toast.LENGTH_SHORT).show();
@@ -136,25 +144,19 @@ public class Activity_Reg extends AppCompatActivity {
                     } else {
                         //Log.d("signup", "error: " + task.getException());
 
-                        try{
+                        try {
                             throw task.getException();
-                        }
-                        catch(FirebaseAuthWeakPasswordException weakException){
+                        } catch (FirebaseAuthWeakPasswordException weakException) {
                             Toast.makeText(Activity_Reg.this, getResources().getString(R.string.WeakPass), Toast.LENGTH_SHORT).show();
                         }
                         // if user enters wrong password.
-                        catch (FirebaseAuthInvalidCredentialsException malformedEmail)
-                        {
+                        catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
                             Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignMalformedEmail), Toast.LENGTH_LONG).show();
-                        }
-                        catch (FirebaseAuthUserCollisionException existEmail)
-                        {
+                        } catch (FirebaseAuthUserCollisionException existEmail) {
                             //usuario ya registrado
                             Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignUserAlreadyRegistered), Toast.LENGTH_SHORT).show();
 
-                        }
-                        catch (Exception e)
-                        {
+                        } catch (Exception e) {
 
                         }
 

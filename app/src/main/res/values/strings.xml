@@ -43,7 +43,7 @@
     <string name="SignUsernameExists">Nombre de usuario ya existe.</string>
 
     <!-- String FRAGMENT HOME-->
-    <string name="cancionDia">Canción del día.</string>
+    <string name="cancionDia">Tu canción del día</string>
 
     <!-- String PERMISOS-->
     <string name="MainPermisoSi">Permiso concedido</string>
@@ -113,4 +113,8 @@
     <string name="WeakPass">Contraseña débil</string>
     <string name="AddedFriendText">Amigo añadido</string>
     <string name="FireStorageURL">gs://musicproject-dc678.appspot.com</string>
+    <string name="LoginLoading">Iniciando sesión</string>
+    <string name="AdapaterPubliGetSong">Obteniendo canción.</string>
+    <string name="AddPubliLoadSong">Publicando...</string>
+    <string name="SigningUser">Registrandote...</string>
 </resources>

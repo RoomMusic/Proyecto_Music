@@ -67,7 +67,7 @@
 
         <TextView
             android:id="@+id/songNameAddPublication"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_below="@+id/container_buttons"
             android:layout_centerHorizontal="true"
@@ -85,7 +85,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_song_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
 
         </android.support.v7.widget.RecyclerView>
 
