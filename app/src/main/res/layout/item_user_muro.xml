@@ -66,7 +66,8 @@ y cuando deje de tocar dejara de reproducirse. el layout general medira 200 y lo
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/ic_play"/>
+                android:src="@drawable/play"
+                android:background="@drawable/oval5"/>
 
             <!-- POL poner imagenes de botones -->
         </RelativeLayout>
