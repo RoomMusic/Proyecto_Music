@@ -6,57 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".fragments.social.chat.ChatActivity">
 
+
     <RelativeLayout
+        android:id="@+id/relative_chat_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/relative_chat_view"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_chat"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="53dp"
+            android:background="@color/red"
+            app:titleTextColor="@color/white">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_chat"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:background="@color/red"
-                app:titleTextColor="@color/white">
+        </android.support.v7.widget.Toolbar>
 
-            </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerview_message_list"
+            android:layout_width="match_parent"
+            android:layout_height="453dp"
+            android:layout_below="@+id/toolbar_chat"
+            android:layout_above="@+id/linear_layout">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/reyclerview_message_list"
-                android:layout_width="match_parent"
-                android:layout_height="455dp"
-                android:layout_below="@+id/toolbar_chat">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </RelativeLayout>
+        </android.support.v7.widget.RecyclerView>
 
         <RelativeLayout
-            android:id="@+id/relative_chat_keyboard"
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/relative_chat_view">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
 
             <EditText
                 android:id="@+id/edittext_chatbox"
-                android:layout_width="300dp"
+                android:layout_width="340dp"
                 android:layout_height="55dp"
-                android:hint="@string/ChatHint"
-                android:layout_alignParentBottom="true"/>
+                android:hint="@string/ChatHint" />
 
             <Button
                 android:id="@+id/button_chatbox_send"
                 android:layout_width="70dp"
                 android:layout_height="55dp"
-                android:layout_toRightOf="@+id/edittext_chatbox"
+                android:layout_margin="2dp"
                 android:text="@string/ChatSendMessage"
                 android:textSize="10dp"
-                android:layout_alignParentBottom="true"/>
+                android:layout_toRightOf="@+id/edittext_chatbox"/>
+
 
         </RelativeLayout>
-    </RelativeLayout>
 
+
+    </RelativeLayout>
 </RelativeLayout>

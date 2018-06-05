@@ -44,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
                 //sendFile = findViewById(R.id.sendFilesBtn);
 
         EditText messageText = findViewById(R.id.edittext_chatbox);
-        rvChat = findViewById(R.id.reyclerview_message_list);
+        rvChat = findViewById(R.id.recylerview_message_list);
 
         //linea para cuando el teclado aparezca, el recycler view o la vista que haya se suba con el teclado y no se solape
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
