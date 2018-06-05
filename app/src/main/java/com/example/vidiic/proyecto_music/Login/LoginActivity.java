@@ -85,8 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
 
 
-        usernameET.setText("stucomtest@gmail.com");
-        passwordET.setText("ssoo++");
+//        usernameET.setText("stucomtest@gmail.com");
+//        passwordET.setText("ssoo++");
 
         loginBtn.setEnabled(true);
 

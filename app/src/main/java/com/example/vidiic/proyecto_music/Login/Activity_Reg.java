@@ -74,9 +74,6 @@ public class Activity_Reg extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         signUpBtn.setOnClickListener(v -> {
-            progressDialog.setTitle(R.string.SigningUser);
-            progressDialog.show();
-
             registerUser();
         });
 
@@ -106,6 +103,9 @@ public class Activity_Reg extends AppCompatActivity {
         } else if (!userPass.equals(userPassRep)) {
             Toast.makeText(Activity_Reg.this, getResources().getString(R.string.SignPasswordNoMatch), Toast.LENGTH_SHORT).show();
         } else {
+
+            progressDialog.setTitle(R.string.SigningUser);
+            progressDialog.show();
 
             //si es true quiere decir que el nombre de usuario no existe
             if (saveUser(userName, userMail, userPass)) {
