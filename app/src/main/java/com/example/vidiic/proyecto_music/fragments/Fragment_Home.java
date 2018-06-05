@@ -112,9 +112,9 @@ public class Fragment_Home extends Fragment {
         firebaseStore.collection("users").document(USER_ID).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
+                if (!queryDocumentSnapshots.isEmpty()) {
 
-                    for (DocumentSnapshot snap : queryDocumentSnapshots){
+                    for (DocumentSnapshot snap : queryDocumentSnapshots) {
                         Song s = snap.toObject(Song.class);
                         if (s != null) list_song.add(s);
                     }
@@ -124,7 +124,9 @@ public class Fragment_Home extends Fragment {
                     random_song = list_song.get(random.nextInt(list_song.size()));
 
                     song_name_txt.setText(random_song.getName());
-                    artist_name_txt.setText(random_song.getArtistList().get(0).getName());
+                    if (!random_song.getArtistList().isEmpty())
+                        artist_name_txt.setText(random_song.getArtistList().get(0).getName());
+                    else artist_name_txt.setText("<unknowkn>");
 
                 }
             }
