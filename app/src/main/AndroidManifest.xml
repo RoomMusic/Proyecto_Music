@@ -14,30 +14,30 @@
         android:roundIcon="@drawable/iconapp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".launcher.Activity_Launcher">
+        <activity android:name=".launcher.Activity_Launcher" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home.HomeActivity" />
-        <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".Login.Activity_Reg" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".fragments.social.chat.ChatActivity" />
-        <activity android:name=".Artist_Activity" />
-        <activity android:name=".musicFireBase.Sync_Music_Activity" />
-        <activity android:name=".Genre_Activity" />
-        <activity android:name=".fragments.profile.UploadPhoto" />
-        <activity android:name=".Form_Artist" />
-        <activity android:name=".From_Genre" />
-        <activity android:name=".fragments.social.chat.AddFriendActivity" />
-        <activity android:name=".fragments.social.muro.AddPublicacionActivity" />
-        <activity android:name=".player.Player_Activity" />
-        <activity android:name=".fragments.profile.RequestCredentials" />
-        <activity android:name=".fragments.profile.ChangePassword" />
-        <activity android:name=".AddSongActivity"></activity>
+        <activity android:name=".Home.HomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Login.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Login.Activity_Reg"  android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".fragments.social.chat.ChatActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Artist_Activity"  android:screenOrientation="portrait"/>
+        <activity android:name=".musicFireBase.Sync_Music_Activity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Genre_Activity"  android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.profile.UploadPhoto"  android:screenOrientation="portrait"/>
+        <activity android:name=".Form_Artist"  android:screenOrientation="portrait"/>
+        <activity android:name=".From_Genre"  android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.social.chat.AddFriendActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.social.muro.AddPublicacionActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".player.Player_Activity"  android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.profile.RequestCredentials"  android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.profile.ChangePassword"  android:screenOrientation="portrait"/>
+        <activity android:name=".AddSongActivity"  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
