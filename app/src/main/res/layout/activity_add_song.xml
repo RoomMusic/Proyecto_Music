@@ -9,13 +9,8 @@
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnadd"
-            android:text="Add Song"/>
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/btnadd"
+            android:id="@+id/ryclersongadd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>

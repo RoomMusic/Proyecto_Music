@@ -75,7 +75,7 @@ public class Artist_Activity extends AppCompatActivity {
         btnaddsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(Artist_Activity.this,AddSongActivity.class);
                 intent.putExtra("nameArtist",nameArtist);
                 startActivity(intent);
             }
