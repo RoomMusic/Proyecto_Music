@@ -43,7 +43,7 @@
     <string name="SignUsernameExists">Nombre de usuario ya existe.</string>
 
     <!-- String FRAGMENT HOME-->
-    <string name="cancionDia">Canción del día.</string>
+    <string name="cancionDia">Tu canción del día</string>
 
     <!-- String PERMISOS-->
     <string name="MainPermisoSi">Permiso concedido</string>
