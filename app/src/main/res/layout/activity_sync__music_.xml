@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Sincronizando tú Música"
+            android:text="Sincronizando tu Música"
             android:gravity="center"
             android:textSize="30sp"
             android:textColor="@color/white"/>
@@ -41,24 +41,30 @@
         <TextView
             android:id="@+id/paso1"
             android:padding="8dp"
-            android:text="1. Paso acepta los permisos"
+            android:text="1. Permitir acceso a tus archivos"
             android:textSize="20sp"
             android:gravity="center"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-        <ProgressBar
-            android:id="@+id/progresSync"
+        <TextView
+            android:id="@+id/paso2"
+            android:padding="8dp"
+            android:text="2. Espera a que se habilite el boton"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/paso1"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        />
+
         <Button
             android:id="@+id/btnsync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/progresSync"
+            android:layout_below="@id/paso2"
             android:layout_marginTop="100dp"
             android:text="Operacion finalizada"
             android:textSize="18sp"
