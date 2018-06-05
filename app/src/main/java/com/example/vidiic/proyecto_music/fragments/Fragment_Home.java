@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vidiic.proyecto_music.R;
+import com.example.vidiic.proyecto_music.classes.Song;
 import com.example.vidiic.proyecto_music.classes.UserApp;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,9 +19,16 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.sendbird.android.SendBird;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,6 +57,9 @@ public class Fragment_Home extends Fragment {
     private String USER_ID;
     private UserApp userApp;
     private TextView username_tv;
+    private Song random_song;
+    private TextView song_name_txt, artist_name_txt;
+    private List<Song> list_song;
 
     public Fragment_Home() {
 
@@ -88,11 +99,37 @@ public class Fragment_Home extends Fragment {
 
         image_profile = view.findViewById(R.id.imageprof);
         username_tv = view.findViewById(R.id.username);
+        list_song = new ArrayList<>();
+        song_name_txt = view.findViewById(R.id.random_song_name);
+        artist_name_txt = view.findViewById(R.id.artist_random_name);
 
         firebaseStore = FirebaseFirestore.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
         USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        firebaseStore.collection("users").document(USER_ID).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()){
+
+                    for (DocumentSnapshot snap : queryDocumentSnapshots){
+                        Song s = snap.toObject(Song.class);
+                        if (s != null) list_song.add(s);
+                    }
+
+                    Random random = new Random();
+
+                    random_song = list_song.get(random.nextInt(list_song.size()));
+
+                    song_name_txt.setText(random_song.getName());
+                    artist_name_txt.setText(random_song.getArtistList().get(0).getName());
+
+                }
+            }
+        });
+
 
         firebaseStore.collection("users").document(USER_ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override

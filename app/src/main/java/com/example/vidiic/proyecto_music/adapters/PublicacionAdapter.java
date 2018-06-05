@@ -98,7 +98,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
     ;
     private String FIRE_STORAGE_URL;
 
-    private void getAudioFromFirebase(Publicacion publi) {
+    private void getAudioFromFirebase(Publicacion publi, ProgressBar pb, ImageButton playBtn) {
 
         //guardamos el usuario y la cancion en variables
         UserApp user = publi.getPublication_user();
@@ -115,29 +115,38 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         //obtenemos la cancion del usuario y la descargamos
         song_firebase_storage.getReferenceFromUrl(FIRE_STORAGE_URL + "/" + user.getEmail() + "/music/" + song_file_name)
                 .getDownloadUrl().addOnSuccessListener(uri -> {
-                    try {
+            try {
 
-                        mediaPlayer = new MediaPlayer();
+                mediaPlayer = new MediaPlayer();
 
-                        //servicio streaming
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                //servicio streaming
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                        String url = uri.toString();
+                String url = uri.toString();
 
-                        Log.d("sergio", url);
+                Log.d("sergio", url);
 
-                        mediaPlayer.setDataSource(url);
+                mediaPlayer.setDataSource(url);
 
-                        mediaPlayer.prepareAsync();
+                mediaPlayer.prepareAsync();
 
-                        //empieza a reproducir
-                        mediaPlayer.setOnPreparedListener(mp -> mediaPlayer.start());
+                //empieza a reproducir
+                mediaPlayer.setOnPreparedListener(mp -> {
+
+                    pb.setIndeterminate(false);
+                    pb.setVisibility(View.GONE);
+                    playBtn.setEnabled(true);
+
+                    mediaPlayer.start();
 
 
-                    } catch (IOException e) {
-                        Log.d("sergio", e.getMessage());
-                    }
-                }).addOnFailureListener(e -> Log.d("sergio", e.getMessage()));
+                });
+
+
+            } catch (IOException e) {
+                Log.d("sergio", e.getMessage());
+            }
+        }).addOnFailureListener(e -> Log.d("sergio", e.getMessage()));
 
     }
 
@@ -155,15 +164,15 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
 
         if (publicacion.getPublication_image() == null) {
             vh.publication_image.setImageResource(R.drawable.ic_action_music);
-        }else{
+        } else {
             song_firebase_storage.getReference().child(publicacion.getPublication_user().getEmail() + "/pictures/" + publicacion.getPublication_user().getUserImage() + ".jpg").getDownloadUrl().
                     addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri).into(vh.publication_image);
-                    vh.publication_image.invalidate();
-                }
-            });
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(vh.publication_image);
+                            vh.publication_image.invalidate();
+                        }
+                    });
         }
 
         vh.userName.setText(publicacion.getPublication_user().getUserName());
@@ -178,8 +187,14 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                 int id_publi_selected = publicacion.getPublication_id();
 
                 if (!mediaPlayer.isPlaying()) {
+
+                    vh.progressBar.setIndeterminate(true);
+                    vh.progressBar.setVisibility(View.VISIBLE);
+                    vh.playBtn.setEnabled(false);
+                    Toast.makeText(context, context.getResources().getString(R.string.AdapaterPubliGetSong), Toast.LENGTH_SHORT).show();
+
                     //obtenemos y reproducimos la cancion seleccionada
-                    getAudioFromFirebase(publicacion);
+                    getAudioFromFirebase(publicacion, vh.progressBar, vh.playBtn);
 
 //                    Log.d("sergio", "play");
                     vh.playBtn.setBackgroundResource(R.drawable.ic_pause);
@@ -303,7 +318,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             Log.d("descarga", "song details: " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
 
             //al descargar la cancion en el dispositivo le seteamos la ruta de la carpeta de descargas con el nombre de la cancion
-            song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name+".mp3");
+            song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name + ".mp3");
 
 
             saveSongInFireBase(song, current_user_id);

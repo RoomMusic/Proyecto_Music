@@ -115,6 +115,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         relative_show_friends.setVisibility(View.GONE);
+        btn_add_friend.setEnabled(false);
 
 
         SendBird.init(APP_ID, this.getContext());
@@ -158,6 +159,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
                             progressBar.setIndeterminate(false);
                             progressBar.setVisibility(View.GONE);
                             relative_show_friends.setVisibility(View.VISIBLE);
+                            btn_add_friend.setEnabled(true);
 
                             //actualizamos el nombre de usuario en la bbdd de send bird
                             SendBird.updateCurrentUserInfo(userApp.getUserName(), null, e1 -> Log.d("sergio", "nombre de usuario actualizado en la bbdd de sendbird"));

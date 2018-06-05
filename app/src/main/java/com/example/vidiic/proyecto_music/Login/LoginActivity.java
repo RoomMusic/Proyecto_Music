@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         firebaseUser = firebaseAuth.getCurrentUser();
+
         progressDialog = new ProgressDialog(this);
 
         passwordET = findViewById(R.id.passwordText);
