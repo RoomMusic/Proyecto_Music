@@ -182,6 +182,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                     getAudioFromFirebase(publicacion);
 
 //                    Log.d("sergio", "play");
+                    vh.playBtn.setBackgroundResource(R.drawable.ic_pause);
                     id_publi_playing = id_publi_selected;
                 } else {
                     if (id_publi_selected == id_publi_playing) {
@@ -190,6 +191,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
                             mediaPlayer.reset();
                         }
 //                        Log.d("sergio", "pause");
+                        vh.playBtn.setBackgroundResource(R.drawable.ic_play);
 
                     }
                 }
