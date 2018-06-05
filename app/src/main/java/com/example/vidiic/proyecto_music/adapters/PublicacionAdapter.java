@@ -303,7 +303,6 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             //al descargar la cancion en el dispositivo le seteamos la ruta de la carpeta de descargas con el nombre de la cancion
             song.setImageSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + song_name);
 
-            song.setImageSong("descargas/" + song.getName());
 
             saveSongInFireBase(song, current_user_id);
 
