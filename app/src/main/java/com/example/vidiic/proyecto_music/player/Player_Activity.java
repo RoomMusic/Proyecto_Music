@@ -26,6 +26,7 @@ public class Player_Activity extends AppCompatActivity {
     SeekBar volumenBar;
     SeekBar positionBar;
     MediaPlayer mediaPlayer;
+    TextView txtnameSong;
     TextView finshtime,currentime;
     TextView elapsedTimeLabel;
     TextView emainingTimeLabel;
@@ -47,6 +48,8 @@ public class Player_Activity extends AppCompatActivity {
         volumenBar = findViewById(R.id.songvolum);
        // finshtime = findViewById(R.id.finishtime);
         currentime = findViewById(R.id.currenttime);
+        txtnameSong = findViewById(R.id.namesongplayer);
+        txtnameSong.setText(nameSong);
 
         elapsedTimeLabel = findViewById(R.id.elapsedTimelabel);
         emainingTimeLabel = findViewById(R.id.remainingTimelabel);
