@@ -49,6 +49,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
 
     private OnFragmentInteractionListener mListener;
 
+
     public Fragment_User_Chat() {
         // Required empty public constructor
     }
@@ -79,7 +80,7 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
     private Activity activityShare;
     private String APP_ID;
     private FloatingActionButton btn_add_friend;
-    private RelativeLayout relative_show_friend;
+    private RelativeLayout relative_show_friends;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private String current_user_id = firebaseAuth.getCurrentUser().getUid();
@@ -106,9 +107,14 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
         userList = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
         btn_add_friend = view.findViewById(R.id.add_friend_btn);
-        relative_show_friend = view.findViewById(R.id.relative_add_friend);
+        progressBar = view.findViewById(R.id.progress_bar_friend);
+        relative_show_friends = view.findViewById(R.id.relative_show_friend);
 
         APP_ID = view.getContext().getResources().getString(R.string.sendbirdKey);
+
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        relative_show_friends.setVisibility(View.GONE);
 
 
         SendBird.init(APP_ID, this.getContext());
@@ -147,6 +153,11 @@ public class Fragment_User_Chat extends Fragment implements UserChatAdapter.OnIt
                             }
 
                             Toast.makeText(view.getContext(), "USUARIO CONECTADO", Toast.LENGTH_SHORT).show();
+
+                            //paramos la progress bar
+                            progressBar.setIndeterminate(false);
+                            progressBar.setVisibility(View.GONE);
+                            relative_show_friends.setVisibility(View.VISIBLE);
 
                             //actualizamos el nombre de usuario en la bbdd de send bird
                             SendBird.updateCurrentUserInfo(userApp.getUserName(), null, e1 -> Log.d("sergio", "nombre de usuario actualizado en la bbdd de sendbird"));
