@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:padding="8dp"
-            android:src="@drawable/ic_action_music" />
+            android:src="@drawable/artistdefect" />
     </RelativeLayout>
 
 
@@ -78,7 +78,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:text="Age"
+            android:text="Description"
             android:textSize="18sp" />
 
         <EditText
@@ -96,7 +96,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:text="Description"
+            android:text="Age"
             android:textSize="18sp" />
 
         <EditText

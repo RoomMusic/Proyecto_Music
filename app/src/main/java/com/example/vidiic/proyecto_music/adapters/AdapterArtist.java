@@ -43,7 +43,7 @@ public class AdapterArtist extends RecyclerView.Adapter<AdapterArtist.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.text_name_artist.setText(artistsList.get(position).getName());
-        holder.image_artist.setImageResource(R.drawable.ic_action_music);
+        holder.image_artist.setImageResource(R.drawable.artistdefect);
 
         //click listener
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class AdapterArtist extends RecyclerView.Adapter<AdapterArtist.MyViewHold
                intent.putExtra("DescriptionArtist",artistsList.get(position).getDescription());
                intent.putExtra("GenereArtist",artistsList.get(position).getGenre());
                intent.putExtra("age",artistsList.get(position).getAge());
-               intent.putExtra("ImageArtist",R.drawable.ic_action_music);
+               intent.putExtra("ImageArtist",R.drawable.artistdefect);
 
                myContext.startActivity(intent);
             }

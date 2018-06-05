@@ -64,7 +64,7 @@ public class AdapterGenre extends RecyclerView.Adapter<AdapterGenre.MyViewHolder
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Picasso.get().load(R.drawable.user_empty_image).into(holder.image_genre);
+                Picasso.get().load(R.drawable.genredefect).into(holder.image_genre);
             }
         });
 
@@ -75,7 +75,7 @@ public class AdapterGenre extends RecyclerView.Adapter<AdapterGenre.MyViewHolder
                 Intent intent = new Intent(myContext, Genre_Activity.class);
 
                 intent.putExtra("NameGenre",genreList.get(position).getName());
-                intent.putExtra("ImageGenre",R.drawable.ic_action_music);
+                intent.putExtra("ImageGenre",R.drawable.genredefect);
 
                 myContext.startActivity(intent);
             }

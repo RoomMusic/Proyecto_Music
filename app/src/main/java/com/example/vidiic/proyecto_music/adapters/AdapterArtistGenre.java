@@ -42,7 +42,7 @@ public class AdapterArtistGenre extends RecyclerView.Adapter<AdapterArtistGenre.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.image_artist.setImageResource(R.drawable.ic_action_music);
+        holder.image_artist.setImageResource(R.drawable.artistdefect);
 
         //click listener
         holder.image_artist.setOnClickListener(new View.OnClickListener() {
