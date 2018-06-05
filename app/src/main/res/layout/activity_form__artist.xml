@@ -60,7 +60,7 @@
             android:layout_margin="8dp"
             android:layout_toRightOf="@id/nomartist"
             android:gravity="center"
-            android:text="Name Artist"
+            android:text="Name Genre"
             android:textSize="18sp" />
 
         <EditText
