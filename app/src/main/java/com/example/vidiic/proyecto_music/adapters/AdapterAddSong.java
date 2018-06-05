@@ -80,12 +80,14 @@ public class AdapterAddSong extends RecyclerView.Adapter<AdapterAddSong.SongView
                                                             Song song = documentSnapshot.toObject(Song.class);
                                                             if (song.getName().equals(songsList.get(position).getName())){
                                                                 List<Artist> artistList = song.getArtistList();
-                                                                artistList.add(artist);
-                                                                Log.e("addartistas",artist.getName());
-                                                                song.setArtistList(artistList);
-                                                                database.collection("users").document(idUser).collection("songlist").document("Song-"+song.getIdsong()).set(song);
-                                                                holder.btnadd.setText("Added");
-                                                                holder.btnadd.setEnabled(false);
+                                                                if (!(artistList.contains(artist))){
+                                                                    artistList.add(artist);
+                                                                    Log.e("addartistas",artist.getName());
+                                                                    song.setArtistList(artistList);
+                                                                    database.collection("users").document(idUser).collection("songlist").document("Song-"+song.getIdsong()).set(song);
+                                                                    holder.btnadd.setText("Added");
+                                                                    holder.btnadd.setEnabled(false);
+                                                                }
                                                             }
                                                         }
                                                     }

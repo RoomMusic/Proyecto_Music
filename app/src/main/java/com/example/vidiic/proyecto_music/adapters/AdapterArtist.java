@@ -56,6 +56,7 @@ public class AdapterArtist extends RecyclerView.Adapter<AdapterArtist.MyViewHold
                intent.putExtra("GenereArtist",artistsList.get(position).getGenre());
                intent.putExtra("age",artistsList.get(position).getAge());
                intent.putExtra("ImageArtist",R.drawable.artistdefect);
+                intent.putExtra("ImageArtist2",artistsList.get(position).getImage());
 
                myContext.startActivity(intent);
             }

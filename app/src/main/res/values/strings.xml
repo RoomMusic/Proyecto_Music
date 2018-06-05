@@ -106,6 +106,7 @@
     <string name="FormArtistAddArtist">Añadir artista</string>
     <string name="FormGenreTitle">Añadir genero</string>
     <string name="ArtistTitle">Artista</string>
+    <string name="AddTitle">Add Song</string>
     <string name="GenreTitle">Genero</string>
     <string name="ChatTitle">Chat</string>
     <string name="PlayerTitle">Reproducción</string>

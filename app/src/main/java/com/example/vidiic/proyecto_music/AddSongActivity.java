@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.vidiic.proyecto_music.adapters.AdapterAddSong;
@@ -31,6 +33,7 @@ public class AddSongActivity extends AppCompatActivity {
     AdapterAddSong adapterAddSong;
     FirebaseFirestore database;
     public String idUser;
+    Artist artist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,17 @@ public class AddSongActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getExtras().getString("nameArtist");
+        String genero = intent.getExtras().getString("genArtist");
+        String age = intent.getExtras().getString("ageArtist");
+        String desc = intent.getExtras().getString("descArtist");
+        String imageArtis = intent.getExtras().getString("imageArtist");
+
+
+        artist = new Artist(name,imageArtis,genero,age,desc);
 
         database = FirebaseFirestore.getInstance();
+
+        addToolbar(R.id.toolbar_addsong, R.string.AddTitle);
 
         idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -52,6 +64,26 @@ public class AddSongActivity extends AppCompatActivity {
         recyclerViewSong.setLayoutManager(new LinearLayoutManager(AddSongActivity.this));
 
         loadDataFromFireBase(name);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addToolbar(int resource_id, int title) {
+
+        Toolbar toolbar = findViewById(resource_id);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(title);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
     private void loadDataFromFireBase(String nameArtist) {
@@ -65,11 +97,11 @@ public class AddSongActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot documentSnapshot : task.getResult()) {
                             Song song = documentSnapshot.toObject(Song.class);
-                            for (Artist artist : song.getArtistList()) {
-                                if (!(artist.getName().equals(nameArtist))) {
-                                    songList.add(song);
-                                    break;
-                                }
+                            if (song.nameOfArtists().contains(nameArtist)){
+                                Log.d("hey","sdsd");
+                            }else {
+                                songList.add(song);
+                                continue;
                             }
                         }
                         adapterAddSong = new AdapterAddSong( songList,nameArtist);

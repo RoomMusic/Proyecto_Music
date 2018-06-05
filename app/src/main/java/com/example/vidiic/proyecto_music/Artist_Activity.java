@@ -70,6 +70,7 @@ public class Artist_Activity extends AppCompatActivity {
         String descArtist = intent.getExtras().getString("DescriptionArtist");
         String catArtist = intent.getExtras().getString("GenereArtist");
         String age = intent.getExtras().getString("age");
+        String imageArtist2 = intent.getExtras().getString("ImageArtist2");
         int imgArtist = intent.getExtras().getInt("ImageArtist");
 
         btnaddsong.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,10 @@ public class Artist_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Artist_Activity.this,AddSongActivity.class);
                 intent.putExtra("nameArtist",nameArtist);
+                intent.putExtra("ageArtist",age);
+                intent.putExtra("descArtist",descArtist);
+                intent.putExtra("genArtist",catArtist);
+                intent.putExtra("imageArtist",imageArtist2);
                 startActivity(intent);
             }
         });
@@ -89,7 +94,7 @@ public class Artist_Activity extends AppCompatActivity {
         songList = new ArrayList<>();
         songListUser = new ArrayList<>();
 
-        addToolbar(R.id.toolbar_artist, R.string.ArtistTitle);
+        addToolbar(R.id.toolbar_artist, R.string.AddTitle);
 
         database = FirebaseFirestore.getInstance();
 
