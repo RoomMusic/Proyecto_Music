@@ -87,7 +87,6 @@ public class Activity_Reg extends AppCompatActivity {
                     userAux = snapshot.toObject(UserApp.class);
                     listUser.add(userAux);
                     Log.d("sergio", "usernameee: " + userAux.getEmail());
-
                 }
             }
 
