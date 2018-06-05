@@ -101,9 +101,10 @@
 
                 <TextView
                     android:id="@+id/random_song_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginTop="65dp"
                     android:layout_toRightOf="@id/imgsong"
                     android:textSize="16dp"
@@ -111,10 +112,11 @@
 
                 <TextView
                     android:id="@+id/artist_random_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
                     android:layout_below="@id/random_song_name"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginTop="7dp"
                     android:layout_toRightOf="@id/imgsong"
                     android:textSize="14dp"
@@ -122,18 +124,6 @@
 
 
             </RelativeLayout>
-
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/shareinfo"
-            android:layout_width="350dp"
-            android:layout_height="160dp"
-            android:layout_below="@id/musicinfo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp">
 
 
         </android.support.v7.widget.CardView>
