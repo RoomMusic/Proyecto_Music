@@ -84,7 +84,7 @@ public class AdapterAddSong extends RecyclerView.Adapter<AdapterAddSong.SongView
                                                                 Log.e("addartistas",artist.getName());
                                                                 song.setArtistList(artistList);
                                                                 database.collection("users").document(idUser).collection("songlist").document("Song-"+song.getIdsong()).set(song);
-                                                                holder.btnadd.setText("X");
+                                                                holder.btnadd.setText("Added");
                                                                 holder.btnadd.setEnabled(false);
                                                             }
                                                         }

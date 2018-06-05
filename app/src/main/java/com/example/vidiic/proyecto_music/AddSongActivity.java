@@ -66,8 +66,9 @@ public class AddSongActivity extends AppCompatActivity {
                         for (DocumentSnapshot documentSnapshot : task.getResult()) {
                             Song song = documentSnapshot.toObject(Song.class);
                             for (Artist artist : song.getArtistList()) {
-                                if (!artist.getName().equals(nameArtist)) {
+                                if (!(artist.getName().equals(nameArtist))) {
                                     songList.add(song);
+                                    break;
                                 }
                             }
                         }
