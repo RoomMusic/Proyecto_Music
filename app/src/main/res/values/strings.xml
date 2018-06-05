@@ -115,4 +115,5 @@
     <string name="LoginLoading">Iniciando sesión</string>
     <string name="AdapaterPubliGetSong">Obteniendo canción.</string>
     <string name="AddPubliLoadSong">Publicando...</string>
+    <string name="SigningUser">Registrandote...</string>
 </resources>

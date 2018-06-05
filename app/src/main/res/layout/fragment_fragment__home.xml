@@ -106,7 +106,6 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="65dp"
                     android:layout_toRightOf="@id/imgsong"
-                    android:text="Tu no metes cabra"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -118,7 +117,6 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="7dp"
                     android:layout_toRightOf="@id/imgsong"
-                    android:text="Bad Bunny - Daddy Yankee"
                     android:textSize="14dp"
                     android:textStyle="bold" />
 

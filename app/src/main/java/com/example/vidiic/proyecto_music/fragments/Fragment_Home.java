@@ -108,7 +108,6 @@ public class Fragment_Home extends Fragment {
 
         USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
         firebaseStore.collection("users").document(USER_ID).collection("songlist").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -127,7 +126,6 @@ public class Fragment_Home extends Fragment {
                     if (!random_song.getArtistList().isEmpty())
                         artist_name_txt.setText(random_song.getArtistList().get(0).getName());
                     else artist_name_txt.setText("<unknowkn>");
-
                 }
             }
         });
