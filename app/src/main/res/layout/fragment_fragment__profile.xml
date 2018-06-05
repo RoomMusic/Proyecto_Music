@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/greyroto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.vidiic.proyecto_music.fragments.profile.Fragment_Profile">
 
@@ -13,14 +14,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="530dp"
             android:layout_marginTop="30dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -32,7 +33,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="550dp"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
@@ -88,6 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginTop="0dp"
                         android:orientation="vertical">
 
@@ -164,6 +166,57 @@
 
                 </LinearLayout>
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/shareinfo"
+                    android:layout_width="360dp"
+                    android:layout_height="190dp"
+                    android:layout_below="@id/musicinfo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="25dp"
+                    app:cardCornerRadius="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp">
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/txtactivitydiary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:text="Actividad diaria"
+                            android:textSize="25dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/graphics"
+                            android:layout_width="300dp"
+                            android:layout_height="150dp"
+                            android:layout_below="@+id/linear_layout"
+                            android:src="@drawable/graficos"
+                            android:layout_marginLeft="30dp"/>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
