@@ -112,4 +112,7 @@
     <string name="WeakPass">Contraseña débil</string>
     <string name="AddedFriendText">Amigo añadido</string>
     <string name="FireStorageURL">gs://musicproject-dc678.appspot.com</string>
+    <string name="LoginLoading">Iniciando sesión</string>
+    <string name="AdapaterPubliGetSong">Obteniendo canción.</string>
+    <string name="AddPubliLoadSong">Publicando...</string>
 </resources>

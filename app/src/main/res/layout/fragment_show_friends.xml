@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".fragments.social.chat.Fragment_User_Chat">
 
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar_friend"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_margin="2dp"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"/>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Mis amigos"
         android:layout_marginLeft="120dp"
         android:textSize="30dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_below="@+id/progress_bar_friend"/>
 
 
        <RelativeLayout
-           android:id="@+id/relative_add_friend"
+           android:id="@+id/relative_show_friend"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:layout_marginTop="60dp">

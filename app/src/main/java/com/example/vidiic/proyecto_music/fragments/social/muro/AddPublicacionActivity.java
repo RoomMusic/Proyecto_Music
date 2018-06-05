@@ -1,6 +1,8 @@
 package com.example.vidiic.proyecto_music.fragments.social.muro;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import com.example.vidiic.proyecto_music.adapters.PublicacionSongAdapter;
 import com.example.vidiic.proyecto_music.classes.Publicacion;
 import com.example.vidiic.proyecto_music.classes.Song;
 import com.example.vidiic.proyecto_music.classes.UserApp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +50,7 @@ public class AddPublicacionActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private Toolbar toolbar_add_publication;
     private TextView selected_song_title;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,7 @@ public class AddPublicacionActivity extends AppCompatActivity {
         show_songs_btn = findViewById(R.id.find_song_btn);
         rv_song_list = findViewById(R.id.rv_song_list);
         cancel_add_publicacion = findViewById(R.id.cancel_add_publication);
+        progressDialog = new ProgressDialog(this);
 
         selected_song_title = findViewById(R.id.songNameAddPublication);
 
@@ -83,26 +89,18 @@ public class AddPublicacionActivity extends AppCompatActivity {
             } else {
 
                 if (publicacionSongAdapter.getSelectedSongList().isEmpty()) {
-
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-//                    relative_publication_details.setVisibility(View.GONE);
-//                    relative_song_list.setVisibility(View.GONE);
-
                     finish();
-
                 } else {
 
                     publicacion = new Publicacion(new Date(), publicacionSongAdapter.getSelectedSongList().get(0));
 
+                    progressDialog.setTitle(R.string.AddPubliLoadSong);
+                    progressDialog.show();
+
                     //agregamos la publicacion a firebase
                     addPublicationToFirebase(user_id, firebaseFirestore, publicacion, v);
 
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-                    //relative_publication_details.setVisibility(View.GONE);
-                    //relative_song_list.setVisibility(View.GONE);
-                    finish();
-                    Log.d("sergio", "path sancion: " + song.getImageSong());
-                    Toast.makeText(this, "Cancion añadida ", Toast.LENGTH_SHORT).show();
+                    //Log.d("sergio", "path sancion: " + song.getImageSong());
                 }
 
             }
@@ -126,10 +124,7 @@ public class AddPublicacionActivity extends AppCompatActivity {
         });
 
         cancel_add_publicacion.setOnClickListener(v -> {
-            //Toast.makeText(view.getContext(), "Cancelado", Toast.LENGTH_SHORT).show();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.relative_add_publication, fragment_muro).commit();
-//            relative_song_list.setVisibility(View.GONE);
-//            relative_publication_details.setVisibility(View.GONE);
+
             finish();
         });
 
@@ -170,6 +165,17 @@ public class AddPublicacionActivity extends AppCompatActivity {
 
         //si guardamos en una variable la tarea podremos configurar distintas acciones para las distintas fases de subida de archvios
         UploadTask uploadTask = storageReference.putFile(songFile);
+
+        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                progressDialog.dismiss();
+                finish();
+            }
+        });
+
+
+
 
     }
 
